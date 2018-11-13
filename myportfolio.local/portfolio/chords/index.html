@@ -2,12 +2,25 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chords transposition</title>
+  <title>Chord transposition</title>
   <link href="styles/styles.css" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="js/scripts.js"></script>
 </head>
 <body>
-  <div class="">Hello World!</div>
+  <main>
+    <h1>Транспонирование аккородов</h1>
+    <form class="transpos">
+      <div class="transpos__btns">
+        <div class="transpos__tone-block">
+          <button type="button" name="transpos__tone-up" value="Вверх" class="transpos__change-tone">Вверх</button>
+          <input type="text" name="transpos__tone-value" class="transpos__tone-value">
+          <button type="button" name="transpos__tone-down" value="Вниз" class="transpos__change-tone">Вниз</button>
+        </div>
+        <button type="submit" name="transpos__start" value="Транспонировать">Транспонировать</button>
+      </div>
+      <textarea class="transpos__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать"></textarea>
+    </form>
+  </main>
 </body>
 </html>

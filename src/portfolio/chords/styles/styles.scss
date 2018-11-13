@@ -1,3 +1,55 @@
-body {
-  // background-color: blue;
+$colorGray: #c0c0c0;
+
+input {
+  box-sizing: border-box;
+  height: 40px;
+  margin: 0;
+  padding: 2px 6px;
+  border-radius: none;
+  line-height: 40px;
+}
+
+input[type=text] {
+  border: 1px solid $colorGray;
+  outline: none;
+}
+
+button {
+  border: 1px solid $colorGray;
+  background: none;
+  cursor: pointer;
+}
+
+.transpos {
+  width: 500px;
+}
+
+.transpos__btns {
+  display: flex;
+  justify-content: space-around;
+  margin-bottom: 20px;
+}
+
+.transpos__tone-block {
+  display: flex;
+  // background-color: red;
+}
+
+
+.transpos__tone-value {
+  width: 30px;
+}
+
+.transpos__change-tone {
+  width: 80px;
+}
+
+
+
+.transpos__textarea {
+  display: block;
+  width: 100%;
+  height: 400px;
+  resize: none;
+  background-color: $colorGray;
 }
