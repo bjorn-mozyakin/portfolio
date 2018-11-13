@@ -9,6 +9,7 @@ var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
 
 var uglify = require('gulp-uglify');
+var babel = require('gulp-babel');
 
 var spritesmith = require('gulp.spritesmith');
 var svgSprite = require('gulp-svg-sprite');
@@ -161,7 +162,10 @@ gulp.task('css', function(){
 gulp.task('scripts', function(){
   return gulp.src('./src/portfolio/chords/js/**/*.js')
     // .pipe(newer('./myportfolio.local/portfolio/chords/js'))
-    .pipe(concat('scripts.js'))
+    // .pipe(concat('scripts.js'))
+    .pipe(babel({
+      presets: ['@babel/env']
+    }))
     .pipe(gulpIf(!isDevelopment, combine(
       uglify(),
       rename({suffix: '.min'})
@@ -169,6 +173,14 @@ gulp.task('scripts', function(){
     .pipe(gulp.dest('./myportfolio.local/portfolio/chords/js'));
 });
 
+
+// gulp.task('babel', function(){
+//   return gulp.src('./src/portfolio/chords/js/**/*.js')
+//     .pipe(babel({
+//       presets: ['@babel/env']
+//     }))
+//     .pipe(gulp.dest('./myportfolio.local/portfolio/chords/js'))
+// );
 
 
 // complicated tasks
