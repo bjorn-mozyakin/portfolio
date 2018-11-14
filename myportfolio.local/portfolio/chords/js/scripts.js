@@ -46,13 +46,108 @@ $(document).ready(function () {
     _createClass(BtnTranspos, [{
       key: "handleClick",
       value: function handleClick(e) {
-        $('.transpos__textarea').prop('disabled', true);
         console.log('Transpose clicked');
+        textarea.hide();
+        song.setText($(textarea.elem).val());
+        song.show();
+        song.wrapChords();
       }
     }]);
 
     return BtnTranspos;
   }(Btns);
+
+  var Textarea =
+  /*#__PURE__*/
+  function () {
+    function Textarea(options) {
+      _classCallCheck(this, Textarea);
+
+      this.elem = options.elem;
+      this.text = null;
+    }
+
+    _createClass(Textarea, [{
+      key: "hide",
+      value: function hide() {
+        $(this.elem).prop('disabled', true).addClass('transpos__textarea_hidden');
+      }
+    }]);
+
+    return Textarea;
+  }();
+
+  var Song =
+  /*#__PURE__*/
+  function () {
+    function Song(options) {
+      _classCallCheck(this, Song);
+
+      this.elem = options.elem;
+      this.text = null;
+    }
+
+    _createClass(Song, [{
+      key: "show",
+      value: function show() {
+        $(this.elem).removeClass('song_hidden').html();
+      }
+    }, {
+      key: "setText",
+      value: function setText(text) {
+        this.text = text;
+        $(this.elem).html(this.text);
+      }
+    }, {
+      key: "wrapChords",
+      value: function wrapChords() {
+        console.log('Start wrap');
+        var _iteratorNormalCompletion = true;
+        var _didIteratorError = false;
+        var _iteratorError = undefined;
+
+        try {
+          for (var _iterator = chordTonic[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+            var tonic = _step.value;
+            var position = 0;
+
+            while (true) {
+              var startPos = this.text.indexOf(tonic, position);
+              if (startPos == -1) break;
+              var endPos = this.text.indexOf('\n', startPos);
+              if (endPos == -1) endPos = this.text.indexOf(' ', startPos);
+              var wrappedChord = "<span>" + this.text.slice(startPos, endPos) + "</span>";
+              var textBefore = this.text.slice(0, startPos);
+              var textAfter = this.text.slice(endPos);
+              this.text = textBefore + wrappedChord + textAfter;
+              position = startPos + 14;
+            }
+
+            ;
+          }
+        } catch (err) {
+          _didIteratorError = true;
+          _iteratorError = err;
+        } finally {
+          try {
+            if (!_iteratorNormalCompletion && _iterator.return != null) {
+              _iterator.return();
+            }
+          } finally {
+            if (_didIteratorError) {
+              throw _iteratorError;
+            }
+          }
+        }
+
+        ;
+        $(this.elem).html(this.text);
+        console.log('Finished');
+      }
+    }]);
+
+    return Song;
+  }();
   /* END CONSTRUCTORS */
 
   /* BEGIN MAIN CODE */
@@ -62,6 +157,12 @@ $(document).ready(function () {
   var chordType = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
   var btnTranspos = new BtnTranspos({
     elem: $('.transpos__start')[0]
+  });
+  var textarea = new Textarea({
+    elem: $('.transpos__textarea')[0]
+  });
+  var song = new Song({
+    elem: $('.song')[0]
   });
   console.log('ES6 alive');
   /* END MAIN CODE */

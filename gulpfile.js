@@ -207,6 +207,10 @@ gulp.task('serve', function(){
   browserSync.watch('./myportfolio.local/portfolio/chords/**/*.*').on('change', browserSync.reload);
 });
 
+gulp.task('devloh', function(){
+  runSequence('build', 'watch');
+});
+
 gulp.task('dev', function(){
   runSequence('build', ['watch', 'serve']);
 });

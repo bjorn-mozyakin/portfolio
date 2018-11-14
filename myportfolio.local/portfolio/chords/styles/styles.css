@@ -403,3 +403,20 @@ textarea {
   height: 400px;
   resize: none;
   background-color: #c0c0c0; }
+
+.transpos__textarea_hidden {
+  display: none; }
+
+.song {
+  display: block;
+  width: 100%;
+  height: 400px;
+  resize: none;
+  white-space: pre-wrap;
+  background-color: yellow; }
+
+.song_hidden {
+  display: none; }
+
+span {
+  color: red; }
