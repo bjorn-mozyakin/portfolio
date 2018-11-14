@@ -1,27 +1,32 @@
+@import "normalize";
+
 $colorGray: #c0c0c0;
 
 input {
   box-sizing: border-box;
-  height: 40px;
-  margin: 0;
+  height: 30px;
   padding: 2px 6px;
-  border-radius: none;
-  line-height: 40px;
-}
-
-input[type=text] {
-  border: 1px solid $colorGray;
   outline: none;
 }
 
 button {
   border: 1px solid $colorGray;
   background: none;
-  cursor: pointer;
+  outline: none;
+}
+
+textarea {
+  outline: none;
+}
+
+
+.main {
+  width: 100%;
 }
 
 .transpos {
   width: 500px;
+  margin: 0 auto;
 }
 
 .transpos__btns {

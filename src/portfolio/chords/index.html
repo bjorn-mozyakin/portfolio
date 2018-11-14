@@ -8,16 +8,16 @@
   <script src="js/scripts.js"></script>
 </head>
 <body>
-  <main>
-    <h1>Транспонирование аккородов</h1>
+  <main class="main">
     <form class="transpos">
+      <h1>Транспонирование аккородов</h1>
       <div class="transpos__btns">
         <div class="transpos__tone-block">
           <button type="button" name="transpos__tone-up" value="Вверх" class="transpos__change-tone">Вверх</button>
           <input type="text" name="transpos__tone-value" class="transpos__tone-value">
           <button type="button" name="transpos__tone-down" value="Вниз" class="transpos__change-tone">Вниз</button>
         </div>
-        <button type="submit" name="transpos__start" value="Транспонировать">Транспонировать</button>
+        <button type="button" name="transpos__start" class="transpos__start">Транспонировать</button>
       </div>
       <textarea class="transpos__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать"></textarea>
     </form>
