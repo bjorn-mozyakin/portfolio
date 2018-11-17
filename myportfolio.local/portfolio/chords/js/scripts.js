@@ -66,6 +66,7 @@ $(document).ready(function () {
           song.toggle();
           textarea.setText(textarea.text);
           textarea.toggle();
+          toneValue.reset();
         } else {
           console.log('Нажата неизвестная кнопка');
         }
@@ -93,20 +94,32 @@ $(document).ready(function () {
     _createClass(BtnChangeTone, [{
       key: "handleClick",
       value: function handleClick(e) {
+        var _this3 = this;
+
         console.log('CLICKED');
         var step = this.defineStep();
         this.changeTone(step);
-      } // disableBtnsChangeTone() {
-      //   btnsStartStop.each(function(btn) {
-      //     btn.prop('disabled': true);
-      //   });
-      // }
-      // enableBtnsChangeTone() {
-      //   btnsStartStop.each(function(btn) {
-      //     btn.prop('disabled': false);
-      //   });
-      // }
+        toneValue.changeToneValue(step);
 
+        if (toneValue.tone >= 12 || toneValue.tone <= -12) {
+          this.disable($(this.elem));
+        } else {
+          btnsChangeTone.forEach(function (btn) {
+            _this3.enable($(btn.elem));
+          });
+        }
+      }
+    }, {
+      key: "enable",
+      value: function enable(btn) {
+        console.log('u');
+        btn.prop('disabled', false);
+      }
+    }, {
+      key: "disable",
+      value: function disable(btn) {
+        btn.prop('disabled', true);
+      }
     }, {
       key: "defineStep",
       value: function defineStep() {
@@ -127,6 +140,38 @@ $(document).ready(function () {
     }]);
 
     return BtnChangeTone;
+  }(Btns);
+
+  var ToneValue =
+  /*#__PURE__*/
+  function (_Btns3) {
+    _inherits(ToneValue, _Btns3);
+
+    function ToneValue(options) {
+      var _this4;
+
+      _classCallCheck(this, ToneValue);
+
+      _this4 = _possibleConstructorReturn(this, _getPrototypeOf(ToneValue).call(this, options));
+      _this4.tone = 0;
+      return _this4;
+    }
+
+    _createClass(ToneValue, [{
+      key: "reset",
+      value: function reset() {
+        this.tone = 0;
+        $(this.elem).html(this.tone);
+      }
+    }, {
+      key: "changeToneValue",
+      value: function changeToneValue(step) {
+        this.tone += step;
+        $(this.elem).html(this.tone);
+      }
+    }]);
+
+    return ToneValue;
   }(Btns);
 
   var Textarea =
@@ -297,9 +342,11 @@ $(document).ready(function () {
     btnsChangeTone.push(new BtnChangeTone({
       elem: this
     }));
+  }); // let [a, b] = btnsChangeTone;
+
+  var toneValue = new ToneValue({
+    elem: $('.transpos__tone-value')[0]
   });
-  var a = btnsChangeTone[0],
-      b = btnsChangeTone[1];
   var textarea = new Textarea({
     elem: $('.transpos__textarea')[0]
   });

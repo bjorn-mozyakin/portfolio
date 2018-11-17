@@ -356,13 +356,6 @@ td,
 th {
   padding: 0; }
 
-input {
-  -webkit-box-sizing: border-box;
-          box-sizing: border-box;
-  height: 30px;
-  padding: 2px 6px;
-  outline: none; }
-
 button {
   border: 1px solid #c0c0c0;
   background: none;
@@ -390,10 +383,28 @@ button {
   display: flex; }
 
 .transpos__change-tone {
-  width: 80px; }
+  width: 80px;
+  background-color: #f0f0f0; }
+  .transpos__change-tone:disabled {
+    opacity: 0.5; }
 
 .transpos__tone-value {
-  width: 30px; }
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  width: 30px;
+  height: 30px;
+  padding: 2px 6px;
+  border-top: 1px solid #c0c0c0;
+  border-bottom: 1px solid #c0c0c0; }
 
 .transpos__start {
   width: 120px; }

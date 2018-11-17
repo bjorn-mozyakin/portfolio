@@ -4,10 +4,7 @@ $colorGray: #c0c0c0;
 $colorWhite: #f0f0f0;
 
 input {
-  box-sizing: border-box;
-  height: 30px;
-  padding: 2px 6px;
-  outline: none;
+
 }
 
 button {
@@ -39,10 +36,23 @@ button {
 
 .transpos__change-tone {
   width: 80px;
+  background-color: $colorWhite;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .transpos__tone-value {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   width: 30px;
+  height: 30px;
+  padding: 2px 6px;
+  border-top: 1px solid $colorGray;
+  border-bottom: 1px solid $colorGray;
 }
 
 .transpos__start {

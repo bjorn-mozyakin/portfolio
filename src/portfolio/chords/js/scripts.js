@@ -37,6 +37,7 @@ $(document).ready(function() {
         song.toggle();
         textarea.setText(textarea.text);
         textarea.toggle();
+        toneValue.reset();
       } else {
         console.log('Нажата неизвестная кнопка');
       }
@@ -54,19 +55,26 @@ $(document).ready(function() {
       console.log('CLICKED')
       let step = this.defineStep();
       this.changeTone(step);
+      toneValue.changeToneValue(step);
+      if (toneValue.tone >= 12|| toneValue.tone <= -12) {
+        this.disable($(this.elem));
+      } else {
+        btnsChangeTone.forEach((btn) => {
+          this.enable($(btn.elem));
+        });
+      }
     }
 
-    // disableBtnsChangeTone() {
-    //   btnsStartStop.each(function(btn) {
-    //     btn.prop('disabled': true);
-    //   });
-    // }
 
-    // enableBtnsChangeTone() {
-    //   btnsStartStop.each(function(btn) {
-    //     btn.prop('disabled': false);
-    //   });
-    // }
+
+    enable(btn) {
+      console.log('u');
+      btn.prop('disabled', false);
+    }
+
+    disable(btn) {
+      btn.prop('disabled', true);
+    }
 
     defineStep() {
       let step;
@@ -83,6 +91,23 @@ $(document).ready(function() {
         if (newTonicPos < 0) newTonicPos =  chordTonics.length - 1;
         $(this).html(chordTonics[newTonicPos]);
       });
+    }
+  }
+
+  class ToneValue extends  Btns {
+    constructor(options) {
+      super(options);
+      this.tone = 0;
+    }
+
+    reset() {
+      this.tone = 0;
+      $(this.elem).html(this.tone);
+    }
+
+    changeToneValue(step) {
+      this.tone += step;
+      $(this.elem).html(this.tone);
     }
   }
 
@@ -222,7 +247,12 @@ $(document).ready(function() {
     }));
   });
 
-  let [a, b] = btnsChangeTone;
+  // let [a, b] = btnsChangeTone;
+
+
+  let toneValue = new ToneValue({
+    elem: $('.transpos__tone-value')[0]
+  });
 
   let textarea = new Textarea({
     elem: $('.transpos__textarea')[0]
