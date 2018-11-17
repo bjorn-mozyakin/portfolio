@@ -44,7 +44,7 @@ $(document).ready(function () {
 
     _createClass(BtnStartStop, [{
       key: "handleClick",
-      value: function handleClick(e) {
+      value: function handleClick() {
         if (this.name == 'transpos__start') {
           $(this.elem).toggleClass('transpos__start_hidden');
           $('.transpos__stop').toggleClass('transpos__stop_hidden');
@@ -68,7 +68,7 @@ $(document).ready(function () {
           textarea.toggle();
           toneValue.reset();
         } else {
-          console.log('Нажата неизвестная кнопка');
+          console.log('warn: unknown button was pushed');
         }
       }
     }]);
@@ -93,10 +93,9 @@ $(document).ready(function () {
 
     _createClass(BtnChangeTone, [{
       key: "handleClick",
-      value: function handleClick(e) {
+      value: function handleClick() {
         var _this3 = this;
 
-        console.log('CLICKED');
         var step = this.defineStep();
         this.changeTone(step);
         toneValue.changeToneValue(step);
@@ -112,7 +111,6 @@ $(document).ready(function () {
     }, {
       key: "enable",
       value: function enable(btn) {
-        console.log('u');
         btn.prop('disabled', false);
       }
     }, {
@@ -244,7 +242,7 @@ $(document).ready(function () {
               var conditions = (text[startPos - 1] == ' ' || text[startPos - 1] == '\n' || text[startPos - 1] == undefined) && (text[endPos] == ' ' || text[endPos] == '\n' || text[endPos] == undefined);
 
               if (conditions) {
-                var wrappedChord = "<span>" + text.slice(startPos, endPos) + "</span>";
+                var wrappedChord = '<span>' + text.slice(startPos, endPos) + '</span>';
                 var textBefore = text.slice(0, startPos);
                 var textAfter = text.slice(endPos);
                 text = textBefore + wrappedChord + textAfter;
@@ -253,8 +251,6 @@ $(document).ready(function () {
                 position = endPos + 1;
               }
             }
-
-            ;
           }
         } catch (err) {
           _didIteratorError = true;

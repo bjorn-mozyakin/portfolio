@@ -8,8 +8,9 @@ var autoprefixer = require('gulp-autoprefixer');
 var sass = require('gulp-sass');
 var cssnano = require('gulp-cssnano');
 
-var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
+var eslint = require('gulp-eslint');
+var uglify = require('gulp-uglify');
 
 var spritesmith = require('gulp.spritesmith');
 var svgSprite = require('gulp-svg-sprite');
@@ -162,7 +163,10 @@ gulp.task('css', function(){
 gulp.task('scripts', function(){
   return gulp.src('./src/portfolio/chords/js/**/*.js')
     // .pipe(newer('./myportfolio.local/portfolio/chords/js'))
-    // .pipe(concat('scripts.js'))
+    // .pipe(eslint())
+    // .pipe(eslint.format())
+    // .pipe(eslint.failAfterError())
+    .pipe(concat('scripts.js'))
     .pipe(babel({
       presets: ['@babel/env']
     }))

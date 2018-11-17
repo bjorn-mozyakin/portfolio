@@ -1,7 +1,8 @@
 'use strict';
 $(document).ready(function() {
 
-/* BEGIN CONSTRUCTORS */
+  /* BEGIN CONSTRUCTORS */
+
   class Btns {
     constructor(options) {
       this.elem = options.elem;
@@ -15,7 +16,7 @@ $(document).ready(function() {
       this.elem.onclick = this.handleClick.bind(this);
     }
 
-    handleClick(e) {
+    handleClick() {
       if (this.name == 'transpos__start') {
         $(this.elem).toggleClass('transpos__start_hidden');
         $('.transpos__stop').toggleClass('transpos__stop_hidden');
@@ -29,7 +30,7 @@ $(document).ready(function() {
         song.wrapChords();
       } else if (this.name == 'transpos__stop') {
         $(this.elem).toggleClass('transpos__stop_hidden');
-        $('.transpos__start').toggleClass('transpos__start_hidden')
+        $('.transpos__start').toggleClass('transpos__start_hidden');
         $('.transpos__change-tone').each(function(i, btn) {
           $(btn).prop('disabled', true);
         });
@@ -39,10 +40,9 @@ $(document).ready(function() {
         textarea.toggle();
         toneValue.reset();
       } else {
-        console.log('Нажата неизвестная кнопка');
+        console.log('warn: unknown button was pushed');
       }
     }
-
   }
 
   class BtnChangeTone extends Btns {
@@ -51,8 +51,7 @@ $(document).ready(function() {
       this.elem.onclick = this.handleClick.bind(this);
     }
 
-    handleClick(e) {
-      console.log('CLICKED')
+    handleClick() {
       let step = this.defineStep();
       this.changeTone(step);
       toneValue.changeToneValue(step);
@@ -68,7 +67,6 @@ $(document).ready(function() {
 
 
     enable(btn) {
-      console.log('u');
       btn.prop('disabled', false);
     }
 
@@ -78,10 +76,10 @@ $(document).ready(function() {
 
     defineStep() {
       let step;
-       (this.name == 'transpos__tone-up') ? step = 1 :
-       (this.name == 'transpos__tone-down') ? step = -1 :
-       step = null;
-      return step
+      this.name == 'transpos__tone-up' ? step = 1 :
+        this.name == 'transpos__tone-down' ? step = -1 :
+          step = null;
+      return step;
     }
 
     changeTone(step) {
@@ -163,7 +161,7 @@ $(document).ready(function() {
             text[endPos] == undefined
           );
           if (conditions) {
-            let wrappedChord = "<span>" + text.slice(startPos, endPos) + "</span>";
+            let wrappedChord = '<span>' + text.slice(startPos, endPos) + '</span>';
             let textBefore = text.slice(0, startPos);
             let textAfter = text.slice(endPos);
 
@@ -172,7 +170,7 @@ $(document).ready(function() {
           } else {
             position = endPos + 1;
           }
-        };
+        }
       }
       this.text = text;
       $(this.elem).html(this.text);
@@ -213,11 +211,11 @@ $(document).ready(function() {
       });
     }
   }
-/* END CONSTRUCTORS */
+  /* END CONSTRUCTORS */
 
-/* BEGIN MAIN CODE */
-  const chordTonics = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H']
-  const chordTypes = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11']
+  /* BEGIN MAIN CODE */
+  const chordTonics = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+  const chordTypes = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
 
   const allChords = (() => {
     let allChords = [];
@@ -262,7 +260,7 @@ $(document).ready(function() {
     elem: $('.song')[0]
   });
 
-/* END MAIN CODE */
+  /* END MAIN CODE */
 
 
 });
