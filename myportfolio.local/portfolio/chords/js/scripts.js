@@ -24,6 +24,7 @@ $(document).ready(function () {
     _classCallCheck(this, Btns);
 
     this.elem = options.elem;
+    this.name = $(this.elem).attr('name');
     console.log(this.elem);
   };
 
@@ -55,6 +56,51 @@ $(document).ready(function () {
     }]);
 
     return BtnTranspos;
+  }(Btns);
+
+  var BtnChangeTone =
+  /*#__PURE__*/
+  function (_Btns2) {
+    _inherits(BtnChangeTone, _Btns2);
+
+    function BtnChangeTone(options) {
+      var _this2;
+
+      _classCallCheck(this, BtnChangeTone);
+
+      _this2 = _possibleConstructorReturn(this, _getPrototypeOf(BtnChangeTone).call(this, options));
+      _this2.elem.onclick = _this2.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this2)));
+      console.log(_this2.name);
+      return _this2;
+    }
+
+    _createClass(BtnChangeTone, [{
+      key: "handleClick",
+      value: function handleClick(e) {
+        var step = this.defineStep();
+        this.changeTone(step);
+      }
+    }, {
+      key: "defineStep",
+      value: function defineStep() {
+        var step;
+        this.name == 'transpos__tone-up' ? step = 1 : this.name == 'transpos__tone-down' ? step = -1 : step = null;
+        return step;
+      }
+    }, {
+      key: "changeTone",
+      value: function changeTone(step) {
+        console.log('CHANGE TONE');
+        $('.chord__tonic').each(function () {
+          var newTonicPos = chordTonics.indexOf($(this).html()) + step;
+          if (newTonicPos >= chordTonics.length) newTonicPos = 0;
+          if (newTonicPos < 0) newTonicPos = chordTonics.length - 1;
+          $(this).html(chordTonics[newTonicPos]);
+        });
+      }
+    }]);
+
+    return BtnChangeTone;
   }(Btns);
 
   var Textarea =
@@ -147,7 +193,8 @@ $(document).ready(function () {
         }
 
         this.text = text;
-        $(this.elem).html(this.text); // for (let tonic of chordTonics) {
+        $(this.elem).html(this.text);
+        this.wrapChordsTonics(); // for (let tonic of chordTonics) {
         //   let position = 0;
         //   while(true) {
         //     let startPos = this.text.indexOf(tonic, position);
@@ -166,6 +213,19 @@ $(document).ready(function () {
         // };
 
         console.log('Finished');
+      }
+    }, {
+      key: "wrapChordsTonics",
+      value: function wrapChordsTonics() {
+        $('.song span').each(function () {
+          var tonic = $(this).html().slice(0, 1);
+          if ($(this).html().slice(1, 2) == '#') tonic += '#';
+          var tonicStart = $(this).html().indexOf(tonic);
+          var tonicEnd = tonicStart + tonic.length;
+          var newTonic = $('<span></span>').addClass('chord__tonic').html(tonic);
+          var chordType = $(this).html().slice(tonicEnd);
+          $(this).html(newTonic[0].outerHTML + chordType);
+        });
       }
     }]);
 
@@ -194,6 +254,12 @@ $(document).ready(function () {
   console.log(allChords);
   var btnTranspos = new BtnTranspos({
     elem: $('.transpos__start')[0]
+  });
+  var btnsChangeTone = [];
+  $('.transpos__change-tone').each(function () {
+    btnsChangeTone.push(new BtnChangeTone({
+      elem: this
+    }));
   });
   var textarea = new Textarea({
     elem: $('.transpos__textarea')[0]

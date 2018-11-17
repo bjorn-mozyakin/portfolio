@@ -5,6 +5,7 @@ $(document).ready(function() {
   class Btns {
     constructor(options) {
       this.elem = options.elem;
+      this.name = $(this.elem).attr('name');
       console.log(this.elem);
     }
   }
@@ -25,6 +26,37 @@ $(document).ready(function() {
     }
   }
 
+  class BtnChangeTone extends Btns {
+    constructor(options) {
+      super(options);
+      this.elem.onclick = this.handleClick.bind(this);
+      console.log(this.name);
+    }
+
+    handleClick(e) {
+      let step = this.defineStep();
+      this.changeTone(step);
+    }
+
+    defineStep() {
+      let step;
+       (this.name == 'transpos__tone-up') ? step = 1 :
+       (this.name == 'transpos__tone-down') ? step = -1 :
+       step = null;
+      return step
+    }
+
+    changeTone(step) {
+      console.log('CHANGE TONE');
+      $('.chord__tonic').each(function() {
+        let newTonicPos = chordTonics.indexOf($(this).html()) + step;
+        if (newTonicPos >= chordTonics.length) newTonicPos = 0;
+        if (newTonicPos < 0) newTonicPos =  chordTonics.length - 1;
+        $(this).html(chordTonics[newTonicPos]);
+      });
+
+    }
+  }
   class Textarea {
     constructor(options) {
       this.elem = options.elem;
@@ -84,6 +116,7 @@ $(document).ready(function() {
       }
       this.text = text;
       $(this.elem).html(this.text);
+      this.wrapChordsTonics();
       // for (let tonic of chordTonics) {
       //   let position = 0;
 
@@ -108,6 +141,18 @@ $(document).ready(function() {
 
       console.log('Finished');
     }
+
+    wrapChordsTonics() {
+      $('.song span').each(function() {
+        let tonic = $(this).html().slice(0, 1);
+        if ($(this).html().slice(1, 2) == '#') tonic += '#';
+        let tonicStart = $(this).html().indexOf(tonic);
+        let tonicEnd = tonicStart + tonic.length;
+        let newTonic = $('<span></span>').addClass('chord__tonic').html(tonic);
+        let chordType = $(this).html().slice(tonicEnd);
+        $(this).html(newTonic[0].outerHTML + chordType);
+      });
+    }
   }
 /* END CONSTRUCTORS */
 
@@ -129,6 +174,13 @@ $(document).ready(function() {
 
   let btnTranspos = new BtnTranspos({
     elem: $('.transpos__start')[0]
+  });
+
+  let btnsChangeTone = [];
+  $('.transpos__change-tone').each(function() {
+    btnsChangeTone.push(new BtnChangeTone({
+      elem: this
+    }));
   });
 
   let textarea = new Textarea({
