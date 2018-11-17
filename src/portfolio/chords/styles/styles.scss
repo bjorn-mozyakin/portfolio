@@ -1,6 +1,7 @@
 @import "normalize";
 
 $colorGray: #c0c0c0;
+$colorWhite: #f0f0f0;
 
 input {
   box-sizing: border-box;
@@ -13,10 +14,7 @@ button {
   border: 1px solid $colorGray;
   background: none;
   outline: none;
-}
-
-textarea {
-  outline: none;
+  height: 30px;
 }
 
 
@@ -37,26 +35,41 @@ textarea {
 
 .transpos__tone-block {
   display: flex;
-  // background-color: red;
-}
-
-
-.transpos__tone-value {
-  width: 30px;
 }
 
 .transpos__change-tone {
   width: 80px;
 }
 
+.transpos__tone-value {
+  width: 30px;
+}
 
+.transpos__start {
+  width: 120px;
+}
+
+.transpos__start_hidden {
+  display: none;
+}
+
+.transpos__stop {
+  width: 120px;
+}
+
+.transpos__stop_hidden {
+  display: none;
+}
 
 .transpos__textarea {
   display: block;
   width: 100%;
   height: 400px;
+  padding: 10px;
   resize: none;
-  background-color: $colorGray;
+  outline: none;
+  border: 1px solid $colorGray;
+  background-color: $colorWhite;
 }
 
 .transpos__textarea_hidden {
@@ -64,10 +77,7 @@ textarea {
 }
 
 .song {
-  display: block;
-  width: 100%;
-  height: 400px;
-  resize: none;
+  @extend .transpos__textarea;
   white-space: pre-wrap;
   background-color: yellow;
 }

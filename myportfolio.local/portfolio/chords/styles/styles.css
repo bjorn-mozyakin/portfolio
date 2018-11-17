@@ -366,10 +366,8 @@ input {
 button {
   border: 1px solid #c0c0c0;
   background: none;
-  outline: none; }
-
-textarea {
-  outline: none; }
+  outline: none;
+  height: 30px; }
 
 .main {
   width: 100%; }
@@ -391,27 +389,38 @@ textarea {
   display: -ms-flexbox;
   display: flex; }
 
-.transpos__tone-value {
-  width: 30px; }
-
 .transpos__change-tone {
   width: 80px; }
 
-.transpos__textarea {
+.transpos__tone-value {
+  width: 30px; }
+
+.transpos__start {
+  width: 120px; }
+
+.transpos__start_hidden {
+  display: none; }
+
+.transpos__stop {
+  width: 120px; }
+
+.transpos__stop_hidden {
+  display: none; }
+
+.transpos__textarea, .song {
   display: block;
   width: 100%;
   height: 400px;
+  padding: 10px;
   resize: none;
-  background-color: #c0c0c0; }
+  outline: none;
+  border: 1px solid #c0c0c0;
+  background-color: #f0f0f0; }
 
 .transpos__textarea_hidden {
   display: none; }
 
 .song {
-  display: block;
-  width: 100%;
-  height: 400px;
-  resize: none;
   white-space: pre-wrap;
   background-color: yellow; }
 

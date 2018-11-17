@@ -13,13 +13,16 @@
       <h1>Транспонирование аккородов</h1>
       <div class="transpos__btns">
         <div class="transpos__tone-block">
-          <button type="button" name="transpos__tone-up" value="Вверх" class="transpos__change-tone">Вверх</button>
+          <button type="button" name="transpos__tone-up" value="Вверх" class="transpos__change-tone" disabled>Вверх</button>
           <input type="text" name="transpos__tone-value" class="transpos__tone-value">
-          <button type="button" name="transpos__tone-down" value="Вниз" class="transpos__change-tone">Вниз</button>
+          <button type="button" name="transpos__tone-down" value="Вниз" class="transpos__change-tone" disabled>Вниз</button>
         </div>
-        <button type="button" name="transpos__start" class="transpos__start">Транспонировать</button>
+        <div class="transpos__startstop-block">
+          <button type="button" name="transpos__start" class="transpos__start transpos__startstop">Распознать</button>
+          <button type="button" name="transpos__stop" class="transpos__stop transpos__startstop transpos__stop_hidden">Закончить</button>
+        </div>
       </div>
-      <textarea class="transpos__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать"></textarea>
+      <textarea class="transpos__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать" autofocus></textarea>
       <div class="song song_hidden"></div>
     </form>
   </main>

@@ -25,37 +25,54 @@ $(document).ready(function () {
 
     this.elem = options.elem;
     this.name = $(this.elem).attr('name');
-    console.log(this.elem);
   };
 
-  var BtnTranspos =
+  var BtnStartStop =
   /*#__PURE__*/
   function (_Btns) {
-    _inherits(BtnTranspos, _Btns);
+    _inherits(BtnStartStop, _Btns);
 
-    function BtnTranspos(options) {
+    function BtnStartStop(options) {
       var _this;
 
-      _classCallCheck(this, BtnTranspos);
+      _classCallCheck(this, BtnStartStop);
 
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnTranspos).call(this, options));
-      console.log(_this.elem);
+      _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnStartStop).call(this, options));
       _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
       return _this;
     }
 
-    _createClass(BtnTranspos, [{
+    _createClass(BtnStartStop, [{
       key: "handleClick",
       value: function handleClick(e) {
-        console.log('Transpose clicked');
-        textarea.hide();
-        song.setText($(textarea.elem).val());
-        song.show();
-        song.wrapChords();
+        if (this.name == 'transpos__start') {
+          $(this.elem).toggleClass('transpos__start_hidden');
+          $('.transpos__stop').toggleClass('transpos__stop_hidden');
+          $('.transpos__change-tone').each(function (i, btn) {
+            $(btn).prop('disabled', false);
+          });
+          textarea.setText($(textarea.elem).val());
+          textarea.toggle();
+          song.setText(textarea.text);
+          song.toggle();
+          song.wrapChords();
+        } else if (this.name == 'transpos__stop') {
+          $(this.elem).toggleClass('transpos__stop_hidden');
+          $('.transpos__start').toggleClass('transpos__start_hidden');
+          $('.transpos__change-tone').each(function (i, btn) {
+            $(btn).prop('disabled', true);
+          });
+          song.clearText();
+          song.toggle();
+          textarea.setText(textarea.text);
+          textarea.toggle();
+        } else {
+          console.log('Нажата неизвестная кнопка');
+        }
       }
     }]);
 
-    return BtnTranspos;
+    return BtnStartStop;
   }(Btns);
 
   var BtnChangeTone =
@@ -70,16 +87,26 @@ $(document).ready(function () {
 
       _this2 = _possibleConstructorReturn(this, _getPrototypeOf(BtnChangeTone).call(this, options));
       _this2.elem.onclick = _this2.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this2)));
-      console.log(_this2.name);
       return _this2;
     }
 
     _createClass(BtnChangeTone, [{
       key: "handleClick",
       value: function handleClick(e) {
+        console.log('CLICKED');
         var step = this.defineStep();
         this.changeTone(step);
-      }
+      } // disableBtnsChangeTone() {
+      //   btnsStartStop.each(function(btn) {
+      //     btn.prop('disabled': true);
+      //   });
+      // }
+      // enableBtnsChangeTone() {
+      //   btnsStartStop.each(function(btn) {
+      //     btn.prop('disabled': false);
+      //   });
+      // }
+
     }, {
       key: "defineStep",
       value: function defineStep() {
@@ -90,7 +117,6 @@ $(document).ready(function () {
     }, {
       key: "changeTone",
       value: function changeTone(step) {
-        console.log('CHANGE TONE');
         $('.chord__tonic').each(function () {
           var newTonicPos = chordTonics.indexOf($(this).html()) + step;
           if (newTonicPos >= chordTonics.length) newTonicPos = 0;
@@ -110,13 +136,17 @@ $(document).ready(function () {
       _classCallCheck(this, Textarea);
 
       this.elem = options.elem;
-      this.text = null;
     }
 
     _createClass(Textarea, [{
-      key: "hide",
-      value: function hide() {
-        $(this.elem).prop('disabled', true).addClass('transpos__textarea_hidden');
+      key: "toggle",
+      value: function toggle() {
+        $(this.elem).toggleClass('transpos__textarea_hidden');
+      }
+    }, {
+      key: "setText",
+      value: function setText(text) {
+        this.text = text;
       }
     }]);
 
@@ -134,9 +164,9 @@ $(document).ready(function () {
     }
 
     _createClass(Song, [{
-      key: "show",
-      value: function show() {
-        $(this.elem).removeClass('song_hidden').html();
+      key: "toggle",
+      value: function toggle() {
+        $(this.elem).toggleClass('song_hidden');
       }
     }, {
       key: "setText",
@@ -145,9 +175,13 @@ $(document).ready(function () {
         $(this.elem).html(this.text);
       }
     }, {
+      key: "clearText",
+      value: function clearText() {
+        this.text = '';
+      }
+    }, {
       key: "wrapChords",
       value: function wrapChords() {
-        console.log('Start wrap');
         var text = this.text;
         var _iteratorNormalCompletion = true;
         var _didIteratorError = false;
@@ -211,8 +245,6 @@ $(document).ready(function () {
         //     position = startPos + 14;
         //   };
         // };
-
-        console.log('Finished');
       }
     }, {
       key: "wrapChordsTonics",
@@ -249,11 +281,16 @@ $(document).ready(function () {
     }
 
     return chordTonics.concat(allChords);
-  }();
+  }(); // let BtnStartStop = new BtnStartStop({
+  //   elem: $('.transpos__start')[0]
+  // });
 
-  console.log(allChords);
-  var btnTranspos = new BtnTranspos({
-    elem: $('.transpos__start')[0]
+
+  var btnsStartStop = [];
+  $('.transpos__startstop').each(function () {
+    btnsStartStop.push(new BtnStartStop({
+      elem: this
+    }));
   });
   var btnsChangeTone = [];
   $('.transpos__change-tone').each(function () {
@@ -261,12 +298,13 @@ $(document).ready(function () {
       elem: this
     }));
   });
+  var a = btnsChangeTone[0],
+      b = btnsChangeTone[1];
   var textarea = new Textarea({
     elem: $('.transpos__textarea')[0]
   });
   var song = new Song({
     elem: $('.song')[0]
   });
-  console.log('ES6 alive');
   /* END MAIN CODE */
 });

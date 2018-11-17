@@ -6,37 +6,67 @@ $(document).ready(function() {
     constructor(options) {
       this.elem = options.elem;
       this.name = $(this.elem).attr('name');
-      console.log(this.elem);
     }
   }
 
-  class BtnTranspos extends Btns {
+  class BtnStartStop extends Btns {
     constructor(options) {
       super(options);
-      console.log(this.elem);
       this.elem.onclick = this.handleClick.bind(this);
     }
 
     handleClick(e) {
-      console.log('Transpose clicked');
-      textarea.hide();
-      song.setText($(textarea.elem).val());
-      song.show();
-      song.wrapChords();
+      if (this.name == 'transpos__start') {
+        $(this.elem).toggleClass('transpos__start_hidden');
+        $('.transpos__stop').toggleClass('transpos__stop_hidden');
+        $('.transpos__change-tone').each(function(i, btn) {
+          $(btn).prop('disabled', false);
+        });
+        textarea.setText($(textarea.elem).val());
+        textarea.toggle();
+        song.setText(textarea.text);
+        song.toggle();
+        song.wrapChords();
+      } else if (this.name == 'transpos__stop') {
+        $(this.elem).toggleClass('transpos__stop_hidden');
+        $('.transpos__start').toggleClass('transpos__start_hidden')
+        $('.transpos__change-tone').each(function(i, btn) {
+          $(btn).prop('disabled', true);
+        });
+        song.clearText();
+        song.toggle();
+        textarea.setText(textarea.text);
+        textarea.toggle();
+      } else {
+        console.log('Нажата неизвестная кнопка');
+      }
     }
+
   }
 
   class BtnChangeTone extends Btns {
     constructor(options) {
       super(options);
       this.elem.onclick = this.handleClick.bind(this);
-      console.log(this.name);
     }
 
     handleClick(e) {
+      console.log('CLICKED')
       let step = this.defineStep();
       this.changeTone(step);
     }
+
+    // disableBtnsChangeTone() {
+    //   btnsStartStop.each(function(btn) {
+    //     btn.prop('disabled': true);
+    //   });
+    // }
+
+    // enableBtnsChangeTone() {
+    //   btnsStartStop.each(function(btn) {
+    //     btn.prop('disabled': false);
+    //   });
+    // }
 
     defineStep() {
       let step;
@@ -47,24 +77,26 @@ $(document).ready(function() {
     }
 
     changeTone(step) {
-      console.log('CHANGE TONE');
       $('.chord__tonic').each(function() {
         let newTonicPos = chordTonics.indexOf($(this).html()) + step;
         if (newTonicPos >= chordTonics.length) newTonicPos = 0;
         if (newTonicPos < 0) newTonicPos =  chordTonics.length - 1;
         $(this).html(chordTonics[newTonicPos]);
       });
-
     }
   }
+
   class Textarea {
     constructor(options) {
       this.elem = options.elem;
-      this.text = null;
     }
 
-    hide() {
-      $(this.elem).prop('disabled', true).addClass('transpos__textarea_hidden');
+    toggle() {
+      $(this.elem).toggleClass('transpos__textarea_hidden');
+    }
+
+    setText(text) {
+      this.text = text;
     }
   }
 
@@ -74,8 +106,8 @@ $(document).ready(function() {
       this.text = null;
     }
 
-    show() {
-      $(this.elem).removeClass('song_hidden').html();
+    toggle() {
+      $(this.elem).toggleClass('song_hidden');
     }
 
     setText(text) {
@@ -83,8 +115,11 @@ $(document).ready(function() {
       $(this.elem).html(this.text);
     }
 
+    clearText() {
+      this.text = '';
+    }
+
     wrapChords() {
-      console.log('Start wrap');
       let text = this.text;
       for (let chord of allChords) {
         let position = 0;
@@ -139,7 +174,6 @@ $(document).ready(function() {
       //   };
       // };
 
-      console.log('Finished');
     }
 
     wrapChordsTonics() {
@@ -170,10 +204,15 @@ $(document).ready(function() {
     return chordTonics.concat(allChords);
   })();
 
-  console.log(allChords);
+  // let BtnStartStop = new BtnStartStop({
+  //   elem: $('.transpos__start')[0]
+  // });
 
-  let btnTranspos = new BtnTranspos({
-    elem: $('.transpos__start')[0]
+  let btnsStartStop = [];
+  $('.transpos__startstop').each(function() {
+    btnsStartStop.push(new BtnStartStop({
+      elem: this
+    }));
   });
 
   let btnsChangeTone = [];
@@ -183,6 +222,8 @@ $(document).ready(function() {
     }));
   });
 
+  let [a, b] = btnsChangeTone;
+
   let textarea = new Textarea({
     elem: $('.transpos__textarea')[0]
   });
@@ -191,7 +232,6 @@ $(document).ready(function() {
     elem: $('.song')[0]
   });
 
-  console.log('ES6 alive');
 /* END MAIN CODE */
 
 
