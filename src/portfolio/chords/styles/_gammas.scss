@@ -1,6 +1,6 @@
 label {
   display: inline-block;
-  width: 300px;
+  width: 180px;
 }
 
 select {
@@ -17,7 +17,16 @@ select {
   border: 1px solid #c0c0c0;
 }
 
-.tonalities {
+.tonality-selection {
   width: 500px;
   margin: 0 auto;
+}
+
+.tonality-selection__hint {
+  display: inline-block;
+  color:red;
+}
+
+.tonality-selection__hint_hidden {
+  display: none;
 }

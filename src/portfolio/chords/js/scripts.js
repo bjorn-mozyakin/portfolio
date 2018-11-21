@@ -217,7 +217,7 @@ $(document).ready(function() {
   class Gammas {
     constructor(options) {
       this.elem = options.elem;
-      this.ctx = this.elem.getContext("2d");
+      this.ctx = this.elem.getContext('2d');
 
     }
 
@@ -231,6 +231,45 @@ $(document).ready(function() {
         this.ctx.stroke();
         currentPos += step;
       }
+    }
+
+    drawNotes(){
+      console.log('DrawNotes!!!');
+    }
+  }
+
+  class BtnTonality extends Btns {
+    constructor(options) {
+      super(options);
+      this.elem.onclick = this.handleClick.bind(this);
+    }
+
+    handleClick() {
+      let areChosen = [];
+      selectsTonality.forEach((item) => {
+        areChosen.push(item.isChosen());
+        if (!areChosen[areChosen.length - 1]) {
+          $('.tonality-selection')
+            .find('[data-name=' + item.name + ']')
+            .removeClass('tonality-selection__hint_hidden');
+        } else {
+          $('.tonality-selection')
+            .find('[data-name=' + item.name + ']')
+            .addClass('tonality-selection__hint_hidden');
+        }
+      });
+      if (areChosen.every((item) => item == true)) canvas.drawNotes();
+    }
+  }
+
+  class SelectTonality extends Btns{
+    constructor(options) {
+      super(options);
+    }
+
+    isChosen() {
+      if (this.elem.value == '0') return false;
+      else return true;
     }
   }
   /* END CONSTRUCTORS */
@@ -282,9 +321,20 @@ $(document).ready(function() {
     elem: $('.song')[0]
   });
 
-
+  // Tonalities
   let canvas = new Gammas({
     elem: $('#gammas')[0],
+  });
+
+  let selectsTonality = [];
+  $('.tonality-selection select').each(function() {
+    selectsTonality.push(new SelectTonality({
+      elem: this
+    }));
+  });
+
+  let btnTonality = new BtnTonality({
+    elem: $('.tonality-btn')[0]
   });
 
   canvas.createStaff();

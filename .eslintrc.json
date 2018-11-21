@@ -36,6 +36,12 @@
         "no-console": [
             "warn"
         ],
+        "no-unused-vars": [
+            "warn"
+        ],
+        "no-debugger":[
+            "warn"
+        ],
         "jquery/no-ajax": 2,
         "jquery/no-ajax-events": 2,
         "jquery/no-animate": 2,
@@ -51,7 +57,7 @@
         "jquery/no-each": 1,
         "jquery/no-fade": 2,
         "jquery/no-filter": 2,
-        "jquery/no-find": 2,
+        "jquery/no-find": 1,
         "jquery/no-global-eval": 2,
         "jquery/no-has": 2,
         "jquery/no-hide": 2,

@@ -312,7 +312,7 @@ $(document).ready(function () {
       _classCallCheck(this, Gammas);
 
       this.elem = options.elem;
-      this.ctx = this.elem.getContext("2d");
+      this.ctx = this.elem.getContext('2d');
     }
 
     _createClass(Gammas, [{
@@ -329,10 +329,73 @@ $(document).ready(function () {
           currentPos += step;
         }
       }
+    }, {
+      key: "drawNotes",
+      value: function drawNotes() {
+        console.log('DrawNotes!!!');
+      }
     }]);
 
     return Gammas;
   }();
+
+  var BtnTonality =
+  /*#__PURE__*/
+  function (_Btns4) {
+    _inherits(BtnTonality, _Btns4);
+
+    function BtnTonality(options) {
+      var _this5;
+
+      _classCallCheck(this, BtnTonality);
+
+      _this5 = _possibleConstructorReturn(this, _getPrototypeOf(BtnTonality).call(this, options));
+      _this5.elem.onclick = _this5.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this5)));
+      return _this5;
+    }
+
+    _createClass(BtnTonality, [{
+      key: "handleClick",
+      value: function handleClick() {
+        var areChosen = [];
+        selectsTonality.forEach(function (item) {
+          areChosen.push(item.isChosen());
+
+          if (!areChosen[areChosen.length - 1]) {
+            $('.tonality-selection').find('[data-name=' + item.name + ']').removeClass('tonality-selection__hint_hidden');
+          } else {
+            $('.tonality-selection').find('[data-name=' + item.name + ']').addClass('tonality-selection__hint_hidden');
+          }
+        });
+        if (areChosen.every(function (item) {
+          return item == true;
+        })) canvas.drawNotes();
+      }
+    }]);
+
+    return BtnTonality;
+  }(Btns);
+
+  var SelectTonality =
+  /*#__PURE__*/
+  function (_Btns5) {
+    _inherits(SelectTonality, _Btns5);
+
+    function SelectTonality(options) {
+      _classCallCheck(this, SelectTonality);
+
+      return _possibleConstructorReturn(this, _getPrototypeOf(SelectTonality).call(this, options));
+    }
+
+    _createClass(SelectTonality, [{
+      key: "isChosen",
+      value: function isChosen() {
+        if (this.elem.value == '0') return false;else return true;
+      }
+    }]);
+
+    return SelectTonality;
+  }(Btns);
   /* END CONSTRUCTORS */
 
   /* BEGIN MAIN CODE */
@@ -377,9 +440,19 @@ $(document).ready(function () {
   });
   var song = new Song({
     elem: $('.song')[0]
-  });
+  }); // Tonalities
+
   var canvas = new Gammas({
     elem: $('#gammas')[0]
+  });
+  var selectsTonality = [];
+  $('.tonality-selection select').each(function () {
+    selectsTonality.push(new SelectTonality({
+      elem: this
+    }));
+  });
+  var btnTonality = new BtnTonality({
+    elem: $('.tonality-btn')[0]
   });
   canvas.createStaff();
   /* END MAIN CODE */
