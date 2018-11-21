@@ -1,0 +1,47 @@
+.header__container {
+  width: 100%;
+  background-color: $colorBlueDark;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  min-width: $widthMin;
+  max-width: $widthMax;
+  margin: 0 auto;
+  height: 50px;
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.home-btn {
+  width: 16px;
+  height: 16px;
+  padding: 7px 14px;
+  border-radius: 4px;
+  background-color: $colorBlue;
+  background-image: url(../img/home-btn.svg);
+  background-repeat: no-repeat;
+  background-size: 16px;
+  background-position: center;
+  transition: background 200ms linear;
+
+  &:hover {
+    background-color: lighten($colorBlue, 5%);
+  }
+}
+
+.menu {
+  flex-grow: 1;
+  display: flex;
+  justify-content: space-between;
+  text-transform: uppercase;
+}
+
+.menu__item {
+  margin: 0 15px;
+}
