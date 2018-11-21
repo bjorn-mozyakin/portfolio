@@ -26,7 +26,38 @@
       <div class="song song_hidden"></div>
     </form>
 
-    <canvas id="gammas" width="600px" height="400px"></canvas>
+    <canvas id="gammas" width="500px" height="160px"></canvas>
+    <form class="tonalities">
+      <fieldset>
+        <legend>Выберите тональность</legend>
+        <label for="tonica">Тоника</label>
+        <select id="tonica">
+          <option value="0">Не выбрана</option>
+          <option value="1">C</option>
+          <option value="2">D</option>
+          <option value="3">E</option>
+          <option value="4">F</option>
+          <option value="5">G</option>
+          <option value="6">A</option>
+          <option value="7">H</option>
+        </select>
+        <br />
+        <label for="accidental">Знак альтерации</label>
+        <select id="accidental">
+          <option value="0">Не выбрана</option>
+          <option value="1">Отсутствует</option>
+          <option value="2">#</option>
+          <option value="3">b</option>
+        </select>
+        <br />
+        <label for="gamma">Гамма</label>
+        <select id="gamma">
+          <option value="0">Не выбрана</option>
+          <option value="1">Мажор</option>
+          <option value="2">Минор</option>
+        </select>
+      </fieldset>
+    </form>
   </main>
 </body>
 </html>

@@ -313,19 +313,18 @@ $(document).ready(function () {
 
       this.elem = options.elem;
       this.ctx = this.elem.getContext("2d");
-      this.createStaff();
     }
 
     _createClass(Gammas, [{
       key: "createStaff",
       value: function createStaff() {
-        var margin = 40;
-        var currentPos = margin;
+        var margin = 20;
+        var currentPos = margin * 2;
         var step = 20;
 
         for (var i = 1; i <= 5; i++) {
           this.ctx.moveTo(margin, currentPos);
-          this.ctx.lineTo(600 - margin, currentPos);
+          this.ctx.lineTo(500 - margin, currentPos);
           this.ctx.stroke();
           currentPos += step;
         }
@@ -380,7 +379,8 @@ $(document).ready(function () {
     elem: $('.song')[0]
   });
   var canvas = new Gammas({
-    elem: $("#gammas")[0]
+    elem: $('#gammas')[0]
   });
+  canvas.createStaff();
   /* END MAIN CODE */
 });
