@@ -211,6 +211,29 @@ $(document).ready(function() {
       });
     }
   }
+
+
+
+  class Gammas {
+    constructor(options) {
+      this.elem = options.elem;
+      this.ctx = this.elem.getContext("2d");
+
+      this.createStaff();
+    }
+
+    createStaff() {
+      let margin = 40;
+      let currentPos = margin;
+      let step = 20;
+      for (let i = 1; i <= 5; i++) {
+        this.ctx.moveTo(margin, currentPos);
+        this.ctx.lineTo(600 - margin, currentPos);
+        this.ctx.stroke();
+        currentPos += step;
+      }
+    }
+  }
   /* END CONSTRUCTORS */
 
   /* BEGIN MAIN CODE */
@@ -259,6 +282,12 @@ $(document).ready(function() {
   let song = new Song({
     elem: $('.song')[0]
   });
+
+
+  let canvas = new Gammas({
+    elem: $("#gammas")[0],
+  });
+
 
   /* END MAIN CODE */
 

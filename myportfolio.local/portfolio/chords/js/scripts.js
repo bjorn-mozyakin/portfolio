@@ -304,6 +304,36 @@ $(document).ready(function () {
 
     return Song;
   }();
+
+  var Gammas =
+  /*#__PURE__*/
+  function () {
+    function Gammas(options) {
+      _classCallCheck(this, Gammas);
+
+      this.elem = options.elem;
+      this.ctx = this.elem.getContext("2d");
+      this.createStaff();
+    }
+
+    _createClass(Gammas, [{
+      key: "createStaff",
+      value: function createStaff() {
+        var margin = 40;
+        var currentPos = margin;
+        var step = 20;
+
+        for (var i = 1; i <= 5; i++) {
+          this.ctx.moveTo(margin, currentPos);
+          this.ctx.lineTo(600 - margin, currentPos);
+          this.ctx.stroke();
+          currentPos += step;
+        }
+      }
+    }]);
+
+    return Gammas;
+  }();
   /* END CONSTRUCTORS */
 
   /* BEGIN MAIN CODE */
@@ -348,6 +378,9 @@ $(document).ready(function () {
   });
   var song = new Song({
     elem: $('.song')[0]
+  });
+  var canvas = new Gammas({
+    elem: $("#gammas")[0]
   });
   /* END MAIN CODE */
 });
