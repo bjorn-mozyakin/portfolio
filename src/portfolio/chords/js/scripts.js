@@ -212,13 +212,15 @@ $(document).ready(function() {
     }
   }
 
-
+  // Tonalities
 
   class Gammas {
     constructor(options) {
       this.elem = options.elem;
       this.ctx = this.elem.getContext('2d');
-
+      this.selections = [];
+      this.tonic = null;
+      this.gamma = null;
     }
 
     createStaff() {
@@ -234,7 +236,39 @@ $(document).ready(function() {
     }
 
     drawNotes(){
-      console.log('DrawNotes!!!');
+      this.defineTonic();
+      this.defineGamma();
+      let marginL = 40;
+      let stepL = 40;
+      let startPos = chordTonics.indexOf(this.tonic);
+
+      for (let i = 0; i < this.gamma.length; i++) {
+        let marginT = TONALITY_MARGIN[startPos];
+        this.drawNote(marginL, marginT);
+        marginL += stepL;
+        startPos += this.gamma[i];
+      }
+
+    }
+
+    defineTonic() {
+      this.tonic = '' + this.selections[0];
+      if (this.selections[1] == 'no') return;
+      this.tonic += this.selections[1];
+    }
+
+    defineGamma() {
+      if (this.selections[2] == 'major') this.gamma = MAJOR;
+      else this.gamma = MINOR;
+    }
+
+    drawNote(marginL, marginT) {
+      this.ctx.beginPath();
+      this.ctx.arc(marginL, marginT, 10, 0, 2*Math.PI);
+      this.ctx.fillStyle = 'balck';
+      this.ctx.fill();
+      this.ctx.strokeStyle = 'black';
+      this.ctx.stroke();
     }
   }
 
@@ -245,10 +279,9 @@ $(document).ready(function() {
     }
 
     handleClick() {
-      let areChosen = [];
       selectsTonality.forEach((item) => {
-        areChosen.push(item.isChosen());
-        if (!areChosen[areChosen.length - 1]) {
+        gamma.selections.push(item.elem.value);
+        if (gamma.selections[gamma.selections.length - 1] == '0') {
           $('.tonality-selection')
             .find('[data-name=' + item.name + ']')
             .removeClass('tonality-selection__hint_hidden');
@@ -258,7 +291,7 @@ $(document).ready(function() {
             .addClass('tonality-selection__hint_hidden');
         }
       });
-      if (areChosen.every((item) => item == true)) canvas.drawNotes();
+      if (gamma.selections.every((item) => item != '0')) gamma.drawNotes();
     }
   }
 
@@ -267,16 +300,21 @@ $(document).ready(function() {
       super(options);
     }
 
-    isChosen() {
-      if (this.elem.value == '0') return false;
-      else return true;
-    }
+    // isChosen() {
+    //   if (this.elem.value == '0') return false;
+    //   else return true;
+    // }
   }
   /* END CONSTRUCTORS */
 
   /* BEGIN MAIN CODE */
   const chordTonics = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
   const chordTypes = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
+  const P = 1;      // Полутон
+  const T = 2 * P;  // Тон
+  const MAJOR = [T, T, P, T, T, T, P];  // Мажорный звукоряд
+  const MINOR = [T, P, T, T, P, T, T];  // Минорный звукоряд
+  const TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10];
 
   const allChords = (() => {
     let allChords = [];
@@ -322,7 +360,7 @@ $(document).ready(function() {
   });
 
   // Tonalities
-  let canvas = new Gammas({
+  let gamma = new Gammas({
     elem: $('#gammas')[0],
   });
 
@@ -337,7 +375,7 @@ $(document).ready(function() {
     elem: $('.tonality-btn')[0]
   });
 
-  canvas.createStaff();
+  gamma.createStaff();
 
 
   /* END MAIN CODE */
