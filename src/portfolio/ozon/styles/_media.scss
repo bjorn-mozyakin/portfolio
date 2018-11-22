@@ -1,0 +1,199 @@
+@media screen and (max-width: 1120px) {
+  .search__input__focused {
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 1025px) {
+  .search__input__focused {
+    width: 50px;
+  }
+}
+
+@media screen and (max-width: 960px) {
+  .search {
+    display: none;
+  }
+
+  .certs {
+    padding: 60px $wrapperGap;
+  }
+
+  .certs__text {
+    width: 100%;
+    padding: 0;
+  }
+
+  .certs__title {
+    width: 100%;
+  }
+
+  .certs__motto {
+    margin: 50px 0;
+  }
+
+  .certs__btns {
+    margin-top: 60px;
+  }
+
+  .use-cases {
+    padding: 60px $wrapperGap;
+  }
+
+  .use-cases__title {
+    margin-bottom: 60px;
+  }
+
+  .advantages {
+    padding: 60px $wrapperGap;
+  }
+
+  .advantages__title {
+    margin-bottom: 60px;
+  }
+
+  .advantage {
+    width: 47%;
+    margin: 20px 0;
+  }
+
+  .footer {
+    padding: 60px $wrapperGap;
+  }
+
+  .steps__list {
+    margin: 40px 0 60px;
+  }
+
+  .step {
+    margin-bottom: 40px;
+  }
+
+  .step__text {
+    width: 140px;
+  }
+}
+
+@media screen and (max-width: 910px) {
+  h1 {
+    line-height: 58px;
+    font-size: 48px;
+  }
+
+  h4 {
+    line-height: 28px;
+    font-size: 26px;
+  }
+
+  .header__right {
+    display: none;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .use-case {
+    width: 50%;
+  }
+
+  .advantage {
+    width: 100%;
+  }
+
+  .step {
+    width: 45%;
+  }
+
+  .contact {
+    width: 50%;
+  }
+}
+
+
+@media screen and (max-width: 730px) {
+  h1 {
+    line-height: 50px;
+    font-size: 40px;
+  }
+
+  .header {
+    display: block;
+  }
+
+  .header__left {
+    display: block;
+    height: auto;
+  }
+
+  .logo {
+    width: 100%;
+    margin-right: 0;
+    text-align: center;
+  }
+
+  .nav {
+    width: 100%;
+    padding: 20px 0;
+  }
+
+  .menu {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media screen and (max-width: 590px) {
+  h1 {
+    line-height: 44px;
+    font-size: 34px;
+  }
+
+  .certs__btns {
+    flex-wrap: wrap;
+  }
+
+  .certs__btn {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 32px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
+
+  .use-case {
+    width: 100%;
+  }
+
+  .use-case__img {
+    background-size: auto 100%;
+  }
+}
+
+@media screen and (max-width: 500px) {
+  .nav {
+    padding: 10px 0;
+  }
+
+  .menu {
+    /*display: block;*/
+    display: flex;
+    flex-wrap: wrap;
+    text-align: center;
+  }
+
+  .menu__item {
+    width: 100%;
+    /*display: block;*/
+    margin: 10px 0;
+  }
+
+  .step {
+    width: 100%;
+    margin-right: 0;
+  }
+
+  .contact {
+    width: 100%;
+  }
+}

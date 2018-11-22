@@ -1,0 +1,75 @@
+.certs-wrapper {
+  width: 100%;
+  background-color: $colorGray;
+}
+
+.certs {
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+  max-width: $maxWidthBody;
+  min-width: $minWidthBody;
+  margin: 0 auto;
+  padding: 160px $wrapperGap;
+}
+
+.certs__title {
+  width: 50%;
+}
+
+.certs__text {
+  display: flex;
+  flex-wrap: wrap;
+  align-content: space-between;
+  box-sizing: border-box;
+  width: 50%;
+  padding-left: 110px;
+  line-height: 28px;
+  font-size: 20px;
+}
+
+.certs__motto {
+  margin-top: 15px;
+}
+
+.certs__link a {
+  &:after {
+    position: relative;
+    top: 3px;
+    margin-left: 5px;
+    content: url(../img/arrow_link.svg);
+  }
+}
+
+
+.certs__btns {
+  display: flex;
+  width: 100%;
+  margin-top: 115px;
+}
+
+.certs__btn {
+  width: 50%;
+  height: 80px;
+  margin-right: 32px;
+  border: 2px solid $colorBlue;
+
+  line-height: 48px;
+  font-size: 26px;
+  letter-spacing: 0.4px;
+
+  color: $colorBlue;
+  background-color: #fff;
+  cursor: pointer;
+
+  transition: all 120ms linear;
+
+  &:last-child {
+    margin-right: 0;
+  }
+
+  &:hover {
+    color: #fff;
+    background-color: $colorBlue;
+  }
+}
