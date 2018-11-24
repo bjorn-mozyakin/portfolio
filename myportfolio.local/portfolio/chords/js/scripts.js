@@ -364,11 +364,23 @@ $(document).ready(function () {
     }, {
       key: "drawNote",
       value: function drawNote(marginL, marginT) {
+        this.drawEllipse(this.ctx, marginL, marginT, 10, 6);
+      }
+    }, {
+      key: "drawEllipse",
+      value: function drawEllipse(ctx, x, y, a, b) {
+        this.ctx.save();
         this.ctx.beginPath();
-        this.ctx.arc(marginL, marginT, 10, 0, 2 * Math.PI);
+        this.ctx.translate(x, y);
+        this.ctx.rotate(-30 * Math.PI / 180);
+        this.ctx.scale(a / b, 1);
+        this.ctx.arc(0, 0, b, 0, Math.PI * 2, true);
+        this.ctx.restore();
+        this.ctx.closePath();
         this.ctx.fillStyle = 'balck';
-        this.ctx.fill();
-        this.ctx.strokeStyle = 'black';
+        this.ctx.fill(); // this.ctx.lineWidth = 3  ;
+        // this.ctx.strokeStyle = 'black';
+
         this.ctx.stroke();
       }
     }]);
