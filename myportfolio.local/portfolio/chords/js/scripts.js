@@ -317,21 +317,30 @@ $(document).ready(function () {
       this.selections = [];
       this.tonic = null;
       this.gamma = null;
+      this.gammaDrawn = false;
     }
 
     _createClass(Gammas, [{
-      key: "createStaff",
-      value: function createStaff() {
+      key: "clearStaff",
+      value: function clearStaff() {
+        this.ctx.clearRect(0, 0, 560, 160);
+      }
+    }, {
+      key: "drawStaff",
+      value: function drawStaff() {
         var margin = 20;
         var currentPos = margin * 2;
         var step = 20;
 
         for (var i = 1; i <= 5; i++) {
+          this.ctx.beginPath();
           this.ctx.moveTo(margin, currentPos);
           this.ctx.lineTo(500 - margin, currentPos);
           this.ctx.stroke();
           currentPos += step;
         }
+
+        this.gammaDrawn = true;
       }
     }, {
       key: "drawNotes",
@@ -406,6 +415,7 @@ $(document).ready(function () {
     _createClass(BtnTonality, [{
       key: "handleClick",
       value: function handleClick() {
+        gamma.selections.length = 0;
         selectsTonality.forEach(function (item) {
           gamma.selections.push(item.elem.value);
 
@@ -415,9 +425,17 @@ $(document).ready(function () {
             $('.tonality-selection').find('[data-name=' + item.name + ']').addClass('tonality-selection__hint_hidden');
           }
         });
+
         if (gamma.selections.every(function (item) {
           return item != '0';
-        })) gamma.drawNotes();
+        })) {
+          if (!this.gammaDrawn) {
+            gamma.clearStaff();
+            gamma.drawStaff();
+          }
+
+          gamma.drawNotes();
+        }
       }
     }]);
 
@@ -508,6 +526,6 @@ $(document).ready(function () {
   var btnTonality = new BtnTonality({
     elem: $('.tonality-btn')[0]
   });
-  gamma.createStaff();
+  gamma.drawStaff();
   /* END MAIN CODE */
 });

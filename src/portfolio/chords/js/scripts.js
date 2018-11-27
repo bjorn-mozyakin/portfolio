@@ -221,18 +221,25 @@ $(document).ready(function() {
       this.selections = [];
       this.tonic = null;
       this.gamma = null;
+      this.gammaDrawn = false;
     }
 
-    createStaff() {
+    clearStaff() {
+      this.ctx.clearRect(0, 0, 560, 160);
+    }
+
+    drawStaff() {
       let margin = 20;
       let currentPos = margin * 2;
       let step = 20;
       for (let i = 1; i <= 5; i++) {
+        this.ctx.beginPath();
         this.ctx.moveTo(margin, currentPos);
         this.ctx.lineTo(500 - margin, currentPos);
         this.ctx.stroke();
         currentPos += step;
       }
+      this.gammaDrawn = true;
     }
 
     drawNotes(){
@@ -241,14 +248,12 @@ $(document).ready(function() {
       let marginL = 40;
       let stepL = 40;
       let startPos = chordTonics.indexOf(this.tonic);
-
       for (let i = 0; i < this.gamma.length; i++) {
         let marginT = TONALITY_MARGIN[startPos];
         this.drawNote(marginL, marginT);
         marginL += stepL;
         startPos += this.gamma[i];
       }
-
     }
 
     defineTonic() {
@@ -293,6 +298,7 @@ $(document).ready(function() {
     }
 
     handleClick() {
+      gamma.selections.length = 0 ;
       selectsTonality.forEach((item) => {
         gamma.selections.push(item.elem.value);
         if (gamma.selections[gamma.selections.length - 1] == '0') {
@@ -305,7 +311,13 @@ $(document).ready(function() {
             .addClass('tonality-selection__hint_hidden');
         }
       });
-      if (gamma.selections.every((item) => item != '0')) gamma.drawNotes();
+      if (gamma.selections.every((item) => item != '0')) {
+        if (!this.gammaDrawn) {
+          gamma.clearStaff();
+          gamma.drawStaff();
+        }
+        gamma.drawNotes();
+      }
     }
   }
 
@@ -389,7 +401,7 @@ $(document).ready(function() {
     elem: $('.tonality-btn')[0]
   });
 
-  gamma.createStaff();
+  gamma.drawStaff();
 
 
   /* END MAIN CODE */
