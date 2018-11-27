@@ -129,10 +129,10 @@ $(document).ready(function () {
       key: "changeTone",
       value: function changeTone(step) {
         $('.chord__tonic').each(function () {
-          var newTonicPos = chordTonics.indexOf($(this).html()) + step;
-          if (newTonicPos >= chordTonics.length) newTonicPos = 0;
-          if (newTonicPos < 0) newTonicPos = chordTonics.length - 1;
-          $(this).html(chordTonics[newTonicPos]);
+          var newTonicPos = CHORD_TONICS.indexOf($(this).html()) + step;
+          if (newTonicPos >= CHORD_TONICS.length) newTonicPos = 0;
+          if (newTonicPos < 0) newTonicPos = CHORD_TONICS.length - 1;
+          $(this).html(CHORD_TONICS[newTonicPos]);
         });
       }
     }]);
@@ -231,7 +231,7 @@ $(document).ready(function () {
         var _iteratorError = undefined;
 
         try {
-          for (var _iterator = allChords[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          for (var _iterator = ALL_CHORDS[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
             var chord = _step.value;
             var position = 0;
 
@@ -269,13 +269,13 @@ $(document).ready(function () {
 
         this.text = text;
         $(this.elem).html(this.text);
-        this.wrapChordsTonics(); // for (let tonic of chordTonics) {
+        this.wrapChordsTonics(); // for (let tonic of CHORD_TONICS) {
         //   let position = 0;
         //   while(true) {
         //     let startPos = this.text.indexOf(tonic, position);
         //     if (startPos == -1) break;
         //     let nextSym = this.text.slice(startPos + 1, startPos + 2)
-        //     nextSym == '\n' || nextSym == ' ' || chordTonics.indexOf(nextSym) != -1
+        //     nextSym == '\n' || nextSym == ' ' || CHORD_TONICS.indexOf(nextSym) != -1
         //     let midPos = this.text.indexOf('\n', startPos);
         //     let endPos = this.text.indexOf('\n', startPos);
         //     if (endPos == -1) endPos = this.text.indexOf(' ', startPos);
@@ -349,13 +349,23 @@ $(document).ready(function () {
         this.defineGamma();
         var marginL = 40;
         var stepL = 40;
-        var startPos = chordTonics.indexOf(this.tonic);
+        var currentNote = this.tonic;
+        var posMargins = CHORD_TONICS.indexOf(currentNote);
+        var posNotes = posMargins;
 
         for (var i = 0; i < this.gamma.length; i++) {
-          var marginT = TONALITY_MARGIN[startPos];
+          var marginT = TONALITY_MARGIN[posMargins];
           this.drawNote(marginL, marginT);
+
+          if (currentNote[1] == '#') {
+            marginL += 10;
+            this.drawSharp(marginL, marginT + 10);
+          }
+
           marginL += stepL;
-          startPos += this.gamma[i];
+          posMargins += this.gamma[i];
+          if (posMargins >= CHORD_TONICS.length) posNotes = posMargins - CHORD_TONICS.length;else posNotes = posMargins;
+          currentNote = CHORD_TONICS[posNotes];
         }
       }
     }, {
@@ -391,6 +401,12 @@ $(document).ready(function () {
         // this.ctx.strokeStyle = 'black';
 
         this.ctx.stroke();
+      }
+    }, {
+      key: "drawSharp",
+      value: function drawSharp(marginL, marginT) {
+        this.ctx.font = '30px Arial';
+        this.ctx.fillText('#', marginL, marginT);
       }
     }]);
 
@@ -464,8 +480,8 @@ $(document).ready(function () {
   /* BEGIN MAIN CODE */
 
 
-  var chordTonics = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
-  var chordTypes = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
+  var CHORD_TONICS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+  var CHORD_TYPES = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
   var P = 1; // Полутон
 
   var T = 2 * P; // Тон
@@ -474,18 +490,18 @@ $(document).ready(function () {
 
   var MINOR = [T, P, T, T, P, T, T]; // Минорный звукоряд
 
-  var TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10];
+  var TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10, 0];
 
-  var allChords = function () {
-    var allChords = [];
+  var ALL_CHORDS = function () {
+    var ALL_CHORDS = [];
 
-    for (var i = 0; i < chordTonics.length; i++) {
-      for (var j = 0; j < chordTypes.length; j++) {
-        allChords.push(chordTonics[i] + chordTypes[j]);
+    for (var i = 0; i < CHORD_TONICS.length; i++) {
+      for (var j = 0; j < CHORD_TYPES.length; j++) {
+        ALL_CHORDS.push(CHORD_TONICS[i] + CHORD_TYPES[j]);
       }
     }
 
-    return chordTonics.concat(allChords);
+    return CHORD_TONICS.concat(ALL_CHORDS);
   }(); // let BtnStartStop = new BtnStartStop({
   //   elem: $('.transpos__start')[0]
   // });
