@@ -128,12 +128,40 @@ $(document).ready(function () {
     }, {
       key: "changeTone",
       value: function changeTone(step) {
-        $('.chord__tonic').each(function () {
-          var newTonicPos = CHORD_TONICS.indexOf($(this).html()) + step;
+        var _this4 = this;
+
+        var sign = this.defineSign();
+        $('.chord__tonic').each(function (i, elem) {
+          var currentTonePos = _this4.definePos(elem);
+
+          var newTonicPos = currentTonePos + step;
           if (newTonicPos >= CHORD_TONICS.length) newTonicPos = 0;
           if (newTonicPos < 0) newTonicPos = CHORD_TONICS.length - 1;
-          $(this).html(CHORD_TONICS[newTonicPos]);
+          if (Array.isArray(CHORD_TONICS[newTonicPos])) $(elem).html(CHORD_TONICS[newTonicPos][sign]);else $(elem).html(CHORD_TONICS[newTonicPos]);
         });
+      }
+    }, {
+      key: "definePos",
+      value: function definePos(elem) {
+        for (var i = 0; i < CHORD_TONICS.length; i++) {
+          if (Array.isArray(CHORD_TONICS[i])) {
+            for (var j = 0; j < CHORD_TONICS[i].length; j++) {
+              if ($(elem).html() == CHORD_TONICS[i][j]) return i;
+            }
+          }
+
+          if ($(elem).html() == CHORD_TONICS[i]) return i;
+        }
+      }
+    }, {
+      key: "defineSign",
+      value: function defineSign() {
+        for (var i = 0; i < $('.chord__tonic').length; i++) {
+          if ($('.chord__tonic')[i].innerHTML.includes('#')) return 0;
+          if ($('.chord__tonic')[i].innerHTML.includes('b')) return 1;
+        }
+
+        return 0;
       }
     }]);
 
@@ -146,13 +174,13 @@ $(document).ready(function () {
     _inherits(ToneValue, _Btns3);
 
     function ToneValue(options) {
-      var _this4;
+      var _this5;
 
       _classCallCheck(this, ToneValue);
 
-      _this4 = _possibleConstructorReturn(this, _getPrototypeOf(ToneValue).call(this, options));
-      _this4.tone = 0;
-      return _this4;
+      _this5 = _possibleConstructorReturn(this, _getPrototypeOf(ToneValue).call(this, options));
+      _this5.tone = 0;
+      return _this5;
     }
 
     _createClass(ToneValue, [{
@@ -293,6 +321,7 @@ $(document).ready(function () {
         $('.song span').each(function () {
           var tonic = $(this).html().slice(0, 1);
           if ($(this).html().slice(1, 2) == '#') tonic += '#';
+          if ($(this).html().slice(1, 2) == 'b') tonic += 'b';
           var tonicStart = $(this).html().indexOf(tonic);
           var tonicEnd = tonicStart + tonic.length;
           var newTonic = $('<span></span>').addClass('chord__tonic').html(tonic);
@@ -317,6 +346,7 @@ $(document).ready(function () {
       this.selections = [];
       this.tonic = null;
       this.gamma = null;
+      this.sign = null;
       this.gammaDrawn = false;
     }
 
@@ -347,10 +377,11 @@ $(document).ready(function () {
       value: function drawNotes() {
         this.defineTonic();
         this.defineGamma();
+        this.defineSign();
         var marginL = 40;
         var stepL = 40;
         var currentNote = this.tonic;
-        var posMargins = CHORD_TONICS.indexOf(currentNote);
+        var posMargins = this.definePos(currentNote);
         var posNotes = posMargins;
 
         for (var i = 0; i < this.gamma.length; i++) {
@@ -362,10 +393,30 @@ $(document).ready(function () {
             this.drawSharp(marginL, marginT + 10);
           }
 
+          if (currentNote[1] == 'b') {
+            marginL += 10;
+            this.drawBemol(marginL, marginT + 10);
+          }
+
           marginL += stepL;
           posMargins += this.gamma[i];
           if (posMargins >= CHORD_TONICS.length) posNotes = posMargins - CHORD_TONICS.length;else posNotes = posMargins;
-          currentNote = CHORD_TONICS[posNotes];
+          var idx = void 0;
+          this.sign == '#' ? idx = 0 : idx = 1;
+          if (Array.isArray(CHORD_TONICS[posNotes])) currentNote = CHORD_TONICS[posNotes][idx];else currentNote = CHORD_TONICS[posNotes];
+        }
+      }
+    }, {
+      key: "definePos",
+      value: function definePos(elem) {
+        for (var i = 0; i < CHORD_TONICS.length; i++) {
+          if (Array.isArray(CHORD_TONICS[i])) {
+            for (var j = 0; j < CHORD_TONICS[i].length; j++) {
+              if (elem == CHORD_TONICS[i][j]) return i;
+            }
+          }
+
+          if (elem == CHORD_TONICS[i]) return i;
         }
       }
     }, {
@@ -379,6 +430,16 @@ $(document).ready(function () {
       key: "defineGamma",
       value: function defineGamma() {
         if (this.selections[2] == 'major') this.gamma = MAJOR;else this.gamma = MINOR;
+      }
+    }, {
+      key: "defineSign",
+      value: function defineSign() {
+        if (this.selections[1] == 'b') {
+          this.sign = 'b';
+          return;
+        }
+
+        this.sign = '#';
       }
     }, {
       key: "drawNote",
@@ -408,6 +469,12 @@ $(document).ready(function () {
         this.ctx.font = '30px Arial';
         this.ctx.fillText('#', marginL, marginT);
       }
+    }, {
+      key: "drawBemol",
+      value: function drawBemol(marginL, marginT) {
+        this.ctx.font = '30px Arial';
+        this.ctx.fillText('b', marginL, marginT);
+      }
     }]);
 
     return Gammas;
@@ -419,13 +486,13 @@ $(document).ready(function () {
     _inherits(BtnTonality, _Btns4);
 
     function BtnTonality(options) {
-      var _this5;
+      var _this6;
 
       _classCallCheck(this, BtnTonality);
 
-      _this5 = _possibleConstructorReturn(this, _getPrototypeOf(BtnTonality).call(this, options));
-      _this5.elem.onclick = _this5.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this5)));
-      return _this5;
+      _this6 = _possibleConstructorReturn(this, _getPrototypeOf(BtnTonality).call(this, options));
+      _this6.elem.onclick = _this6.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
+      return _this6;
     }
 
     _createClass(BtnTonality, [{
@@ -467,11 +534,7 @@ $(document).ready(function () {
       _classCallCheck(this, SelectTonality);
 
       return _possibleConstructorReturn(this, _getPrototypeOf(SelectTonality).call(this, options));
-    } // isChosen() {
-    //   if (this.elem.value == '0') return false;
-    //   else return true;
-    // }
-
+    }
 
     return SelectTonality;
   }(Btns);
@@ -480,7 +543,7 @@ $(document).ready(function () {
   /* BEGIN MAIN CODE */
 
 
-  var CHORD_TONICS = ['C', 'C#', 'D', 'D#', 'E', 'F', 'F#', 'G', 'G#', 'A', 'A#', 'H'];
+  var CHORD_TONICS = ['C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#', 'Gb'], 'G', ['G#', 'Ab'], 'A', ['A#', 'Hb'], 'H'];
   var CHORD_TYPES = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
   var P = 1; // Полутон
 
@@ -493,15 +556,28 @@ $(document).ready(function () {
   var TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10, 0];
 
   var ALL_CHORDS = function () {
-    var ALL_CHORDS = [];
+    var allChords = [];
+    var simpleChords = [];
 
     for (var i = 0; i < CHORD_TONICS.length; i++) {
-      for (var j = 0; j < CHORD_TYPES.length; j++) {
-        ALL_CHORDS.push(CHORD_TONICS[i] + CHORD_TYPES[j]);
+      if (Array.isArray(CHORD_TONICS[i])) {
+        for (var j = 0; j < CHORD_TONICS[i].length; j++) {
+          simpleChords.push(CHORD_TONICS[i][j]);
+        }
+      } else {
+        simpleChords.push(CHORD_TONICS[i]);
       }
     }
 
-    return CHORD_TONICS.concat(ALL_CHORDS);
+    allChords = allChords.concat(simpleChords);
+
+    for (var _i = 0; _i < simpleChords.length; _i++) {
+      for (var _j = 0; _j < CHORD_TYPES.length; _j++) {
+        allChords.push(simpleChords[_i] + CHORD_TYPES[_j]);
+      }
+    }
+
+    return allChords;
   }(); // let BtnStartStop = new BtnStartStop({
   //   elem: $('.transpos__start')[0]
   // });
