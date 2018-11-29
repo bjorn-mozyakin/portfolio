@@ -166,7 +166,7 @@ gulp.task('scripts', function(){
     // .pipe(eslint())
     // .pipe(eslint.format())
     // .pipe(eslint.failAfterError())
-    .pipe(concat('scripts.js'))
+    // .pipe(concat('scripts.js'))
     .pipe(babel({
       presets: ['@babel/env']
     }))

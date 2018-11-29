@@ -1,623 +1,221 @@
-'use strict';
-
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-$(document).ready(function () {
-  /* BEGIN CONSTRUCTORS */
-  var Btns = function Btns(options) {
-    _classCallCheck(this, Btns);
-
-    this.elem = options.elem;
-    this.name = $(this.elem).attr('name');
-  };
-
-  var BtnStartStop =
-  /*#__PURE__*/
-  function (_Btns) {
-    _inherits(BtnStartStop, _Btns);
-
-    function BtnStartStop(options) {
-      var _this;
-
-      _classCallCheck(this, BtnStartStop);
-
-      _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnStartStop).call(this, options));
-      _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
-      return _this;
-    }
-
-    _createClass(BtnStartStop, [{
-      key: "handleClick",
-      value: function handleClick() {
-        if (this.name == 'transpos__start') {
-          $(this.elem).toggleClass('transpos__start_hidden');
-          $('.transpos__stop').toggleClass('transpos__stop_hidden');
-          $('.transpos__change-tone').each(function (i, btn) {
-            $(btn).prop('disabled', false);
-          });
-          textarea.setText($(textarea.elem).val());
-          textarea.toggle();
-          song.setText(textarea.text);
-          song.toggle();
-          song.wrapChords();
-        } else if (this.name == 'transpos__stop') {
-          $(this.elem).toggleClass('transpos__stop_hidden');
-          $('.transpos__start').toggleClass('transpos__start_hidden');
-          $('.transpos__change-tone').each(function (i, btn) {
-            $(btn).prop('disabled', true);
-          });
-          song.clearText();
-          song.toggle();
-          textarea.setText(textarea.text);
-          textarea.toggle();
-          toneValue.reset();
-        } else {
-          console.log('warn: unknown button was pushed');
-        }
-      }
-    }]);
-
-    return BtnStartStop;
-  }(Btns);
-
-  var BtnChangeTone =
-  /*#__PURE__*/
-  function (_Btns2) {
-    _inherits(BtnChangeTone, _Btns2);
-
-    function BtnChangeTone(options) {
-      var _this2;
-
-      _classCallCheck(this, BtnChangeTone);
-
-      _this2 = _possibleConstructorReturn(this, _getPrototypeOf(BtnChangeTone).call(this, options));
-      _this2.elem.onclick = _this2.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this2)));
-      return _this2;
-    }
-
-    _createClass(BtnChangeTone, [{
-      key: "handleClick",
-      value: function handleClick() {
-        var _this3 = this;
-
-        var step = this.defineStep();
-        this.changeTone(step);
-        toneValue.changeToneValue(step);
-
-        if (toneValue.tone >= 12 || toneValue.tone <= -12) {
-          this.disable($(this.elem));
-        } else {
-          btnsChangeTone.forEach(function (btn) {
-            _this3.enable($(btn.elem));
-          });
-        }
-      }
-    }, {
-      key: "enable",
-      value: function enable(btn) {
-        btn.prop('disabled', false);
-      }
-    }, {
-      key: "disable",
-      value: function disable(btn) {
-        btn.prop('disabled', true);
-      }
-    }, {
-      key: "defineStep",
-      value: function defineStep() {
-        var step;
-        this.name == 'transpos__tone-up' ? step = 1 : this.name == 'transpos__tone-down' ? step = -1 : step = null;
-        return step;
-      }
-    }, {
-      key: "changeTone",
-      value: function changeTone(step) {
-        var _this4 = this;
-
-        var sign = this.defineSign();
-        $('.chord__tonic').each(function (i, elem) {
-          var currentTonePos = _this4.definePos(elem);
-
-          var newTonicPos = currentTonePos + step;
-          if (newTonicPos >= CHORD_TONICS.length) newTonicPos = 0;
-          if (newTonicPos < 0) newTonicPos = CHORD_TONICS.length - 1;
-          if (Array.isArray(CHORD_TONICS[newTonicPos])) $(elem).html(CHORD_TONICS[newTonicPos][sign]);else $(elem).html(CHORD_TONICS[newTonicPos]);
-        });
-      }
-    }, {
-      key: "definePos",
-      value: function definePos(elem) {
-        for (var i = 0; i < CHORD_TONICS.length; i++) {
-          if (Array.isArray(CHORD_TONICS[i])) {
-            for (var j = 0; j < CHORD_TONICS[i].length; j++) {
-              if ($(elem).html() == CHORD_TONICS[i][j]) return i;
-            }
-          }
-
-          if ($(elem).html() == CHORD_TONICS[i]) return i;
-        }
-      }
-    }, {
-      key: "defineSign",
-      value: function defineSign() {
-        for (var i = 0; i < $('.chord__tonic').length; i++) {
-          if ($('.chord__tonic')[i].innerHTML.includes('#')) return 0;
-          if ($('.chord__tonic')[i].innerHTML.includes('b')) return 1;
-        }
-
-        return 0;
-      }
-    }]);
-
-    return BtnChangeTone;
-  }(Btns);
-
-  var ToneValue =
-  /*#__PURE__*/
-  function (_Btns3) {
-    _inherits(ToneValue, _Btns3);
-
-    function ToneValue(options) {
-      var _this5;
-
-      _classCallCheck(this, ToneValue);
-
-      _this5 = _possibleConstructorReturn(this, _getPrototypeOf(ToneValue).call(this, options));
-      _this5.tone = 0;
-      return _this5;
-    }
-
-    _createClass(ToneValue, [{
-      key: "reset",
-      value: function reset() {
-        this.tone = 0;
-        $(this.elem).html(this.tone);
-      }
-    }, {
-      key: "changeToneValue",
-      value: function changeToneValue(step) {
-        this.tone += step;
-        $(this.elem).html(this.tone);
-      }
-    }]);
-
-    return ToneValue;
-  }(Btns);
-
-  var Textarea =
-  /*#__PURE__*/
-  function () {
-    function Textarea(options) {
-      _classCallCheck(this, Textarea);
-
-      this.elem = options.elem;
-    }
-
-    _createClass(Textarea, [{
-      key: "toggle",
-      value: function toggle() {
-        $(this.elem).toggleClass('transpos__textarea_hidden');
-      }
-    }, {
-      key: "setText",
-      value: function setText(text) {
-        this.text = text;
-      }
-    }]);
-
-    return Textarea;
-  }();
-
-  var Song =
-  /*#__PURE__*/
-  function () {
-    function Song(options) {
-      _classCallCheck(this, Song);
-
-      this.elem = options.elem;
-      this.text = null;
-    }
-
-    _createClass(Song, [{
-      key: "toggle",
-      value: function toggle() {
-        $(this.elem).toggleClass('song_hidden');
-      }
-    }, {
-      key: "setText",
-      value: function setText(text) {
-        this.text = text;
-        $(this.elem).html(this.text);
-      }
-    }, {
-      key: "clearText",
-      value: function clearText() {
-        this.text = '';
-      }
-    }, {
-      key: "wrapChords",
-      value: function wrapChords() {
-        var text = this.text;
-        var _iteratorNormalCompletion = true;
-        var _didIteratorError = false;
-        var _iteratorError = undefined;
-
-        try {
-          for (var _iterator = ALL_CHORDS[Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
-            var chord = _step.value;
-            var position = 0;
-
-            while (true) {
-              var startPos = text.indexOf(chord, position);
-              if (startPos == -1) break;
-              var endPos = startPos + chord.length;
-              var conditions = (text[startPos - 1] == ' ' || text[startPos - 1] == '\n' || text[startPos - 1] == undefined) && (text[endPos] == ' ' || text[endPos] == '\n' || text[endPos] == undefined);
-
-              if (conditions) {
-                var wrappedChord = '<span>' + text.slice(startPos, endPos) + '</span>';
-                var textBefore = text.slice(0, startPos);
-                var textAfter = text.slice(endPos);
-                text = textBefore + wrappedChord + textAfter;
-                position = endPos + 13 + 1; // 13 - длина блока <span></span> +1 - следующий элемент
-              } else {
-                position = endPos + 1;
-              }
-            }
-          }
-        } catch (err) {
-          _didIteratorError = true;
-          _iteratorError = err;
-        } finally {
-          try {
-            if (!_iteratorNormalCompletion && _iterator.return != null) {
-              _iterator.return();
-            }
-          } finally {
-            if (_didIteratorError) {
-              throw _iteratorError;
-            }
-          }
-        }
-
-        this.text = text;
-        $(this.elem).html(this.text);
-        this.wrapChordsTonics(); // for (let tonic of CHORD_TONICS) {
-        //   let position = 0;
-        //   while(true) {
-        //     let startPos = this.text.indexOf(tonic, position);
-        //     if (startPos == -1) break;
-        //     let nextSym = this.text.slice(startPos + 1, startPos + 2)
-        //     nextSym == '\n' || nextSym == ' ' || CHORD_TONICS.indexOf(nextSym) != -1
-        //     let midPos = this.text.indexOf('\n', startPos);
-        //     let endPos = this.text.indexOf('\n', startPos);
-        //     if (endPos == -1) endPos = this.text.indexOf(' ', startPos);
-        //     let wrappedChord = "<span>" + this.text.slice(startPos, endPos) + "</span>";
-        //     let textBefore = this.text.slice(0, startPos);
-        //     let textAfter = this.text.slice(endPos);
-        //     this.text = textBefore + wrappedChord + textAfter;
-        //     position = startPos + 14;
-        //   };
-        // };
-      }
-    }, {
-      key: "wrapChordsTonics",
-      value: function wrapChordsTonics() {
-        $('.song span').each(function () {
-          var tonic = $(this).html().slice(0, 1);
-          if ($(this).html().slice(1, 2) == '#') tonic += '#';
-          if ($(this).html().slice(1, 2) == 'b') tonic += 'b';
-          var tonicStart = $(this).html().indexOf(tonic);
-          var tonicEnd = tonicStart + tonic.length;
-          var newTonic = $('<span></span>').addClass('chord__tonic').html(tonic);
-          var chordType = $(this).html().slice(tonicEnd);
-          $(this).html(newTonic[0].outerHTML + chordType);
-        });
-      }
-    }]);
-
-    return Song;
-  }(); // Tonalities
-
-
-  var Gammas =
-  /*#__PURE__*/
-  function () {
-    function Gammas(options) {
-      _classCallCheck(this, Gammas);
-
-      this.elem = options.elem;
-      this.ctx = this.elem.getContext('2d');
-      this.selections = [];
-      this.tonic = null;
-      this.gamma = null;
-      this.sign = null;
-      this.gammaDrawn = false;
-    }
-
-    _createClass(Gammas, [{
-      key: "clearStaff",
-      value: function clearStaff() {
-        this.ctx.clearRect(0, 0, 560, 160);
-      }
-    }, {
-      key: "drawStaff",
-      value: function drawStaff() {
-        var margin = 20;
-        var currentPos = margin * 2;
-        var step = 20;
-
-        for (var i = 1; i <= 5; i++) {
-          this.ctx.beginPath();
-          this.ctx.moveTo(margin, currentPos);
-          this.ctx.lineTo(500 - margin, currentPos);
-          this.ctx.stroke();
-          currentPos += step;
-        }
-
-        this.gammaDrawn = true;
-      }
-    }, {
-      key: "drawNotes",
-      value: function drawNotes() {
-        this.defineTonic();
-        this.defineGamma();
-        this.defineSign();
-        var marginL = 40;
-        var stepL = 40;
-        var currentNote = this.tonic;
-        var posMargins = this.definePos(currentNote);
-        var posNotes = posMargins;
-
-        for (var i = 0; i < this.gamma.length; i++) {
-          var marginT = TONALITY_MARGIN[posMargins];
-          this.drawNote(marginL, marginT);
-
-          if (currentNote[1] == '#') {
-            marginL += 10;
-            this.drawSharp(marginL, marginT + 10);
-          }
-
-          if (currentNote[1] == 'b') {
-            marginL += 10;
-            this.drawBemol(marginL, marginT + 10);
-          }
-
-          marginL += stepL;
-          posMargins += this.gamma[i];
-          if (posMargins >= CHORD_TONICS.length) posNotes = posMargins - CHORD_TONICS.length;else posNotes = posMargins;
-          var idx = void 0;
-          this.sign == '#' ? idx = 0 : idx = 1;
-          if (Array.isArray(CHORD_TONICS[posNotes])) currentNote = CHORD_TONICS[posNotes][idx];else currentNote = CHORD_TONICS[posNotes];
-        }
-      }
-    }, {
-      key: "definePos",
-      value: function definePos(elem) {
-        for (var i = 0; i < CHORD_TONICS.length; i++) {
-          if (Array.isArray(CHORD_TONICS[i])) {
-            for (var j = 0; j < CHORD_TONICS[i].length; j++) {
-              if (elem == CHORD_TONICS[i][j]) return i;
-            }
-          }
-
-          if (elem == CHORD_TONICS[i]) return i;
-        }
-      }
-    }, {
-      key: "defineTonic",
-      value: function defineTonic() {
-        this.tonic = '' + this.selections[0];
-        if (this.selections[1] == 'no') return;
-        this.tonic += this.selections[1];
-      }
-    }, {
-      key: "defineGamma",
-      value: function defineGamma() {
-        if (this.selections[2] == 'major') this.gamma = MAJOR;else this.gamma = MINOR;
-      }
-    }, {
-      key: "defineSign",
-      value: function defineSign() {
-        if (this.selections[1] == 'b') {
-          this.sign = 'b';
-          return;
-        }
-
-        this.sign = '#';
-      }
-    }, {
-      key: "drawNote",
-      value: function drawNote(marginL, marginT) {
-        this.drawEllipse(this.ctx, marginL, marginT, 10, 6);
-      }
-    }, {
-      key: "drawEllipse",
-      value: function drawEllipse(ctx, x, y, a, b) {
-        this.ctx.save();
-        this.ctx.beginPath();
-        this.ctx.translate(x, y);
-        this.ctx.rotate(-30 * Math.PI / 180);
-        this.ctx.scale(a / b, 1);
-        this.ctx.arc(0, 0, b, 0, Math.PI * 2, true);
-        this.ctx.restore();
-        this.ctx.closePath();
-        this.ctx.fillStyle = 'balck';
-        this.ctx.fill(); // this.ctx.lineWidth = 3  ;
-        // this.ctx.strokeStyle = 'black';
-
-        this.ctx.stroke();
-      }
-    }, {
-      key: "drawSharp",
-      value: function drawSharp(marginL, marginT) {
-        this.ctx.font = '30px Arial';
-        this.ctx.fillText('#', marginL, marginT);
-      }
-    }, {
-      key: "drawBemol",
-      value: function drawBemol(marginL, marginT) {
-        this.ctx.font = '30px Arial';
-        this.ctx.fillText('b', marginL, marginT);
-      }
-    }]);
-
-    return Gammas;
-  }();
-
-  var BtnTonality =
-  /*#__PURE__*/
-  function (_Btns4) {
-    _inherits(BtnTonality, _Btns4);
-
-    function BtnTonality(options) {
-      var _this6;
-
-      _classCallCheck(this, BtnTonality);
-
-      _this6 = _possibleConstructorReturn(this, _getPrototypeOf(BtnTonality).call(this, options));
-      _this6.elem.onclick = _this6.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this6)));
-      return _this6;
-    }
-
-    _createClass(BtnTonality, [{
-      key: "handleClick",
-      value: function handleClick() {
-        gamma.selections.length = 0;
-        selectsTonality.forEach(function (item) {
-          gamma.selections.push(item.elem.value);
-
-          if (gamma.selections[gamma.selections.length - 1] == '0') {
-            $('.tonality-selection').find('[data-name=' + item.name + ']').removeClass('tonality-selection__hint_hidden');
-          } else {
-            $('.tonality-selection').find('[data-name=' + item.name + ']').addClass('tonality-selection__hint_hidden');
-          }
-        });
-
-        if (gamma.selections.every(function (item) {
-          return item != '0';
-        })) {
-          if (!this.gammaDrawn) {
-            gamma.clearStaff();
-            gamma.drawStaff();
-          }
-
-          gamma.drawNotes();
-        }
-      }
-    }]);
-
-    return BtnTonality;
-  }(Btns);
-
-  var SelectTonality =
-  /*#__PURE__*/
-  function (_Btns5) {
-    _inherits(SelectTonality, _Btns5);
-
-    function SelectTonality(options) {
-      _classCallCheck(this, SelectTonality);
-
-      return _possibleConstructorReturn(this, _getPrototypeOf(SelectTonality).call(this, options));
-    }
-
-    return SelectTonality;
-  }(Btns);
-  /* END CONSTRUCTORS */
-
-  /* BEGIN MAIN CODE */
-
-
-  var CHORD_TONICS = ['C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#', 'Gb'], 'G', ['G#', 'Ab'], 'A', ['A#', 'Hb'], 'H'];
-  var CHORD_TYPES = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
-  var P = 1; // Полутон
-
-  var T = 2 * P; // Тон
-
-  var MAJOR = [T, T, P, T, T, T, P]; // Мажорный звукоряд
-
-  var MINOR = [T, P, T, T, P, T, T]; // Минорный звукоряд
-
-  var TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10, 0];
-
-  var ALL_CHORDS = function () {
-    var allChords = [];
-    var simpleChords = [];
-
-    for (var i = 0; i < CHORD_TONICS.length; i++) {
-      if (Array.isArray(CHORD_TONICS[i])) {
-        for (var j = 0; j < CHORD_TONICS[i].length; j++) {
-          simpleChords.push(CHORD_TONICS[i][j]);
-        }
-      } else {
-        simpleChords.push(CHORD_TONICS[i]);
-      }
-    }
-
-    allChords = allChords.concat(simpleChords);
-
-    for (var _i = 0; _i < simpleChords.length; _i++) {
-      for (var _j = 0; _j < CHORD_TYPES.length; _j++) {
-        allChords.push(simpleChords[_i] + CHORD_TYPES[_j]);
-      }
-    }
-
-    return allChords;
-  }(); // let BtnStartStop = new BtnStartStop({
-  //   elem: $('.transpos__start')[0]
-  // });
-
-
-  var btnsStartStop = [];
-  $('.transpos__startstop').each(function () {
-    btnsStartStop.push(new BtnStartStop({
-      elem: this
-    }));
-  });
-  var btnsChangeTone = [];
-  $('.transpos__change-tone').each(function () {
-    btnsChangeTone.push(new BtnChangeTone({
-      elem: this
-    }));
-  }); // let [a, b] = btnsChangeTone;
-
-  var toneValue = new ToneValue({
-    elem: $('.transpos__tone-value')[0]
-  });
-  var textarea = new Textarea({
-    elem: $('.transpos__textarea')[0]
-  });
-  var song = new Song({
-    elem: $('.song')[0]
-  }); // Tonalities
-
-  var gamma = new Gammas({
-    elem: $('#gammas')[0]
-  });
-  var selectsTonality = [];
-  $('.tonality-selection select').each(function () {
-    selectsTonality.push(new SelectTonality({
-      elem: this
-    }));
-  });
-  var btnTonality = new BtnTonality({
-    elem: $('.tonality-btn')[0]
-  });
-  gamma.drawStaff();
-  /* END MAIN CODE */
-});
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./scripts.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./common/Btns.js":
+/*!************************!*\
+  !*** ./common/Btns.js ***!
+  \************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nvar Btns = function Btns(options) {\n  _classCallCheck(this, Btns);\n\n  this.elem = options.elem;\n  this.name = $(this.elem).attr('name');\n};\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Btns);\n\n//# sourceURL=webpack:///./common/Btns.js?");
+
+/***/ }),
+
+/***/ "./scripts.js":
+/*!********************!*\
+  !*** ./scripts.js ***!
+  \********************/
+/*! exports provided: CHORD_TONICS, CHORD_TYPES, MAJOR, MINOR, TONALITY_MARGIN, ALL_CHORDS, textarea, song, btnsChangeTone, toneValue, gamma, selectsTonality */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"CHORD_TONICS\", function() { return CHORD_TONICS; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"CHORD_TYPES\", function() { return CHORD_TYPES; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MAJOR\", function() { return MAJOR; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"MINOR\", function() { return MINOR; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"TONALITY_MARGIN\", function() { return TONALITY_MARGIN; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"ALL_CHORDS\", function() { return ALL_CHORDS; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"textarea\", function() { return textarea; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"song\", function() { return song; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"btnsChangeTone\", function() { return btnsChangeTone; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"toneValue\", function() { return toneValue; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"gamma\", function() { return gamma; });\n/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, \"selectsTonality\", function() { return selectsTonality; });\n/* harmony import */ var _tonalities_tonalities__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./tonalities/tonalities */ \"./tonalities/tonalities.js\");\n/* harmony import */ var _transpose_Textarea__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transpose/Textarea */ \"./transpose/Textarea.js\");\n/* harmony import */ var _transpose_Song__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./transpose/Song */ \"./transpose/Song.js\");\n/* harmony import */ var _transpose_ToneValue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./transpose/ToneValue */ \"./transpose/ToneValue.js\");\n/* harmony import */ var _transpose_BtnStartStop__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./transpose/BtnStartStop */ \"./transpose/BtnStartStop.js\");\n/* harmony import */ var _transpose_BtnChangeTone__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./transpose/BtnChangeTone */ \"./transpose/BtnChangeTone.js\");\n/* harmony import */ var _transpose_getAllChords__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transpose/getAllChords */ \"./transpose/getAllChords.js\");\n\n\n\n\n\n\n\n\n\nconsole.log('12');\nvar CHORD_TONICS = ['C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#', 'Gb'], 'G', ['G#', 'Ab'], 'A', ['A#', 'Hb'], 'H'];\nvar CHORD_TYPES = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];\nvar P = 1; // Полутон\n\nvar T = 2 * P; // Тон\n\nvar MAJOR = [T, T, P, T, T, T, P]; // Мажорный звукоряд\n\nvar MINOR = [T, P, T, T, P, T, T]; // Минорный звукоряд\n\nvar TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10, 0];\nvar ALL_CHORDS = Object(_transpose_getAllChords__WEBPACK_IMPORTED_MODULE_6__[\"default\"])();\nvar gamma;\nvar selectsTonality;\nvar textarea;\nvar song;\nvar toneValue;\nvar btnsChangeTone;\n$(document).ready(function () {\n  var btnsStartStop = [];\n  $('.transpos__startstop').each(function () {\n    btnsStartStop.push(new _transpose_BtnStartStop__WEBPACK_IMPORTED_MODULE_4__[\"default\"]({\n      elem: this\n    }));\n  });\n  btnsChangeTone = [];\n  $('.transpos__change-tone').each(function () {\n    btnsChangeTone.push(new _transpose_BtnChangeTone__WEBPACK_IMPORTED_MODULE_5__[\"default\"]({\n      elem: this\n    }));\n  });\n  toneValue = new _transpose_ToneValue__WEBPACK_IMPORTED_MODULE_3__[\"default\"]({\n    elem: $('.transpos__tone-value')[0]\n  });\n  textarea = new _transpose_Textarea__WEBPACK_IMPORTED_MODULE_1__[\"default\"]({\n    elem: $('.transpos__textarea')[0]\n  });\n  song = new _transpose_Song__WEBPACK_IMPORTED_MODULE_2__[\"default\"]({\n    elem: $('.song')[0]\n  }); // Tonalities\n\n  gamma = new _tonalities_tonalities__WEBPACK_IMPORTED_MODULE_0__[\"Gammas\"]({\n    elem: $('#gammas')[0]\n  });\n  selectsTonality = [];\n  $('.tonality-selection select').each(function () {\n    selectsTonality.push(this);\n  });\n  var btnTonality = new _tonalities_tonalities__WEBPACK_IMPORTED_MODULE_0__[\"BtnTonality\"]({\n    elem: $('.tonality-btn')[0]\n  });\n  gamma.drawStaff();\n});\n\n\n//# sourceURL=webpack:///./scripts.js?");
+
+/***/ }),
+
+/***/ "./tonalities/BtnTonality.js":
+/*!***********************************!*\
+  !*** ./tonalities/BtnTonality.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ \"./common/Btns.js\");\n/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scripts */ \"./scripts.js\");\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\n\n\n\nvar BtnTonality =\n/*#__PURE__*/\nfunction (_Btns) {\n  _inherits(BtnTonality, _Btns);\n\n  function BtnTonality(options) {\n    var _this;\n\n    _classCallCheck(this, BtnTonality);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnTonality).call(this, options));\n    _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));\n    return _this;\n  }\n\n  _createClass(BtnTonality, [{\n    key: \"handleClick\",\n    value: function handleClick() {\n      _scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].selections.length = 0;\n      _scripts__WEBPACK_IMPORTED_MODULE_1__[\"selectsTonality\"].forEach(function (item) {\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].selections.push(item.value);\n\n        if (_scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].selections[_scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].selections.length - 1] == '0') {\n          $('.tonality-selection').find('[data-name=' + item.name + ']').removeClass('tonality-selection__hint_hidden');\n        } else {\n          $('.tonality-selection').find('[data-name=' + item.name + ']').addClass('tonality-selection__hint_hidden');\n        }\n      });\n\n      if (_scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].selections.every(function (item) {\n        return item != '0';\n      })) {\n        if (!this.gammaDrawn) {\n          _scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].clearStaff();\n          _scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].drawStaff();\n        }\n\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"gamma\"].drawNotes();\n      }\n    }\n  }]);\n\n  return BtnTonality;\n}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (BtnTonality);\n\n//# sourceURL=webpack:///./tonalities/BtnTonality.js?");
+
+/***/ }),
+
+/***/ "./tonalities/Gammas.js":
+/*!******************************!*\
+  !*** ./tonalities/Gammas.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scripts_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scripts.js */ \"./scripts.js\");\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n\n\nvar Gammas =\n/*#__PURE__*/\nfunction () {\n  function Gammas(options) {\n    _classCallCheck(this, Gammas);\n\n    this.elem = options.elem;\n    this.ctx = this.elem.getContext('2d');\n    this.selections = [];\n    this.tonic = null;\n    this.gamma = null;\n    this.sign = null;\n    this.gammaDrawn = false;\n  }\n\n  _createClass(Gammas, [{\n    key: \"clearStaff\",\n    value: function clearStaff() {\n      this.ctx.clearRect(0, 0, 560, 160);\n    }\n  }, {\n    key: \"drawStaff\",\n    value: function drawStaff() {\n      var margin = 20;\n      var currentPos = margin * 2;\n      var step = 20;\n\n      for (var i = 1; i <= 5; i++) {\n        this.ctx.beginPath();\n        this.ctx.moveTo(margin, currentPos);\n        this.ctx.lineTo(500 - margin, currentPos);\n        this.ctx.stroke();\n        currentPos += step;\n      }\n\n      this.gammaDrawn = true;\n    }\n  }, {\n    key: \"drawNotes\",\n    value: function drawNotes() {\n      this.defineTonic();\n      this.defineGamma();\n      this.defineSign();\n      var marginL = 40;\n      var stepL = 40;\n      var currentNote = this.tonic;\n      var posMargins = this.definePos(currentNote);\n      var posNotes = posMargins;\n\n      for (var i = 0; i < this.gamma.length; i++) {\n        var marginT = _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"TONALITY_MARGIN\"][posMargins];\n        this.drawNote(marginL, marginT);\n\n        if (currentNote[1] == '#') {\n          marginL += 10;\n          this.drawSharp(marginL, marginT + 10);\n        }\n\n        if (currentNote[1] == 'b') {\n          marginL += 10;\n          this.drawBemol(marginL, marginT + 10);\n        }\n\n        marginL += stepL;\n        posMargins += this.gamma[i];\n        if (posMargins >= _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"].length) posNotes = posMargins - _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"].length;else posNotes = posMargins;\n        var idx = void 0;\n        this.sign == '#' ? idx = 0 : idx = 1;\n        if (Array.isArray(_scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][posNotes])) currentNote = _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][posNotes][idx];else currentNote = _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][posNotes];\n      }\n    }\n  }, {\n    key: \"definePos\",\n    value: function definePos(elem) {\n      for (var i = 0; i < _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"].length; i++) {\n        if (Array.isArray(_scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i])) {\n          for (var j = 0; j < _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i].length; j++) {\n            if (elem == _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i][j]) return i;\n          }\n        }\n\n        if (elem == _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i]) return i;\n      }\n    }\n  }, {\n    key: \"defineTonic\",\n    value: function defineTonic() {\n      this.tonic = '' + this.selections[0];\n      if (this.selections[1] == 'no') return;\n      this.tonic += this.selections[1];\n    }\n  }, {\n    key: \"defineGamma\",\n    value: function defineGamma() {\n      if (this.selections[2] == 'major') this.gamma = _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"MAJOR\"];else this.gamma = _scripts_js__WEBPACK_IMPORTED_MODULE_0__[\"MINOR\"];\n    }\n  }, {\n    key: \"defineSign\",\n    value: function defineSign() {\n      if (this.selections[1] == 'b') {\n        this.sign = 'b';\n        return;\n      }\n\n      this.sign = '#';\n    }\n  }, {\n    key: \"drawNote\",\n    value: function drawNote(marginL, marginT) {\n      this.drawEllipse(this.ctx, marginL, marginT, 10, 6);\n    }\n  }, {\n    key: \"drawEllipse\",\n    value: function drawEllipse(ctx, x, y, a, b) {\n      this.ctx.save();\n      this.ctx.beginPath();\n      this.ctx.translate(x, y);\n      this.ctx.rotate(-30 * Math.PI / 180);\n      this.ctx.scale(a / b, 1);\n      this.ctx.arc(0, 0, b, 0, Math.PI * 2, true);\n      this.ctx.restore();\n      this.ctx.closePath();\n      this.ctx.fillStyle = 'balck';\n      this.ctx.fill(); // this.ctx.lineWidth = 3  ;\n      // this.ctx.strokeStyle = 'black';\n\n      this.ctx.stroke();\n    }\n  }, {\n    key: \"drawSharp\",\n    value: function drawSharp(marginL, marginT) {\n      this.ctx.font = '30px Arial';\n      this.ctx.fillText('#', marginL, marginT);\n    }\n  }, {\n    key: \"drawBemol\",\n    value: function drawBemol(marginL, marginT) {\n      this.ctx.font = '30px Arial';\n      this.ctx.fillText('b', marginL, marginT);\n    }\n  }]);\n\n  return Gammas;\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Gammas);\n\n//# sourceURL=webpack:///./tonalities/Gammas.js?");
+
+/***/ }),
+
+/***/ "./tonalities/tonalities.js":
+/*!**********************************!*\
+  !*** ./tonalities/tonalities.js ***!
+  \**********************************/
+/*! exports provided: BtnTonality, Gammas */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _BtnTonality__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./BtnTonality */ \"./tonalities/BtnTonality.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"BtnTonality\", function() { return _BtnTonality__WEBPACK_IMPORTED_MODULE_0__[\"default\"]; });\n\n/* harmony import */ var _Gammas__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Gammas */ \"./tonalities/Gammas.js\");\n/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, \"Gammas\", function() { return _Gammas__WEBPACK_IMPORTED_MODULE_1__[\"default\"]; });\n\n\n\n\n\n//# sourceURL=webpack:///./tonalities/tonalities.js?");
+
+/***/ }),
+
+/***/ "./transpose/BtnChangeTone.js":
+/*!************************************!*\
+  !*** ./transpose/BtnChangeTone.js ***!
+  \************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ \"./common/Btns.js\");\n/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scripts */ \"./scripts.js\");\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\n\n\n\nvar BtnChangeTone =\n/*#__PURE__*/\nfunction (_Btns) {\n  _inherits(BtnChangeTone, _Btns);\n\n  function BtnChangeTone(options) {\n    var _this;\n\n    _classCallCheck(this, BtnChangeTone);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnChangeTone).call(this, options));\n    _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));\n    return _this;\n  }\n\n  _createClass(BtnChangeTone, [{\n    key: \"handleClick\",\n    value: function handleClick() {\n      var _this2 = this;\n\n      var step = this.defineStep();\n      this.changeTone(step);\n      _scripts__WEBPACK_IMPORTED_MODULE_1__[\"toneValue\"].changeToneValue(step);\n\n      if (_scripts__WEBPACK_IMPORTED_MODULE_1__[\"toneValue\"].tone >= 12 || _scripts__WEBPACK_IMPORTED_MODULE_1__[\"toneValue\"].tone <= -12) {\n        this.disable($(this.elem));\n      } else {\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"btnsChangeTone\"].forEach(function (btn) {\n          _this2.enable($(btn.elem));\n        });\n      }\n    }\n  }, {\n    key: \"enable\",\n    value: function enable(btn) {\n      btn.prop('disabled', false);\n    }\n  }, {\n    key: \"disable\",\n    value: function disable(btn) {\n      btn.prop('disabled', true);\n    }\n  }, {\n    key: \"defineStep\",\n    value: function defineStep() {\n      var step;\n      this.name == 'transpos__tone-up' ? step = 1 : this.name == 'transpos__tone-down' ? step = -1 : step = null;\n      return step;\n    }\n  }, {\n    key: \"changeTone\",\n    value: function changeTone(step) {\n      var _this3 = this;\n\n      var sign = this.defineSign();\n      $('.chord__tonic').each(function (i, elem) {\n        var currentTonePos = _this3.definePos(elem);\n\n        var newTonicPos = currentTonePos + step;\n        if (newTonicPos >= _scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"].length) newTonicPos = 0;\n        if (newTonicPos < 0) newTonicPos = _scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"].length - 1;\n        if (Array.isArray(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][newTonicPos])) $(elem).html(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][newTonicPos][sign]);else $(elem).html(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][newTonicPos]);\n      });\n    }\n  }, {\n    key: \"definePos\",\n    value: function definePos(elem) {\n      for (var i = 0; i < _scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"].length; i++) {\n        if (Array.isArray(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][i])) {\n          for (var j = 0; j < _scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][i].length; j++) {\n            if ($(elem).html() == _scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][i][j]) return i;\n          }\n        }\n\n        if ($(elem).html() == _scripts__WEBPACK_IMPORTED_MODULE_1__[\"CHORD_TONICS\"][i]) return i;\n      }\n    }\n  }, {\n    key: \"defineSign\",\n    value: function defineSign() {\n      for (var i = 0; i < $('.chord__tonic').length; i++) {\n        if ($('.chord__tonic')[i].innerHTML.includes('#')) return 0;\n        if ($('.chord__tonic')[i].innerHTML.includes('b')) return 1;\n      }\n\n      return 0;\n    }\n  }]);\n\n  return BtnChangeTone;\n}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (BtnChangeTone);\n\n//# sourceURL=webpack:///./transpose/BtnChangeTone.js?");
+
+/***/ }),
+
+/***/ "./transpose/BtnStartStop.js":
+/*!***********************************!*\
+  !*** ./transpose/BtnStartStop.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ \"./common/Btns.js\");\n/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../scripts */ \"./scripts.js\");\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\n\n\n\nvar BtnStartStop =\n/*#__PURE__*/\nfunction (_Btns) {\n  _inherits(BtnStartStop, _Btns);\n\n  function BtnStartStop(options) {\n    var _this;\n\n    _classCallCheck(this, BtnStartStop);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnStartStop).call(this, options));\n    _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));\n    return _this;\n  }\n\n  _createClass(BtnStartStop, [{\n    key: \"handleClick\",\n    value: function handleClick() {\n      if (this.name == 'transpos__start') {\n        $(this.elem).toggleClass('transpos__start_hidden');\n        $('.transpos__stop').toggleClass('transpos__stop_hidden');\n        $('.transpos__change-tone').each(function (i, btn) {\n          $(btn).prop('disabled', false);\n        });\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].setText($(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].elem).val());\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].toggle();\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"song\"].setText(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].text);\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"song\"].toggle();\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"song\"].wrapChords();\n      } else if (this.name == 'transpos__stop') {\n        $(this.elem).toggleClass('transpos__stop_hidden');\n        $('.transpos__start').toggleClass('transpos__start_hidden');\n        $('.transpos__change-tone').each(function (i, btn) {\n          $(btn).prop('disabled', true);\n        });\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"song\"].clearText();\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"song\"].toggle();\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].setText(_scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].text);\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"textarea\"].toggle();\n        _scripts__WEBPACK_IMPORTED_MODULE_1__[\"toneValue\"].reset();\n      } else {\n        console.log('warn: unknown button was pushed');\n      }\n    }\n  }]);\n\n  return BtnStartStop;\n}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (BtnStartStop);\n\n//# sourceURL=webpack:///./transpose/BtnStartStop.js?");
+
+/***/ }),
+
+/***/ "./transpose/Song.js":
+/*!***************************!*\
+  !*** ./transpose/Song.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scripts */ \"./scripts.js\");\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\n\n\nvar Song =\n/*#__PURE__*/\nfunction () {\n  function Song(options) {\n    _classCallCheck(this, Song);\n\n    this.elem = options.elem;\n    this.text = null;\n  }\n\n  _createClass(Song, [{\n    key: \"toggle\",\n    value: function toggle() {\n      $(this.elem).toggleClass('song_hidden');\n    }\n  }, {\n    key: \"setText\",\n    value: function setText(text) {\n      this.text = text;\n      $(this.elem).html(this.text);\n    }\n  }, {\n    key: \"clearText\",\n    value: function clearText() {\n      this.text = '';\n    }\n  }, {\n    key: \"wrapChords\",\n    value: function wrapChords() {\n      var text = this.text;\n      var _iteratorNormalCompletion = true;\n      var _didIteratorError = false;\n      var _iteratorError = undefined;\n\n      try {\n        for (var _iterator = _scripts__WEBPACK_IMPORTED_MODULE_0__[\"ALL_CHORDS\"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {\n          var chord = _step.value;\n          var position = 0;\n\n          while (true) {\n            var startPos = text.indexOf(chord, position);\n            if (startPos == -1) break;\n            var endPos = startPos + chord.length;\n            var conditions = (text[startPos - 1] == ' ' || text[startPos - 1] == '\\n' || text[startPos - 1] == undefined) && (text[endPos] == ' ' || text[endPos] == '\\n' || text[endPos] == undefined);\n\n            if (conditions) {\n              var wrappedChord = '<span>' + text.slice(startPos, endPos) + '</span>';\n              var textBefore = text.slice(0, startPos);\n              var textAfter = text.slice(endPos);\n              text = textBefore + wrappedChord + textAfter;\n              position = endPos + 13 + 1; // 13 - длина блока <span></span> +1 - следующий элемент\n            } else {\n              position = endPos + 1;\n            }\n          }\n        }\n      } catch (err) {\n        _didIteratorError = true;\n        _iteratorError = err;\n      } finally {\n        try {\n          if (!_iteratorNormalCompletion && _iterator.return != null) {\n            _iterator.return();\n          }\n        } finally {\n          if (_didIteratorError) {\n            throw _iteratorError;\n          }\n        }\n      }\n\n      this.text = text;\n      $(this.elem).html(this.text);\n      this.wrapChordsTonics(); // for (let tonic of CHORD_TONICS) {\n      //   let position = 0;\n      //   while(true) {\n      //     let startPos = this.text.indexOf(tonic, position);\n      //     if (startPos == -1) break;\n      //     let nextSym = this.text.slice(startPos + 1, startPos + 2)\n      //     nextSym == '\\n' || nextSym == ' ' || CHORD_TONICS.indexOf(nextSym) != -1\n      //     let midPos = this.text.indexOf('\\n', startPos);\n      //     let endPos = this.text.indexOf('\\n', startPos);\n      //     if (endPos == -1) endPos = this.text.indexOf(' ', startPos);\n      //     let wrappedChord = \"<span>\" + this.text.slice(startPos, endPos) + \"</span>\";\n      //     let textBefore = this.text.slice(0, startPos);\n      //     let textAfter = this.text.slice(endPos);\n      //     this.text = textBefore + wrappedChord + textAfter;\n      //     position = startPos + 14;\n      //   };\n      // };\n    }\n  }, {\n    key: \"wrapChordsTonics\",\n    value: function wrapChordsTonics() {\n      $('.song span').each(function () {\n        var tonic = $(this).html().slice(0, 1);\n        if ($(this).html().slice(1, 2) == '#') tonic += '#';\n        if ($(this).html().slice(1, 2) == 'b') tonic += 'b';\n        var tonicStart = $(this).html().indexOf(tonic);\n        var tonicEnd = tonicStart + tonic.length;\n        var newTonic = $('<span></span>').addClass('chord__tonic').html(tonic);\n        var chordType = $(this).html().slice(tonicEnd);\n        $(this).html(newTonic[0].outerHTML + chordType);\n      });\n    }\n  }]);\n\n  return Song;\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Song);\n\n//# sourceURL=webpack:///./transpose/Song.js?");
+
+/***/ }),
+
+/***/ "./transpose/Textarea.js":
+/*!*******************************!*\
+  !*** ./transpose/Textarea.js ***!
+  \*******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar Textarea =\n/*#__PURE__*/\nfunction () {\n  function Textarea(options) {\n    _classCallCheck(this, Textarea);\n\n    this.elem = options.elem;\n  }\n\n  _createClass(Textarea, [{\n    key: \"toggle\",\n    value: function toggle() {\n      $(this.elem).toggleClass('transpos__textarea_hidden');\n    }\n  }, {\n    key: \"setText\",\n    value: function setText(text) {\n      this.text = text;\n    }\n  }]);\n\n  return Textarea;\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Textarea);\n\n//# sourceURL=webpack:///./transpose/Textarea.js?");
+
+/***/ }),
+
+/***/ "./transpose/ToneValue.js":
+/*!********************************!*\
+  !*** ./transpose/ToneValue.js ***!
+  \********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ \"./common/Btns.js\");\nfunction _typeof(obj) { if (typeof Symbol === \"function\" && typeof Symbol.iterator === \"symbol\") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === \"function\" && obj.constructor === Symbol && obj !== Symbol.prototype ? \"symbol\" : typeof obj; }; } return _typeof(obj); }\n\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nfunction _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === \"object\" || typeof call === \"function\")) { return call; } return _assertThisInitialized(self); }\n\nfunction _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError(\"this hasn't been initialised - super() hasn't been called\"); } return self; }\n\nfunction _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }\n\nfunction _inherits(subClass, superClass) { if (typeof superClass !== \"function\" && superClass !== null) { throw new TypeError(\"Super expression must either be null or a function\"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }\n\nfunction _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }\n\n\n\nvar ToneValue =\n/*#__PURE__*/\nfunction (_Btns) {\n  _inherits(ToneValue, _Btns);\n\n  function ToneValue(options) {\n    var _this;\n\n    _classCallCheck(this, ToneValue);\n\n    _this = _possibleConstructorReturn(this, _getPrototypeOf(ToneValue).call(this, options));\n    _this.tone = 0;\n    return _this;\n  }\n\n  _createClass(ToneValue, [{\n    key: \"reset\",\n    value: function reset() {\n      this.tone = 0;\n      $(this.elem).html(this.tone);\n    }\n  }, {\n    key: \"changeToneValue\",\n    value: function changeToneValue(step) {\n      this.tone += step;\n      $(this.elem).html(this.tone);\n    }\n  }]);\n\n  return ToneValue;\n}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__[\"default\"]);\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (ToneValue);\n\n//# sourceURL=webpack:///./transpose/ToneValue.js?");
+
+/***/ }),
+
+/***/ "./transpose/getAllChords.js":
+/*!***********************************!*\
+  !*** ./transpose/getAllChords.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _scripts__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../scripts */ \"./scripts.js\");\n\n\nfunction getAllChords() {\n  var allChords = [];\n  var simpleChords = [];\n\n  for (var i = 0; i < _scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"].length; i++) {\n    if (Array.isArray(_scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i])) {\n      for (var j = 0; j < _scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i].length; j++) {\n        simpleChords.push(_scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i][j]);\n      }\n    } else {\n      simpleChords.push(_scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TONICS\"][i]);\n    }\n  }\n\n  allChords = allChords.concat(simpleChords);\n\n  for (var _i = 0; _i < simpleChords.length; _i++) {\n    for (var _j = 0; _j < _scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TYPES\"].length; _j++) {\n      allChords.push(simpleChords[_i] + _scripts__WEBPACK_IMPORTED_MODULE_0__[\"CHORD_TYPES\"][_j]);\n    }\n  }\n\n  return allChords;\n}\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (getAllChords);\n\n//# sourceURL=webpack:///./transpose/getAllChords.js?");
+
+/***/ })
+
+/******/ });
