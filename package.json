@@ -30,6 +30,9 @@
     "gulp-uglify": "^3.0.0",
     "gulp.spritesmith": "^6.9.0",
     "run-sequence": "^2.2.1",
-    "stream-combiner2": "^1.1.1"
-  }
+    "stream-combiner2": "^1.1.1",
+    "webpack": "^4.26.1",
+    "webpack-stream": "^5.1.1"
+  },
+  "dependencies": {}
 }

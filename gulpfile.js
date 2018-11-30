@@ -11,6 +11,9 @@ var cssnano = require('gulp-cssnano');
 var babel = require('gulp-babel');
 var eslint = require('gulp-eslint');
 var uglify = require('gulp-uglify');
+// const webpack = require('webpack');
+const webpackStream = require('webpack-stream');
+
 
 var spritesmith = require('gulp.spritesmith');
 var svgSprite = require('gulp-svg-sprite');
@@ -114,11 +117,11 @@ var config = {
 };
 
 gulp.task('sprite_svg', function () {
-    var spriteData = gulp.src('./src/portfolio/chords/img/sprite_svg/**/*.svg')
-        .pipe(svgSprite(config))
-        .pipe(gulp.dest('./src/portfolio/chords/img/sprite_svg'));
+  var spriteData = gulp.src('./src/portfolio/chords/img/sprite_svg/**/*.svg')
+    .pipe(svgSprite(config))
+    .pipe(gulp.dest('./src/portfolio/chords/img/sprite_svg'));
 
-    return spriteData;
+  return spriteData;
 });
 
 // Styles
@@ -129,6 +132,10 @@ gulp.task('sass', function(){
     })
     .pipe(sass())
     .pipe(autoprefixer('last 2 versions', 'ie 11'))
+    .pipe(gulpIf(!isDevelopment, combine(
+      cssnano(),
+      rename({suffix: '.min'}) ))
+    )
     .pipe(gulp.dest('./myportfolio.local/portfolio/chords'));
 });
 
@@ -167,16 +174,16 @@ gulp.task('scripts', function(){
     // .pipe(eslint.format())
     // .pipe(eslint.failAfterError())
     // .pipe(concat('scripts.js'))
-    .pipe(babel({
-      presets: ['@babel/env']
-    }))
+    // .pipe(babel({
+    //   presets: ['@babel/env']
+    // }))
+    .pipe(webpackStream( require('./webpack.config.js') ))
     .pipe(gulpIf(!isDevelopment, combine(
       uglify(),
       rename({suffix: '.min'})
     )))
     .pipe(gulp.dest('./myportfolio.local/portfolio/chords/js'));
 });
-
 
 // gulp.task('babel', function(){
 //   return gulp.src('./src/portfolio/chords/js/**/*.js')

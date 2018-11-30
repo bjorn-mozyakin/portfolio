@@ -9,7 +9,7 @@ import BtnChangeTone from './transpose/BtnChangeTone';
 import getAllChords from './transpose/getAllChords';
 
 
-console.log('12');
+console.log('17');
 
 const CHORD_TONICS = ['C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#','Gb'], 'G', ['G#','Ab'], 'A', ['A#','Hb'], 'H'];
 const CHORD_TYPES = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
