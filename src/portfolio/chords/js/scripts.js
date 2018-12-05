@@ -1,5 +1,6 @@
 'use strict';
 
+import Menu from './common/menu/Menu';
 import {BtnTonality, Gammas} from './tonalities/tonalities';
 import Textarea from './transpose/Textarea';
 import Song from './transpose/Song';
@@ -8,6 +9,9 @@ import BtnStartStop from './transpose/BtnStartStop';
 import BtnChangeTone from './transpose/BtnChangeTone';
 import getAllChords from './transpose/getAllChords';
 
+
+// import menu from './menu/menu.js';
+// let Menu = require('./common/menu/Menu.js');
 
 console.log('17');
 
@@ -29,6 +33,11 @@ let toneValue;
 let btnsChangeTone;
 
 $(document).ready( () => {
+
+  let menu = new Menu([
+    ['Транспонирование аккордов','transpose'],
+    ['Тональности','tonalities']
+  ]);
 
   let btnsStartStop = [];
   $('.transpos__startstop').each(function() {

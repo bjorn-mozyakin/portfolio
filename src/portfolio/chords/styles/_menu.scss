@@ -1,0 +1,16 @@
+nav {
+  width: $contentWidth;
+  margin: 0 auto;
+}
+
+.nav__menu {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  margin: 20px;
+  padding: 0;
+}
+
+.nav__menu-item {
+  margin: 0 20px;
+}
