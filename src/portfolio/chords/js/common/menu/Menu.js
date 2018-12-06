@@ -9,7 +9,7 @@ class Menu {
     let menu = $('<ul></ul>').addClass('nav__menu').prependTo(nav);
     for (let i = 0; i < options.length; i++) {
       let str = `<li class="nav__menu-item">
-               <a href="/${options[i][1]}.html">${options[i][0]}</a>
+               <a href="/portfolio/chords/${options[i][1]}.html">${options[i][0]}</a>
              </li>`;
       $(menu).append(str);
       this.items.push(options[i][0]);

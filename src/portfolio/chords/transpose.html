@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Chord transposition</title>
+  <link href="styles/styles.css" rel="stylesheet">
+</head>
+<body>
+  <main class="main">
+    <form class="transpos">
+      <h1>Транспонирование аккордов</h1>
+      <div class="transpos__btns">
+        <div class="transpos__tone-block">
+          <button type="button" name="transpos__tone-down" value="Вниз" class="transpos__change-tone" disabled>Вниз</button>
+          <output name="transpos__tone-value" class="transpos__tone-value">0</output>
+          <button type="button" name="transpos__tone-up" value="Вверх" class="transpos__change-tone" disabled>Вверх</button>
+        </div>
+        <div class="transpos__startstop-block">
+          <button type="button" name="transpos__start" class="transpos__start transpos__startstop">Распознать</button>
+          <button type="button" name="transpos__stop" class="transpos__stop transpos__startstop transpos__stop_hidden">Закончить</button>
+        </div>
+      </div>
+      <textarea class="transpos__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать" autofocus></textarea>
+      <div class="song song_hidden"></div>
+    </form>
+  </main>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="js/transpose.js"></script>
+
+</body>
+</html>

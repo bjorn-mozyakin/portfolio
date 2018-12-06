@@ -1,5 +1,5 @@
 import Btns from '../common/Btns';
-import {gamma, selectsTonality} from '../scripts';
+import {gamma, selectsTonality} from '../tonalities';
 
 class BtnTonality extends Btns {
   constructor(options) {

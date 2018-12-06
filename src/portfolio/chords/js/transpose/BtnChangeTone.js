@@ -1,5 +1,6 @@
 import Btns from '../common/Btns';
-import {CHORD_TONICS, btnsChangeTone, toneValue} from '../scripts';
+import {CHORD_TONICS} from '../common/chords/chords';
+import {btnsChangeTone, toneValue} from '../transpose';
 
 class BtnChangeTone extends Btns {
   constructor(options) {

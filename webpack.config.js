@@ -1,9 +1,13 @@
 module.exports = {
   context: __dirname + '/src/portfolio/chords/js',
-  entry: './scripts',
+  entry: {
+    main: './main',
+    tonalities: './tonalities',
+    transpose: './transpose'
+  },
   output: {
     path: __dirname + '/myportfolio.local/portfolio/chords/js',
-    filename: 'scripts.js'
+    filename: '[name].js'
   },
   mode: 'development',
   module: {

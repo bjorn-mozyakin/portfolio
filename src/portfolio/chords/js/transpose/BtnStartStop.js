@@ -1,5 +1,5 @@
 import Btns from '../common/Btns';
-import {textarea, song, toneValue} from '../scripts';
+import {textarea, song, toneValue} from '../transpose';
 
 class BtnStartStop extends Btns {
   constructor(options) {

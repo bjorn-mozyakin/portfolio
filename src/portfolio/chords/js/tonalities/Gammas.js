@@ -1,4 +1,4 @@
-import {CHORD_TONICS, MAJOR, MINOR, TONALITY_MARGIN} from '../scripts.js';
+import {CHORD_TONICS, MAJOR, MINOR, TONALITY_MARGIN} from '../common/chords/chords';
 
 class Gammas {
   constructor(options) {

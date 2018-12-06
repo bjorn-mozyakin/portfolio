@@ -1,4 +1,4 @@
-import {CHORD_TONICS, CHORD_TYPES} from '../scripts';
+import {CHORD_TONICS, CHORD_TYPES} from '../common/chords/chords';
 
 function getAllChords() {
   let allChords = [];
@@ -25,4 +25,4 @@ function getAllChords() {
   return allChords;
 }
 
-export default getAllChords;
+export const ALL_CHORDS = getAllChords();

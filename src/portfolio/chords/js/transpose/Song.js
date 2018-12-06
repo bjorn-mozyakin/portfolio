@@ -1,4 +1,4 @@
-import {ALL_CHORDS} from '../scripts';
+import {ALL_CHORDS} from '../transpose/getAllChords';
 
 class Song {
   constructor(options) {
