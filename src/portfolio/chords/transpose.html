@@ -3,24 +3,24 @@
 <head>
   <meta charset="UTF-8">
   <title>Chord transposition</title>
-  <link href="styles/styles.css" rel="stylesheet">
+  <link href="styles/transpose.css" rel="stylesheet">
 </head>
 <body>
   <main class="main">
-    <form class="transpos">
+    <form class="transpose">
       <h1>Транспонирование аккордов</h1>
-      <div class="transpos__btns">
-        <div class="transpos__tone-block">
-          <button type="button" name="transpos__tone-down" value="Вниз" class="transpos__change-tone" disabled>Вниз</button>
-          <output name="transpos__tone-value" class="transpos__tone-value">0</output>
-          <button type="button" name="transpos__tone-up" value="Вверх" class="transpos__change-tone" disabled>Вверх</button>
+      <div class="transpose__btns">
+        <div class="transpose__tone-block">
+          <button type="button" name="transpose__tone-down" value="Вниз" class="transpose__change-tone" disabled>Вниз</button>
+          <output name="transpose__tone-value" class="transpose__tone-value">0</output>
+          <button type="button" name="transpose__tone-up" value="Вверх" class="transpose__change-tone" disabled>Вверх</button>
         </div>
-        <div class="transpos__startstop-block">
-          <button type="button" name="transpos__start" class="transpos__start transpos__startstop">Распознать</button>
-          <button type="button" name="transpos__stop" class="transpos__stop transpos__startstop transpos__stop_hidden">Закончить</button>
+        <div class="transpose__startstop-block">
+          <button type="button" name="transpose__start" class="transpose__start transpose__startstop">Распознать</button>
+          <button type="button" name="transpose__stop" class="transpose__stop transpose__startstop transpose__stop_hidden">Закончить</button>
         </div>
       </div>
-      <textarea class="transpos__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать" autofocus></textarea>
+      <textarea class="transpose__textarea" placeholder="Вставьте сюда текст песни с аккордами или просто аккорды, которые вы хотите транспонировать" autofocus></textarea>
       <div class="song song_hidden"></div>
     </form>
   </main>

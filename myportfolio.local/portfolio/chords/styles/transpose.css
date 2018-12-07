@@ -356,8 +356,17 @@ td,
 th {
   padding: 0; }
 
+button {
+  border: 1px solid #c0c0c0;
+  background: none;
+  outline: none;
+  height: 30px; }
+
+.main {
+  width: 100%; }
+
 nav {
-  width: 500px;
+  width: 600px;
   margin: 0 auto; }
 
 .nav__menu {
@@ -374,20 +383,11 @@ nav {
 .nav__menu-item {
   margin: 0 20px; }
 
-button {
-  border: 1px solid #c0c0c0;
-  background: none;
-  outline: none;
-  height: 30px; }
-
-.main {
-  width: 100%; }
-
-.transpos {
-  width: 500px;
+.transpose {
+  width: 600px;
   margin: 0 auto; }
 
-.transpos__btns {
+.transpose__btns {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -395,18 +395,18 @@ button {
       justify-content: space-around;
   margin-bottom: 20px; }
 
-.transpos__tone-block {
+.transpose__tone-block {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex; }
 
-.transpos__change-tone {
+.transpose__change-tone {
   width: 80px;
   background-color: #f0f0f0; }
-  .transpos__change-tone:disabled {
+  .transpose__change-tone:disabled {
     opacity: 0.5; }
 
-.transpos__tone-value {
+.transpose__tone-value {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   display: -webkit-box;
@@ -424,19 +424,19 @@ button {
   border-top: 1px solid #c0c0c0;
   border-bottom: 1px solid #c0c0c0; }
 
-.transpos__start {
+.transpose__start {
   width: 120px; }
 
-.transpos__start_hidden {
+.transpose__start_hidden {
   display: none; }
 
-.transpos__stop {
+.transpose__stop {
   width: 120px; }
 
-.transpos__stop_hidden {
+.transpose__stop_hidden {
   display: none; }
 
-.transpos__textarea, .song {
+.transpose__textarea, .song {
   display: block;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
@@ -448,7 +448,7 @@ button {
   border: 1px solid #c0c0c0;
   background-color: #f0f0f0; }
 
-.transpos__textarea_hidden {
+.transpose__textarea_hidden {
   display: none; }
 
 .song {
@@ -460,30 +460,3 @@ button {
 
 span {
   color: red; }
-
-label {
-  display: inline-block;
-  width: 180px; }
-
-select {
-  display: inline-block;
-  width: 150px;
-  margin: 10px 0; }
-
-#gammas {
-  display: block;
-  width: 500px;
-  height: 160px;
-  margin: 0 auto;
-  border: 1px solid #c0c0c0; }
-
-.tonality-selection {
-  width: 500px;
-  margin: 0 auto; }
-
-.tonality-selection__hint {
-  display: inline-block;
-  color: red; }
-
-.tonality-selection__hint_hidden {
-  display: none; }

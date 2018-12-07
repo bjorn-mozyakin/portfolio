@@ -1,41 +1,20 @@
-@import "normalize";
 
-$colorGray: #c0c0c0;
-$colorWhite: #f0f0f0;
-$contentWidth: 500px;
-
-@import '_menu';
-
-
-
-button {
-  border: 1px solid $colorGray;
-  background: none;
-  outline: none;
-  height: 30px;
-}
-
-
-.main {
-  width: 100%;
-}
-
-.transpos {
-  width: 500px;
+.transpose {
+  width: $contentWidth;
   margin: 0 auto;
 }
 
-.transpos__btns {
+.transpose__btns {
   display: flex;
   justify-content: space-around;
   margin-bottom: 20px;
 }
 
-.transpos__tone-block {
+.transpose__tone-block {
   display: flex;
 }
 
-.transpos__change-tone {
+.transpose__change-tone {
   width: 80px;
   background-color: $colorWhite;
 
@@ -44,7 +23,7 @@ button {
   }
 }
 
-.transpos__tone-value {
+.transpose__tone-value {
   box-sizing: border-box;
   display: flex;
   align-items: center;
@@ -56,23 +35,23 @@ button {
   border-bottom: 1px solid $colorGray;
 }
 
-.transpos__start {
+.transpose__start {
   width: 120px;
 }
 
-.transpos__start_hidden {
+.transpose__start_hidden {
   display: none;
 }
 
-.transpos__stop {
+.transpose__stop {
   width: 120px;
 }
 
-.transpos__stop_hidden {
+.transpose__stop_hidden {
   display: none;
 }
 
-.transpos__textarea {
+.transpose__textarea {
   display: block;
   box-sizing: border-box;
   width: 100%;
@@ -84,12 +63,12 @@ button {
   background-color: $colorWhite;
 }
 
-.transpos__textarea_hidden {
+.transpose__textarea_hidden {
   display: none;
 }
 
 .song {
-  @extend .transpos__textarea;
+  @extend .transpose__textarea;
   white-space: pre-wrap;
   background-color: yellow;
 }
@@ -101,5 +80,3 @@ button {
 span {
   color: red;
 }
-
-@import "gammas";

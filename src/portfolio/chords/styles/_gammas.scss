@@ -9,16 +9,16 @@ select {
   margin: 10px 0;
 }
 
-#gammas {
+.gammas {
   display: block;
-  width: 500px;
+  width: $contentWidth;
   height: 160px;
   margin: 0 auto;
   border: 1px solid #c0c0c0;
 }
 
 .tonality-selection {
-  width: 500px;
+  width: $contentWidth;
   margin: 0 auto;
 }
 

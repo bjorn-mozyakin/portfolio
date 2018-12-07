@@ -19,7 +19,7 @@ $(document).ready( () => {
 
   // Tonalities
   gamma = new Gammas({
-    elem: $('#gammas')[0]
+    elem: $('.gammas')[0]
   });
 
   selectsTonality = [];
