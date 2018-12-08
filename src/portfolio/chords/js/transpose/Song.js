@@ -4,6 +4,7 @@ class Song {
   constructor(options) {
     this.elem = options.elem;
     this.text = null;
+    this.sign = null;
   }
 
   toggle() {
@@ -17,6 +18,10 @@ class Song {
 
   clearText() {
     this.text = '';
+  }
+
+  clearSign() {
+    this.sign = null;
   }
 
   wrapChords() {

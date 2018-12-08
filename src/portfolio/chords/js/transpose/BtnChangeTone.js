@@ -1,6 +1,6 @@
 import Btns from '../common/Btns';
 import {CHORD_TONICS} from '../common/chords/chords';
-import {btnsChangeTone, toneValue} from '../transpose';
+import {btnsChangeTone, toneValue, song} from '../transpose';
 
 class BtnChangeTone extends Btns {
   constructor(options) {
@@ -38,14 +38,14 @@ class BtnChangeTone extends Btns {
   }
 
   changeTone(step) {
-    let sign = this.defineSign();
+    if (!song.sign) song.sign = this.defineSign();
     $('.chord__tonic').each((i, elem) => {
       let currentTonePos = this.definePos(elem);
 
       let newTonicPos = currentTonePos + step;
       if (newTonicPos >= CHORD_TONICS.length) newTonicPos = 0;
       if (newTonicPos < 0) newTonicPos = CHORD_TONICS.length - 1;
-      if (Array.isArray(CHORD_TONICS[newTonicPos])) $(elem).html(CHORD_TONICS[newTonicPos][sign]);
+      if (Array.isArray(CHORD_TONICS[newTonicPos])) $(elem).html(CHORD_TONICS[newTonicPos][song.sign]);
       else $(elem).html(CHORD_TONICS[newTonicPos]);
     });
   }

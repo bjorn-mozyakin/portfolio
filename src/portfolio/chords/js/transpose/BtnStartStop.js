@@ -26,6 +26,7 @@ class BtnStartStop extends Btns {
         $(btn).prop('disabled', true);
       });
       song.clearText();
+      song.clearSign();
       song.toggle();
       textarea.setText(textarea.text);
       textarea.toggle();
