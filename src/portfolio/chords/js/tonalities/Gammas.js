@@ -4,22 +4,19 @@ class Gammas {
   constructor(options) {
     this.elem = options.elem;
     this.ctx = this.elem.getContext('2d');
-    this.ctx.font = '30px Arial';
+    this.ctx.font = '20px Arial';
     this.ctx.fillStyle = 'balck';
     // this.ctx.lineWidth = 3  ;
     // this.ctx.strokeStyle = 'black';
 
     this.selections = [];
-    // this.tonic = null;
-    // this.gamma = null;
-    // this.sign = null;
     this.mode = null;
     this.notes = [];
     this.gammaDrawn = false;
   }
 
   clearStaff() {
-    this.ctx.clearRect(0, 0, 560, 160);
+    this.ctx.clearRect(0, 0, 560, 200);
     this.notes.length = 0;
   }
 
@@ -39,7 +36,8 @@ class Gammas {
 
   drawTonality(){
     let notes = this.defineNotes(this.selections[0], this.selections[1], this.selections[2]);
-    this.drawNotes(notes);
+    if (notes.length == 0) this.drawError();
+    else this.drawNotes(notes);
   }
 
   drawNotes(notes) {
@@ -54,7 +52,8 @@ class Gammas {
         this.drawSign(marginL - 10, marginT + 10, notes[i][1]);
         marginL += 20;
       }
-      this.drawNote(marginL, marginT)
+      this.drawNote(marginL, marginT);
+      this.drawLetter(marginL - 10, 180, notes[i]);
       marginL += stepL;
       marginT -= 10;
     }
@@ -122,25 +121,6 @@ class Gammas {
     else return MINOR;
   }
 
-  // defineTonic() {
-  //   this.tonic = '' + this.selections[0];
-  //   if (this.selections[1] == 'no') return;
-  //   this.tonic += this.selections[1];
-  // }
-
-  // defineGamma() {
-  //   if (this.selections[2] == 'major') this.gamma = MAJOR;
-  //   else this.gamma = MINOR;
-  // }
-
-  // defineSign() {
-  //   if (this.selections[1] == 'b') {
-  //     this.sign = 'b';
-  //     return;
-  //   }
-  //   this.sign = '#';
-  // }
-
   drawNote(marginL, marginT) {
     this.drawEllipse(this.ctx, marginL, marginT, 10, 6);
   }
@@ -160,7 +140,18 @@ class Gammas {
   }
 
   drawSign(marginL, marginT, sign) {
+    this.ctx.font = '30px Arial';
     this.ctx.fillText(sign, marginL, marginT);
+  }
+
+  drawLetter(marginL, marginT, letter) {
+    this.ctx.font = '20px Arial';
+    this.ctx.fillText(letter, marginL, marginT);
+  }
+
+  drawError() {
+    this.ctx.fillText('Тональности с таким названием не существует.', 20, 150);
+    this.ctx.fillText('Пожалуйста, выберите другую тональность', 40, 180);
   }
 }
 
