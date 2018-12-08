@@ -31,8 +31,8 @@ class BtnChangeTone extends Btns {
 
   defineStep() {
     let step;
-    this.name == 'transpos__tone-up' ? step = 1 :
-      this.name == 'transpos__tone-down' ? step = -1 :
+    this.name == 'transpose__tone-up' ? step = 1 :
+      this.name == 'transpose__tone-down' ? step = -1 :
         step = null;
     return step;
   }

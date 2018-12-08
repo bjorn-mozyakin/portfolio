@@ -4,7 +4,7 @@ class Textarea {
   }
 
   toggle() {
-    $(this.elem).toggleClass('transpos__textarea_hidden');
+    $(this.elem).toggleClass('transpose__textarea_hidden');
   }
 
   setText(text) {

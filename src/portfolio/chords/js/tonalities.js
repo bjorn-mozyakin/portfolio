@@ -4,6 +4,7 @@ import Menu from './common/menu/Menu';
 import BtnTonality from './tonalities/BtnTonality';
 import Gammas from './tonalities/Gammas';
 
+
 console.log('Tonalities page');
 
 let gamma;
@@ -11,11 +12,7 @@ let selectsTonality;
 
 $(document).ready( () => {
 
-  let menu = new Menu([
-    ['Главная','index'],
-    ['Транспонирование аккордов','transpose'],
-    ['Тональности','tonalities']
-  ]);
+  require('./common/menu/createMenu');
 
   // Tonalities
   gamma = new Gammas({

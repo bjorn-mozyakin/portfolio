@@ -90,11 +90,21 @@
 /*!*****************************!*\
   !*** ./common/menu/Menu.js ***!
   \*****************************/
-/*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/*! no static exports found */
+/***/ (function(module, exports) {
 
-"use strict";
-eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar Menu =\n/*#__PURE__*/\nfunction () {\n  function Menu(options) {\n    _classCallCheck(this, Menu);\n\n    this.items = [];\n\n    this._createMenu(options);\n  }\n\n  _createClass(Menu, [{\n    key: \"_createMenu\",\n    value: function _createMenu(options) {\n      var nav = $('<nav></nav>');\n      var menu = $('<ul></ul>').addClass('nav__menu').prependTo(nav);\n\n      for (var i = 0; i < options.length; i++) {\n        var str = \"<li class=\\\"nav__menu-item\\\">\\n               <a href=\\\"/portfolio/chords/\".concat(options[i][1], \".html\\\">\").concat(options[i][0], \"</a>\\n             </li>\");\n        $(menu).append(str);\n        this.items.push(options[i][0]);\n      }\n\n      $('body').prepend(nav);\n    }\n  }]);\n\n  return Menu;\n}();\n\n/* harmony default export */ __webpack_exports__[\"default\"] = (Menu);\n\n//# sourceURL=webpack:///./common/menu/Menu.js?");
+eval("function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError(\"Cannot call a class as a function\"); } }\n\nfunction _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if (\"value\" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }\n\nfunction _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }\n\nvar Menu =\n/*#__PURE__*/\nfunction () {\n  function Menu(options) {\n    _classCallCheck(this, Menu);\n\n    this.items = [];\n\n    this._createMenu(options);\n  }\n\n  _createClass(Menu, [{\n    key: \"_createMenu\",\n    value: function _createMenu(options) {\n      var nav = $('<nav></nav>');\n      var menu = $('<ul></ul>').addClass('nav__menu').prependTo(nav);\n\n      for (var i = 0; i < options.length; i++) {\n        var str = \"<li class=\\\"nav__menu-item\\\">\\n               <a href=\\\"/portfolio/chords/\".concat(options[i][1], \".html\\\">\").concat(options[i][0], \"</a>\\n             </li>\");\n        $(menu).append(str);\n        this.items.push(options[i][0]);\n      }\n\n      $('body').prepend(nav);\n    }\n  }]);\n\n  return Menu;\n}();\n\nmodule.exports = Menu;\n\n//# sourceURL=webpack:///./common/menu/Menu.js?");
+
+/***/ }),
+
+/***/ "./common/menu/createMenu.js":
+/*!***********************************!*\
+  !*** ./common/menu/createMenu.js ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+eval("var Menu = __webpack_require__(/*! ../menu/Menu */ \"./common/menu/Menu.js\");\n\nvar menu = new Menu([['Главная', 'index'], ['Транспонирование аккордов', 'transpose'], ['Тональности', 'tonalities']]);\nmodule.exports.menu = menu;\n\n//# sourceURL=webpack:///./common/menu/createMenu.js?");
 
 /***/ }),
 
@@ -106,7 +116,7 @@ eval("__webpack_require__.r(__webpack_exports__);\nfunction _classCallCheck(inst
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _common_menu_Menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common/menu/Menu */ \"./common/menu/Menu.js\");\n\n\n // import menu from './menu/menu.js';\n// let Menu = require('./common/menu/Menu.js');\n\nconsole.log('Main page');\n$(document).ready(function () {\n  var menu = new _common_menu_Menu__WEBPACK_IMPORTED_MODULE_0__[\"default\"]([['Главная', 'index'], ['Транспонирование аккордов', 'transpose'], ['Тональности', 'tonalities']]);\n});\n\n//# sourceURL=webpack:///./main.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _common_menu_Menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common/menu/Menu */ \"./common/menu/Menu.js\");\n/* harmony import */ var _common_menu_Menu__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_common_menu_Menu__WEBPACK_IMPORTED_MODULE_0__);\n\n\n // import menu from './menu/menu.js';\n// let Menu = require('./common/menu/Menu.js');\n\nconsole.log('Main page');\n$(document).ready(function () {\n  __webpack_require__(/*! ./common/menu/createMenu */ \"./common/menu/createMenu.js\");\n});\n\n//# sourceURL=webpack:///./main.js?");
 
 /***/ })
 

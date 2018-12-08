@@ -19,32 +19,28 @@ let btnsChangeTone;
 
 $(document).ready( () => {
 
-  let menu = new Menu([
-    ['Главная','index'],
-    ['Транспонирование аккордов','transpose'],
-    ['Тональности','tonalities']
-  ]);
+  require('./common/menu/createMenu');
 
   let btnsStartStop = [];
-  $('.transpos__startstop').each(function() {
+  $('.transpose__startstop').each(function() {
     btnsStartStop.push(new BtnStartStop({
       elem: this
     }));
   });
 
   btnsChangeTone = [];
-  $('.transpos__change-tone').each(function() {
+  $('.transpose__change-tone').each(function() {
     btnsChangeTone.push(new BtnChangeTone({
       elem: this
     }));
   });
 
   toneValue = new ToneValue({
-    elem: $('.transpos__tone-value')[0]
+    elem: $('.transpose__tone-value')[0]
   });
 
   textarea = new Textarea({
-    elem: $('.transpos__textarea')[0]
+    elem: $('.transpose__textarea')[0]
   });
 
   song = new Song({

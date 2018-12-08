@@ -9,10 +9,6 @@ console.log('Main page');
 
 $(document).ready( () => {
 
-  let menu = new Menu([
-    ['Главная','index'],
-    ['Транспонирование аккордов','transpose'],
-    ['Тональности','tonalities']
-  ]);
+  require('./common/menu/createMenu');
 
 });
