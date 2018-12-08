@@ -26,7 +26,7 @@ class BtnTonality extends Btns {
         gamma.clearStaff();
         gamma.drawStaff();
       }
-      gamma.drawNotes();
+      gamma.drawTonality();
     }
   }
 }

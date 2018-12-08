@@ -1,18 +1,26 @@
-import {CHORD_TONICS, MAJOR, MINOR, TONALITY_MARGIN} from '../common/chords/chords';
+import {GAMMA_NOTES, CHORD_TONICS, MAJOR, MINOR, TONALITY_MARGIN} from '../common/chords/chords';
 
 class Gammas {
   constructor(options) {
     this.elem = options.elem;
     this.ctx = this.elem.getContext('2d');
+    this.ctx.font = '30px Arial';
+    this.ctx.fillStyle = 'balck';
+    // this.ctx.lineWidth = 3  ;
+    // this.ctx.strokeStyle = 'black';
+
     this.selections = [];
-    this.tonic = null;
-    this.gamma = null;
-    this.sign = null;
+    // this.tonic = null;
+    // this.gamma = null;
+    // this.sign = null;
+    this.mode = null;
+    this.notes = [];
     this.gammaDrawn = false;
   }
 
   clearStaff() {
     this.ctx.clearRect(0, 0, 560, 160);
+    this.notes.length = 0;
   }
 
   drawStaff() {
@@ -29,37 +37,72 @@ class Gammas {
     this.gammaDrawn = true;
   }
 
-  drawNotes(){
-    this.defineTonic();
-    this.defineGamma();
-    this.defineSign();
+  drawTonality(){
+    let notes = this.defineNotes(this.selections[0], this.selections[1], this.selections[2]);
+    this.drawNotes(notes);
+  }
 
+  drawNotes(notes) {
     let marginL = 40;
     let stepL = 40;
-    let currentNote = this.tonic;
-    let posMargins = this.definePos(currentNote);
-    let posNotes = posMargins;
 
-    for (let i = 0; i < this.gamma.length; i++) {
-      let marginT = TONALITY_MARGIN[posMargins];
-      this.drawNote(marginL, marginT);
-      if (currentNote[1] == '#') {
-        marginL += 10;
-        this.drawSharp(marginL, marginT + 10);
+    let curPos = GAMMA_NOTES.indexOf(notes[0][0]);
+    let marginT = TONALITY_MARGIN[curPos];
+
+    for (var i = 0; i < notes.length; i++) {
+      if (notes[i][1]) {
+        this.drawSign(marginL - 10, marginT + 10, notes[i][1]);
+        marginL += 20;
       }
-      if (currentNote[1] == 'b') {
-        marginL += 10;
-        this.drawBemol(marginL, marginT + 10);
-      }
+      this.drawNote(marginL, marginT)
       marginL += stepL;
-      posMargins += this.gamma[i];
-      if (posMargins >= CHORD_TONICS.length) posNotes = posMargins - CHORD_TONICS.length;
-      else posNotes = posMargins;
+      marginT -= 10;
+    }
+  }
 
-      let idx;
-      this.sign == '#' ? idx = 0 : idx = 1;
-      if (Array.isArray(CHORD_TONICS[posNotes])) currentNote = CHORD_TONICS[posNotes][idx];
-      else currentNote = CHORD_TONICS[posNotes];
+  defineNotes(tonic, sign, mode) {
+    let notes = [];
+    this.mode = this.defineMode(mode);
+
+    let currentLetter = tonic;
+    let nextLetter = this.defineNextLetter(currentLetter);
+
+    let currentNote = tonic;
+    if (sign != 'no') currentNote += sign;
+
+    let currentNotePos = this.definePos(currentNote);
+
+    for (let i = 0; i < this.mode.length; i++) {
+      notes.push(currentNote);
+      currentNotePos += this.mode[i];
+      if (currentNotePos >= CHORD_TONICS.length) currentNotePos = currentNotePos - CHORD_TONICS.length;
+      currentNote = this.defineNote(CHORD_TONICS[currentNotePos], nextLetter);
+      if (!currentNote) {
+        console.log('Ошибка');
+        return [];
+      }
+      nextLetter = this.defineNextLetter(nextLetter);
+    }
+
+    return notes;
+  }
+
+  defineNextLetter(currentTonic) {
+    let currentTonicPos = GAMMA_NOTES.indexOf(currentTonic);
+    let nextTonicPos = currentTonicPos + 1;
+    if (nextTonicPos >= GAMMA_NOTES.length) nextTonicPos = 0;
+    return GAMMA_NOTES[nextTonicPos];
+  }
+
+  defineNote(note, letter) {
+    if (Array.isArray(note)) {
+      for (let i = 0; i <= note.length; i++) {
+        if (note[i].includes(letter)) return note[i];
+      }
+    } else if (note.includes(letter)) {
+      return note;
+    } else {
+      return false;
     }
   }
 
@@ -74,24 +117,29 @@ class Gammas {
     }
   }
 
-  defineTonic() {
-    this.tonic = '' + this.selections[0];
-    if (this.selections[1] == 'no') return;
-    this.tonic += this.selections[1];
+  defineMode(mode) {
+    if (mode == 'major') return MAJOR;
+    else return MINOR;
   }
 
-  defineGamma() {
-    if (this.selections[2] == 'major') this.gamma = MAJOR;
-    else this.gamma = MINOR;
-  }
+  // defineTonic() {
+  //   this.tonic = '' + this.selections[0];
+  //   if (this.selections[1] == 'no') return;
+  //   this.tonic += this.selections[1];
+  // }
 
-  defineSign() {
-    if (this.selections[1] == 'b') {
-      this.sign = 'b';
-      return;
-    }
-    this.sign = '#';
-  }
+  // defineGamma() {
+  //   if (this.selections[2] == 'major') this.gamma = MAJOR;
+  //   else this.gamma = MINOR;
+  // }
+
+  // defineSign() {
+  //   if (this.selections[1] == 'b') {
+  //     this.sign = 'b';
+  //     return;
+  //   }
+  //   this.sign = '#';
+  // }
 
   drawNote(marginL, marginT) {
     this.drawEllipse(this.ctx, marginL, marginT, 10, 6);
@@ -107,21 +155,12 @@ class Gammas {
     this.ctx.restore();
     this.ctx.closePath();
 
-    this.ctx.fillStyle = 'balck';
     this.ctx.fill();
-    // this.ctx.lineWidth = 3  ;
-    // this.ctx.strokeStyle = 'black';
     this.ctx.stroke();
   }
 
-  drawSharp(marginL, marginT) {
-    this.ctx.font = '30px Arial';
-    this.ctx.fillText('#', marginL, marginT);
-  }
-
-  drawBemol(marginL, marginT) {
-    this.ctx.font = '30px Arial';
-    this.ctx.fillText('b', marginL, marginT);
+  drawSign(marginL, marginT, sign) {
+    this.ctx.fillText(sign, marginL, marginT);
   }
 }
 
