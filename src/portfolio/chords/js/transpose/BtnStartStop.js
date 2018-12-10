@@ -19,6 +19,7 @@ class BtnStartStop extends Btns {
       song.setText(textarea.text);
       song.toggle();
       song.wrapChords();
+      throw new Error("Test");
     } else if (this.name == 'transpose__stop') {
       $(this.elem).toggleClass('transpose__stop_hidden');
       $('.transpose__start').toggleClass('transpose__start_hidden');
@@ -32,7 +33,7 @@ class BtnStartStop extends Btns {
       textarea.toggle();
       toneValue.reset();
     } else {
-      console.log('warn: unknown button was pushed');
+      new Error('Warn: unknown button was pushed');
     }
   }
 }

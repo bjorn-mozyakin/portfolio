@@ -8,10 +8,6 @@ import BtnStartStop from './transpose/BtnStartStop';
 import BtnChangeTone from './transpose/BtnChangeTone';
 import getAllChords from './transpose/getAllChords';
 
-console.log('Transpose page');
-
-// const ALL_CHORDS = getAllChords();
-
 let textarea;
 let song;
 let toneValue;

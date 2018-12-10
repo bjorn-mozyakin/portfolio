@@ -76,10 +76,7 @@ class Gammas {
       currentNotePos += this.mode[i];
       if (currentNotePos >= CHORD_TONICS.length) currentNotePos = currentNotePos - CHORD_TONICS.length;
       currentNote = this.defineNote(CHORD_TONICS[currentNotePos], nextLetter);
-      if (!currentNote) {
-        console.log('Ошибка');
-        return [];
-      }
+      if (!currentNote) return [];
       nextLetter = this.defineNextLetter(nextLetter);
     }
 
