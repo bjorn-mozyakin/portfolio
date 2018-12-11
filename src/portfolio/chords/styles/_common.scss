@@ -1,8 +1,11 @@
 button {
-  border: 1px solid $colorGray;
-  background: none;
-  outline: none;
   height: 30px;
+  border: 1px solid $colorGray;
+  background-color: $colorWhite;
+
+  &:disabled {
+    opacity: 0.5;
+  }
 }
 
 .main {

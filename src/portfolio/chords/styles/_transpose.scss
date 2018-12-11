@@ -16,11 +16,6 @@
 
 .transpose__change-tone {
   width: 80px;
-  background-color: $colorWhite;
-
-  &:disabled {
-    opacity: 0.5;
-  }
 }
 
 .transpose__tone-value {
@@ -33,6 +28,10 @@
   padding: 2px 6px;
   border-top: 1px solid $colorGray;
   border-bottom: 1px solid $colorGray;
+}
+
+.transpose__chords-btn {
+  width: 130px;
 }
 
 .transpose__start {
@@ -69,6 +68,7 @@
 
 .song {
   @extend .transpose__textarea;
+  overflow: auto;
   white-space: pre-wrap;
   background-color: yellow;
 }
@@ -77,6 +77,10 @@
   display: none;
 }
 
-span {
+.song__chord_hidden {
+  visibility: hidden;
+}
+
+.chord {
   color: red;
 }

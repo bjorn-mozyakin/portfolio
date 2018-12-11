@@ -13,20 +13,12 @@ class BtnChangeTone extends Btns {
     this.changeTone(step);
     toneValue.changeToneValue(step);
     if (toneValue.tone >= 12|| toneValue.tone <= -12) {
-      this.disable($(this.elem));
+      this.disable();
     } else {
       btnsChangeTone.forEach((btn) => {
-        this.enable($(btn.elem));
+        btn.enable();
       });
     }
-  }
-
-  enable(btn) {
-    btn.prop('disabled', false);
-  }
-
-  disable(btn) {
-    btn.prop('disabled', true);
   }
 
   defineStep() {

@@ -4,14 +4,16 @@ import Menu from './common/menu/Menu';
 import Textarea from './transpose/Textarea';
 import Song from './transpose/Song';
 import ToneValue from './transpose/ToneValue';
-import BtnStartStop from './transpose/BtnStartStop';
 import BtnChangeTone from './transpose/BtnChangeTone';
+import BtnStartStop from './transpose/BtnStartStop';
+import BtnChords from './transpose/BtnChords';
 import getAllChords from './transpose/getAllChords';
 
 let textarea;
 let song;
-let toneValue;
 let btnsChangeTone;
+let toneValue;
+let btnChords;
 
 $(document).ready( () => {
 
@@ -31,6 +33,10 @@ $(document).ready( () => {
     }));
   });
 
+  btnChords = new BtnChords({
+    elem: $('.transpose__chords-btn')[0]
+  });
+
   toneValue = new ToneValue({
     elem: $('.transpose__tone-value')[0]
   });
@@ -45,4 +51,4 @@ $(document).ready( () => {
 
 });
 
-export {CHORD_TONICS, CHORD_TYPES, MAJOR, MINOR, TONALITY_MARGIN, ALL_CHORDS, textarea, song, btnsChangeTone, toneValue};
+export {CHORD_TONICS, CHORD_TYPES, MAJOR, MINOR, TONALITY_MARGIN, ALL_CHORDS, textarea, song, btnsChangeTone, toneValue, btnChords};

@@ -357,10 +357,11 @@ th {
   padding: 0; }
 
 button {
+  height: 30px;
   border: 1px solid #c0c0c0;
-  background: none;
-  outline: none;
-  height: 30px; }
+  background-color: #f0f0f0; }
+  button:disabled {
+    opacity: 0.5; }
 
 .main {
   width: 100%; }
@@ -401,10 +402,7 @@ nav {
   display: flex; }
 
 .transpose__change-tone {
-  width: 80px;
-  background-color: #f0f0f0; }
-  .transpose__change-tone:disabled {
-    opacity: 0.5; }
+  width: 80px; }
 
 .transpose__tone-value {
   -webkit-box-sizing: border-box;
@@ -423,6 +421,9 @@ nav {
   padding: 2px 6px;
   border-top: 1px solid #c0c0c0;
   border-bottom: 1px solid #c0c0c0; }
+
+.transpose__chords-btn {
+  width: 130px; }
 
 .transpose__start {
   width: 120px; }
@@ -452,11 +453,15 @@ nav {
   display: none; }
 
 .song {
+  overflow: auto;
   white-space: pre-wrap;
   background-color: yellow; }
 
 .song_hidden {
   display: none; }
 
-span {
+.song__chord_hidden {
+  visibility: hidden; }
+
+.chord {
   color: red; }

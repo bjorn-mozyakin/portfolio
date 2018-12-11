@@ -11,10 +11,11 @@
       <h1>Транспонирование аккордов</h1>
       <div class="transpose__btns">
         <div class="transpose__tone-block">
-          <button type="button" name="transpose__tone-down" value="Вниз" class="transpose__change-tone" disabled>Вниз</button>
+          <button type="button" name="transpose__tone-down" class="transpose__change-tone" disabled>Вниз</button>
           <output name="transpose__tone-value" class="transpose__tone-value">0</output>
-          <button type="button" name="transpose__tone-up" value="Вверх" class="transpose__change-tone" disabled>Вверх</button>
+          <button type="button" name="transpose__tone-up" class="transpose__change-tone" disabled>Вверх</button>
         </div>
+        <button type="button" class="transpose__chords-btn" name="transpose__chords-btn" data-chords-show="С аккордами" data-chords-hide="Без аккордов" disabled>Без аккордов</button>
         <div class="transpose__startstop-block">
           <button type="button" name="transpose__start" class="transpose__start transpose__startstop">Распознать</button>
           <button type="button" name="transpose__stop" class="transpose__stop transpose__startstop transpose__stop_hidden">Закончить</button>

@@ -11,6 +11,10 @@ class Song {
     $(this.elem).toggleClass('song_hidden');
   }
 
+  changeChordsVisibility() {
+    $('.song__chord').toggleClass('song__chord_hidden');
+  }
+
   setText(text) {
     this.text = text;
     $(this.elem).html(this.text);
@@ -56,6 +60,7 @@ class Song {
     }
     this.text = text;
     $(this.elem).html(this.text);
+    $('.song span').addClass('song__chord chord');
     this.wrapChordsTonics();
     // for (let tonic of CHORD_TONICS) {
     //   let position = 0;
@@ -82,7 +87,7 @@ class Song {
   }
 
   wrapChordsTonics() {
-    $('.song span').each(function() {
+    $('.chord').each(function() {
       let tonic = $(this).html().slice(0, 1);
       if ($(this).html().slice(1, 2) == '#') tonic += '#';
       if ($(this).html().slice(1, 2) == 'b') tonic += 'b';
