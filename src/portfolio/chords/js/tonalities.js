@@ -4,9 +4,6 @@ import Menu from './common/menu/Menu';
 import BtnTonality from './tonalities/BtnTonality';
 import Gammas from './tonalities/Gammas';
 
-
-console.log('Tonalities page');
-
 let gamma;
 let selectsTonality;
 

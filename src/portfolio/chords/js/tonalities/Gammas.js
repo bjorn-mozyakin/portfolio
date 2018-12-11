@@ -3,11 +3,13 @@ import {GAMMA_NOTES, CHORD_TONICS, MAJOR, MINOR, TONALITY_MARGIN} from '../commo
 class Gammas {
   constructor(options) {
     this.elem = options.elem;
-    this.ctx = this.elem.getContext('2d');
-    this.ctx.font = '20px Arial';
-    this.ctx.fillStyle = 'balck';
-    // this.ctx.lineWidth = 3  ;
-    // this.ctx.strokeStyle = 'black';
+    if (this.elem) {
+      this.ctx = this.elem.getContext('2d');
+      this.ctx.font = '20px Arial';
+      this.ctx.fillStyle = 'balck';
+      // this.ctx.lineWidth = 3  ;
+      // this.ctx.strokeStyle = 'black';
+    }
 
     this.selections = [];
     this.mode = null;
@@ -92,7 +94,7 @@ class Gammas {
 
   defineNote(note, letter) {
     if (Array.isArray(note)) {
-      for (let i = 0; i <= note.length; i++) {
+      for (let i = 0; i < note.length; i++) {
         if (note[i].includes(letter)) return note[i];
       }
     } else if (note.includes(letter)) {
