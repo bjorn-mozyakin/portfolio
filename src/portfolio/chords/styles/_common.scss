@@ -8,6 +8,17 @@ button {
   }
 }
 
+h1 {
+  text-align: center;
+}
+
 .main {
   width: 100%;
+}
+
+.content {
+  box-sizing: border-box;
+  max-width: $contentWidth;
+  margin: 0 auto;
+  padding: 0 20px;
 }
