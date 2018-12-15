@@ -8,13 +8,10 @@ class BtnStartStop extends Btns {
   }
 
   handleClick() {
-    debugger;
     if (this.name == 'transpose__start') {
       $(this.elem).toggleClass('transpose__start_hidden');
       $('.transpose__stop').toggleClass('transpose__stop_hidden');
-      btnsChangeTone.forEach(function(btn) {
-        btn.enable();
-      });
+      btnsChangeTone.forEach((btn) => btn.enable() );
       btnChords.enable();
       textarea.setText($(textarea.elem).val());
       textarea.toggle();
@@ -24,9 +21,7 @@ class BtnStartStop extends Btns {
     } else if (this.name == 'transpose__stop') {
       $(this.elem).toggleClass('transpose__stop_hidden');
       $('.transpose__start').toggleClass('transpose__start_hidden');
-      btnsChangeTone.forEach(function(btn) {
-        btn.disable();
-      });
+      btnsChangeTone.forEach( (btn) => btn.disable() );
       btnChords.reset();
       song.clearText();
       song.clearSign();

@@ -1,5 +1,5 @@
 import Btns from '../common/Btns';
-import {song} from '../transpose';
+import {btnsChangeTone, song} from '../transpose';
 
 class BtnChords extends Btns {
   constructor(options) {
@@ -11,6 +11,9 @@ class BtnChords extends Btns {
   handleClick() {
     this.changeValue();
     song.changeChordsVisibility();
+    btnsChangeTone.forEach( (btn) => {
+      $(btn.elem).is(':disabled') ? btn.enable() : btn.disable();
+    } );
   }
 
   changeValue() {

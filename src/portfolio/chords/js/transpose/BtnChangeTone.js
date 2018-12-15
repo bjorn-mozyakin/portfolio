@@ -33,11 +33,14 @@ class BtnChangeTone extends Btns {
     if (!song.sign) song.sign = this.defineSign();
     $('.chord__tonic').each((i, elem) => {
       let currentTonePos = this.definePos(elem);
-
       let newTonicPos = currentTonePos + step;
       if (newTonicPos >= CHORD_TONICS.length) newTonicPos = 0;
       if (newTonicPos < 0) newTonicPos = CHORD_TONICS.length - 1;
-      if (Array.isArray(CHORD_TONICS[newTonicPos])) $(elem).html(CHORD_TONICS[newTonicPos][song.sign]);
+      if (Array.isArray(CHORD_TONICS[newTonicPos])) {
+        let tonic = this.getShortestTonic(CHORD_TONICS[newTonicPos]);
+        if (tonic) $(elem).html(tonic);
+        else $(elem).html(CHORD_TONICS[newTonicPos][song.sign]);
+      }
       else $(elem).html(CHORD_TONICS[newTonicPos]);
     });
   }
@@ -59,6 +62,12 @@ class BtnChangeTone extends Btns {
       if ($('.chord__tonic')[i].innerHTML.includes('b')) return 1;
     }
     return 0;
+  }
+
+  getShortestTonic(chords) {
+    return chords[0].length < chords[1].length ? chords[0] :
+    chords[0].length > chords[1].length ? chords[1] :
+    false;
   }
 }
 
