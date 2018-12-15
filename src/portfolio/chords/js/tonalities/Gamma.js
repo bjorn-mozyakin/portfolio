@@ -20,6 +20,7 @@ class Gamma {
     this.ctx.clearRect(0, 0, this.width, this.height);
     this.notes.length = 0;
     this.hideErrorMsg();
+    this._hideTonalityName();
   }
 
   drawStave(marginL = 20, step = 20) {
@@ -43,7 +44,10 @@ class Gamma {
   drawGamma(){
     let notes = this._defineNotes(this.selections[0], this.selections[1], this.selections[2]);
     if (notes.length == 0) this.showErrorMsg();
-    else this._drawNotes(notes);
+    else {
+      this._drawNotes(notes);
+      this._showTonalityName();
+    }
   }
 
   _drawNotes(notes) {
@@ -156,6 +160,16 @@ class Gamma {
   _defineMode(mode) {
     if (mode == 'major') return MAJOR;
     else return MINOR;
+  }
+
+  _showTonalityName() {
+    $('.stave__tonality-name').removeClass('stave__tonality-name_hidden');
+    $('.stave__tonality-tonic').html(this.selections[0], this.selections[1], this.selections[2]);
+  }
+
+  _hideTonalityName() {
+    $('.stave__tonality-name').addClass('stave__tonality-name_hidden');
+    $('.stave__tonality-tonic').html('');
   }
 
   showErrorMsg() {

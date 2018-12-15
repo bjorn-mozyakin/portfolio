@@ -427,6 +427,16 @@ select {
   background-position: center center;
   background-size: 100% 100%; }
 
+.stave__tonality-name {
+  position: absolute;
+  left: 50%;
+  top: 10px;
+  -webkit-transform: translateX(-50%);
+          transform: translateX(-50%); }
+
+.stave__tonality-name_hidden {
+  display: none; }
+
 .stave__error-msg {
   position: absolute;
   left: 135px;
