@@ -2,7 +2,7 @@
 
 import Menu from './common/menu/Menu';
 import BtnTonality from './tonalities/BtnTonality';
-import Gammas from './tonalities/Gammas';
+import Gamma from './tonalities/Gamma';
 
 let gamma;
 let selectsTonality;
@@ -11,8 +11,7 @@ $(document).ready( () => {
 
   require('./common/menu/createMenu');
 
-  // Tonalities
-  gamma = new Gammas({
+  gamma = new Gamma({
     elem: $('.stave__notes')[0]
   });
 
@@ -22,10 +21,10 @@ $(document).ready( () => {
   });
 
   let btnTonality = new BtnTonality({
-    elem: $('.tonality-btn')[0]
+    elem: $('.tonality-selection__show')[0]
   });
 
-  gamma.drawStaff();
+  gamma.drawStave();
 
 });
 

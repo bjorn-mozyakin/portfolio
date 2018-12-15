@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Chord transposition</title>
+  <title>Тональности</title>
   <link href="styles/tonalities.css" rel="stylesheet">
 </head>
 <body>
@@ -11,7 +11,7 @@
     <div class="content">
       <h1>Тональности</h1>
       <div class="stave">
-        <canvas class="stave__notes" width="500px" height="200px">
+        <canvas class="stave__notes" width="600px" height="200px">
         </canvas>
         <div class="stave__clef"></div>
         <div class="stave__error-msg stave__error-msg_hidden">Тональности с таким названием не существует.<br />Пожалуйста, выберите другую тональность.</div>
@@ -20,9 +20,9 @@
       <form class="tonality-selection">
         <fieldset>
           <legend class="tonality-selection__legend">Выберите тональность</legend>
-          <label for="tonica">Тоника</label>
-          <select id="tonica" name="tonica">
-            <option value="0">Не выбрана</option>
+          <label for="tonality-selection__tonica">Тоника</label>
+          <select class="tonality-selection__tonica" name="tonica" autofocusd>
+            <option value="0"></option>
             <option value="C">C</option>
             <option value="D">D</option>
             <option value="E">E</option>
@@ -33,23 +33,23 @@
           </select>
           <span class="tonality-selection__hint tonality-selection__hint_hidden" data-name="tonica">Не выбрано</span>
           <br />
-          <label for="accidental">Знак альтерации</label>
-          <select id="accidental" name="accidental">
-            <option value="0">Не выбрана</option>
+          <label for="tonality-selection__sign">Знак альтерации</label>
+          <select id="tonality-selection__sign" name="sign">
+            <option value="0"></option>
             <option value="no">Отсутствует</option>
             <option value="#">#</option>
             <option value="b">b</option>
           </select>
-          <span class="tonality-selection__hint tonality-selection__hint_hidden" data-name="accidental">Не выбрано</span>
+          <span class="tonality-selection__hint tonality-selection__hint_hidden" data-name="sign">Не выбрано</span>
           <br />
-          <label for="gamma">Гамма</label>
-          <select id="gamma" name="gamma">
-            <option value="0">Не выбрана</option>
-            <option value="major">Мажор</option>
-            <option value="minor">Минор</option>
+          <label for="tonality-selection__mode">Лад</label>
+          <select id="tonality-selection__mode" name="mode">
+            <option value="0"></option>
+            <option value="major">Мажорный</option>
+            <option value="minor">Минорный</option>
           </select>
-          <span class="tonality-selection__hint tonality-selection__hint_hidden" data-name="gamma">Не выбрано</span>
-          <button type="button" class="tonality-btn">Посмотреть</button>
+          <span class="tonality-selection__hint tonality-selection__hint_hidden" data-name="mode">Не выбрано</span>
+          <button type="button" class="tonality-selection__show">Посмотреть</button>
         </fieldset>
       </form>
     </div>

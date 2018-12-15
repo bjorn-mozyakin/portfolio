@@ -8,7 +8,7 @@ class BtnTonality extends Btns {
   }
 
   handleClick() {
-    gamma.selections.length = 0 ;
+    gamma.selections.length = 0;
     selectsTonality.forEach((item) => {
       gamma.selections.push(item.value);
       if (gamma.selections[gamma.selections.length - 1] == '0') {
@@ -23,10 +23,10 @@ class BtnTonality extends Btns {
     });
     if (gamma.selections.every((item) => item != '0')) {
       if (!this.gammaDrawn) {
-        gamma.clearStaff();
-        gamma.drawStaff();
+        gamma.clearStave();
+        gamma.drawStave();
       }
-      gamma.drawTonality();
+      gamma.drawGamma();
     }
   }
 }

@@ -196,14 +196,14 @@ gulp.task('scripts', function(){
 
 // complicated tasks
 gulp.task('build', function(){
-  runSequence('clean', 'html', 'sass', 'scripts', 'sprite_png', 'img');
+  runSequence('clean', 'html', 'sass', 'scripts', 'img');
   // runSequence('clean', 'html', 'assets', 'sass', 'scripts');
 });
 
 gulp.task('watch', function() {
   // gulp.watch('./src/portfolio/chords/**/*.pug', ['pug']);
   gulp.watch('./src/portfolio/chords/**/*.html', ['html']);
-  gulp.watch('./src/portfolio/chords/img/strite_png/**/*.{png,jpg,jpeg}', ['sprite_png']);
+  // gulp.watch('./src/portfolio/chords/img/strite_png/**/*.{png,jpg,jpeg}', ['sprite_png']);
   gulp.watch('./src/portfolio/chords/img/**/*.*', ['img']);
   gulp.watch('./src/portfolio/chords/styles/**/*.scss', ['sass']);
   // gulp.watch('./src/portfolio/chords/styles/**/*.css', ['css']);
