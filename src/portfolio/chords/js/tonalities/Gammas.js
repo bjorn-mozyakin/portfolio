@@ -31,6 +31,7 @@ class Gammas {
       this.ctx.moveTo(margin, currentPos);
       this.ctx.lineTo(500 - margin, currentPos);
       this.ctx.stroke();
+      this.ctx.closePath();
       currentPos += step;
     }
     this.gammaDrawn = true;
@@ -122,6 +123,7 @@ class Gammas {
 
   drawNote(marginL, marginT) {
     this.drawEllipse(this.ctx, marginL, marginT, 10, 6);
+    if (marginT <= 20 || marginT >= 140) this._drawAdditionalLine(this.ctx, marginL, marginT);
   }
 
   drawEllipse(ctx, x, y, a, b) {
@@ -136,6 +138,14 @@ class Gammas {
 
     this.ctx.fill();
     this.ctx.stroke();
+  }
+
+  _drawAdditionalLine(ctx, marginL, marginT) {
+    this.ctx.beginPath();
+    this.ctx.moveTo(marginL - 15, marginT);
+    this.ctx.lineTo(marginL + 15, marginT);
+    this.ctx.stroke();
+    this.ctx.closePath();
   }
 
   drawSign(marginL, marginT, sign) {
