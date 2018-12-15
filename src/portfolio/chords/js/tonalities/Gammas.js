@@ -6,7 +6,7 @@ class Gammas {
     if (this.elem) {
       this.ctx = this.elem.getContext('2d');
       this.ctx.font = '20px Arial';
-      this.ctx.fillStyle = 'balck';
+      this.ctx.fillStyle = 'black';
       // this.ctx.lineWidth = 3  ;
       // this.ctx.strokeStyle = 'black';
     }
@@ -35,6 +35,11 @@ class Gammas {
       currentPos += step;
     }
     this.gammaDrawn = true;
+    this.drawClef(this.ctx);
+  }
+
+  drawClef(ctx) {
+
   }
 
   drawTonality(){
@@ -44,17 +49,14 @@ class Gammas {
   }
 
   drawNotes(notes) {
-    let marginL = 40;
-    let stepL = 40;
+    let marginL = 140;
+    let stepL = 50;
 
     let curPos = GAMMA_NOTES.indexOf(notes[0][0]);
     let marginT = TONALITY_MARGIN[curPos];
 
     for (var i = 0; i < notes.length; i++) {
-      if (notes[i][1]) {
-        this.drawSign(marginL - 10, marginT + 10, notes[i][1]);
-        marginL += 20;
-      }
+      if (notes[i][1]) this.drawSign(marginL - 30, marginT + 10, notes[i][1]);
       this.drawNote(marginL, marginT);
       this.drawLetter(marginL - 10, 180, notes[i]);
       marginL += stepL;
