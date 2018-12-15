@@ -34,6 +34,21 @@ select {
   background-size: 100% 100%;
 }
 
+.stave__error-msg {
+  position: absolute;
+  left: 135px;
+  top: 50px;
+  width: 370px;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  background-color: $colorWhite;
+}
+
+.stave__error-msg_hidden {
+  display: none;
+}
+
 .tonality-selection {
   width: $blockWidth;
   margin: 0 auto;

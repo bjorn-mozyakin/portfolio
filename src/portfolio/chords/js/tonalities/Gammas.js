@@ -20,6 +20,7 @@ class Gammas {
   clearStaff() {
     this.ctx.clearRect(0, 0, 560, 200);
     this.notes.length = 0;
+    this.hideErrorMsg();
   }
 
   drawStaff() {
@@ -35,16 +36,11 @@ class Gammas {
       currentPos += step;
     }
     this.gammaDrawn = true;
-    this.drawClef(this.ctx);
-  }
-
-  drawClef(ctx) {
-
   }
 
   drawTonality(){
     let notes = this.defineNotes(this.selections[0], this.selections[1], this.selections[2]);
-    if (notes.length == 0) this.drawError();
+    if (notes.length == 0) this.showErrorMsg();
     else this.drawNotes(notes);
   }
 
@@ -160,10 +156,14 @@ class Gammas {
     this.ctx.fillText(letter, marginL, marginT);
   }
 
-  drawError() {
-    this.ctx.fillText('Тональности с таким названием не существует.', 20, 150);
-    this.ctx.fillText('Пожалуйста, выберите другую тональность', 40, 180);
+  showErrorMsg() {
+    $('.stave__error-msg').removeClass('stave__error-msg_hidden');
+  }
+
+  hideErrorMsg() {
+    $('.stave__error-msg').addClass('stave__error-msg_hidden');
   }
 }
+
 
 export default Gammas;
