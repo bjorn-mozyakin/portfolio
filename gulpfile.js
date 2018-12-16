@@ -34,7 +34,7 @@ var isDevelopment = !process.env.NODE_ENV || process.env.NODE_ENV == 'developmen
 
 // Default task
 gulp.task('default', function(){
-  console.log("It's alive!!!");
+  console.log('It is alive!!!');
 });
 
 // Clean
@@ -208,7 +208,7 @@ gulp.task('watch', function() {
   gulp.watch('./src/portfolio/chords/styles/**/*.scss', ['sass']);
   // gulp.watch('./src/portfolio/chords/styles/**/*.css', ['css']);
   gulp.watch('./src/portfolio/chords/js/**/*.js', ['scripts']);
-})
+});
 
 gulp.task('serve', function(){
   browserSync.init({

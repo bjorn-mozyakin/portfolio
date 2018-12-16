@@ -1,4 +1,4 @@
-import {GAMMA_NOTES, CHORD_TONICS, MAJOR, MINOR, TONALITY_MARGIN} from '../common/chords/chords';
+import {GAMMA_NOTES, CHORD_TONICS, MAJOR, MINOR} from '../common/chords/chords';
 
 class Gamma {
   constructor(options) {
@@ -9,6 +9,10 @@ class Gamma {
       this.ctx.fillStyle = 'black';
       this.width = options.width || 600;
       this.height = options.height || 200;
+      this.step = options.step || 20;
+      this.margin = options.margin || 20;
+      this.clefSize = this.height * 0.7;
+      this.posNoteC = this.margin + this.step * 6;
     }
 
     this.selections = [];
@@ -23,13 +27,14 @@ class Gamma {
     this._hideTonalityName();
   }
 
-  drawStave(marginL = 20, step = 20) {
-    let marginT = marginL * 2;
+  drawStave() {
+    let marginT = this.margin * 2;
 
     for (let i = 1; i <= 5; i++) {
-      this._drawLine(marginL, marginT);
-      marginT += step;
+      this._drawLine(this.margin, marginT);
+      marginT += this.step;
     }
+
     this.gammaDrawn = true;
   }
 
@@ -43,6 +48,7 @@ class Gamma {
 
   drawGamma(){
     let notes = this._defineNotes(this.selections[0], this.selections[1], this.selections[2]);
+
     if (notes.length == 0) this.showErrorMsg();
     else {
       this._drawNotes(notes);
@@ -51,24 +57,26 @@ class Gamma {
   }
 
   _drawNotes(notes) {
-    let marginL = 160;
-    let stepL = 60;
+    let marginL = this.margin + this.clefSize;
+    let stepL = this.step * 3;
 
     let curPos = GAMMA_NOTES.indexOf(notes[0][0]);
-    let marginT = TONALITY_MARGIN[curPos];
+    let marginT = this.posNoteC - curPos * this.step/2;
 
     for (var i = 0; i < notes.length; i++) {
-      if (notes[i][1]) this._drawSign(marginL - 30, marginT + 10, notes[i][1]);
+      if (notes[i][1]) this._drawSign(marginL - this.step * 1.5, marginT + this.step / 2, notes[i][1]);
       this._drawNote(marginL, marginT);
-      this._drawLetter(marginL - 10, 180, notes[i]);
+      this._drawLetter(marginL - this.step/2, this.height - this.margin, notes[i]);
       marginL += stepL;
-      marginT -= 10;
+      marginT -= this.step/2;
     }
   }
 
   _drawNote(marginL, marginT) {
-    this._drawEllipse(marginL, marginT, 10, 6);
-    if (marginT <= 20 || marginT >= 140) this._drawAdditionalLine(marginL, marginT);
+    this._drawEllipse(marginL, marginT, this.step / 2, this.step * 0.3);
+    if (marginT <= this.margin || marginT >= this.posNoteC) {
+      this._drawAdditionalLine(marginL, marginT);
+    }
   }
 
   _drawEllipse(x, y, a, b) {
@@ -87,8 +95,8 @@ class Gamma {
 
   _drawAdditionalLine(marginL, marginT) {
     this.ctx.beginPath();
-    this.ctx.moveTo(marginL - 15, marginT);
-    this.ctx.lineTo(marginL + 15, marginT);
+    this.ctx.moveTo(marginL - this.step * 0.75, marginT);
+    this.ctx.lineTo(marginL + this.step * 0.75, marginT);
     this.ctx.stroke();
     this.ctx.closePath();
   }

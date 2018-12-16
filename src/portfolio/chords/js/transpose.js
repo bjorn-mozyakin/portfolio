@@ -51,4 +51,4 @@ $(document).ready( () => {
 
 });
 
-export {CHORD_TONICS, CHORD_TYPES, MAJOR, MINOR, TONALITY_MARGIN, ALL_CHORDS, textarea, song, btnsChangeTone, toneValue, btnChords};
+export {textarea, song, btnsChangeTone, toneValue, btnChords};

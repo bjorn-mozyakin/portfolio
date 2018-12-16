@@ -412,8 +412,10 @@ select {
   margin: 0 auto; }
 
 .stave__notes {
-  width: 100%;
+  display: block;
+  width: 600px;
   height: 200px;
+  margin: 0 auto;
   border: 1px solid #c0c0c0; }
 
 .stave__clef {

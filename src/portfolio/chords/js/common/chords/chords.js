@@ -6,7 +6,5 @@ const P = 1;      // Полутон
 const T = 2 * P;  // Тон
 const MAJOR = [T, T, P, T, T, T, P];  // Мажорный звукоряд
 const MINOR = [T, P, T, T, P, T, T];  // Минорный звукоряд
-// const TONALITY_MARGIN = [140, 140, 130, 130, 120, 110, 110, 100, 100, 90, 90, 80, 70, 70, 60, 60, 50, 40, 40, 30, 30, 20, 20, 10, 0];
-const TONALITY_MARGIN = [140, 130, 120, 110, 100, 90, 80];
 
 export {GAMMA_NOTES, CHORD_TONICS, CHORD_TYPES, MAJOR, MINOR, TONALITY_MARGIN};
