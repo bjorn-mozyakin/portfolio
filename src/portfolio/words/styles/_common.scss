@@ -1,0 +1,23 @@
+.words {
+  border-collapse: separate;
+  border-spacing: 2px;
+  background-color: #888;
+}
+
+.word {
+  height: 30px;
+}
+
+.word-english {
+  padding: 10px;
+  background-color: #eee;
+}
+
+.word-russian {
+  padding: 10px;
+  background-color: #aaa;
+}
+
+.word-close {
+  cursor: pointer;
+}
