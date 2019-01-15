@@ -1,7 +1,9 @@
-const projectNameWords = 'words';
+const words_config = require('./webpack_words.config.js');
+
+const projectNameChords = 'chords';
 
 const CleanWebpackPlugin = require('clean-webpack-plugin');
-const clearDestWords = new CleanWebpackPlugin('myportfolio.local/portfolio/words/**/*', {});
+const clearDestChords = new CleanWebpackPlugin('myportfolio.local/portfolio/chords/**/*', {});
 
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const copyFiles = new CopyWebpackPlugin([
@@ -22,23 +24,29 @@ const htmlPlugin = new HtmlWebpackPlugin({
 });
 const excludePlugin = new HtmlWebpackExcludeAssetsPlugin();
 
-
 module.exports = function() {
   return {
-    name: 'words',
-    context: __dirname + '/src/portfolio/' + projectNameWords,
+    name: 'chords',
+    context: __dirname + '/src/portfolio/' + projectNameChords,
     entry: {
       'js/main': './js/main',
-      'styles/main': './styles/main.scss'
+      'js/tonalities': './js/tonalities',
+      'js/transpose': './js/transpose',
+      'styles/main': './styles/main.scss',
+      'styles/tonalities': './styles/tonalities.scss',
+      'styles/transpose': './styles/transpose.scss'
+      // main: './js/main',
+      // tonalities: './js/tonalities',
+      // transpose: './js/transpose'
     },
     output: {
-      path: __dirname + '/myportfolio.local/portfolio/' + projectNameWords,
+      path: __dirname + '/myportfolio.local/portfolio/' + projectNameChords,
       filename: './[name].js'
     },
     // mode: 'development',
     // watch: true,
     plugins: [
-      clearDestWords,
+      clearDestChords,
       copyFiles,
       extractCSS
       // htmlPlugin,
@@ -74,5 +82,5 @@ module.exports = function() {
         }
       ]
     }
-  };
+  }
 };

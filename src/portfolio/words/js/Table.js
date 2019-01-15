@@ -32,7 +32,6 @@ class Table {
         'data': data
       },
       success: (data) => {
-        debugger
         JSON.parse(data).forEach((row) => {
           this.addToPage($(content).find('.words')[0], row);
         });
@@ -46,7 +45,6 @@ class Table {
   }
 
   addToPage(parent, data) {
-    debugger
     let tr = document.createElement('tr');
     tr.className = 'word';
     tr.dataset.id = data['id'];
