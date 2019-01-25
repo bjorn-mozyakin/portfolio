@@ -45,6 +45,7 @@ module.exports = function() {
     },
     // mode: 'development',
     // watch: true,
+    devtool: "source-map",
     plugins: [
       clearDestChords,
       copyFiles,

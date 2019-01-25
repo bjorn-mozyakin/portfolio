@@ -37,6 +37,7 @@ module.exports = function() {
     },
     // mode: 'development',
     // watch: true,
+    devtool: "source-map",
     plugins: [
       clearDestWords,
       copyFiles,
