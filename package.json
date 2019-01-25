@@ -6,11 +6,16 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "jest_test": "jest",
-    "build_dev": "webpack --mode=development",
-    "build_prod": "webpack --mode=production",
-    "build": "npm run build_prod",
-    "watch": "webpack --mode=development --watch",
-    "serve": "webpack-dev-server"
+    "serve": "webpack-dev-server",
+    "wp_all_watch": "webpack --mode=development --watch",
+    "wp_all_build_dev": "webpack --mode=development",
+    "wp_all_build_prod": "webpack --mode=production",
+    "wp_chords_watch": "webpack --config webpack_chords.config.js --mode=development --watch",
+    "wp_chords_build_dev": "webpack --config webpack_chords.config.js --mode=development",
+    "wp_chords_build_prod": "webpack --config webpack_chords.config.js --mode=production",
+    "wp_words_watch": "webpack --config webpack_words.config.js --mode=development --watch",
+    "wp_words_build_dev": "webpack --config webpack_words.config.js --mode=development",
+    "wp_words_build_prod": "webpack --config webpack_words.config.js --mode=production"
   },
   "author": "Dmitry Rakov",
   "license": "ISC",
