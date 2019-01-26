@@ -1,0 +1,66 @@
+.use-cases-wrapper {
+  width: 100%;
+  background-color: $colorWhite;
+}
+
+.use-cases {
+  box-sizing: border-box;
+  max-width: $maxWidthBody;
+  min-width: $minWidthBody;
+  margin: 0 auto;
+  padding: 160px $wrapperGap;
+}
+
+.use-cases__title {
+  margin-bottom: 160px;
+}
+
+.use-cases__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.use-case {
+  width: 33%;
+  margin: 0 0 20px;
+}
+
+
+/* CSS правила для retina (png-картинки)*/
+$imgs: (
+   (1, url(../img/uc1.png), url(../img/uc1@2x.png)),
+   (2, url(../img/uc2.png), url(../img/uc2@2x.png)),
+   (3, url(../img/uc3.png), url(../img/uc3@2x.png)),
+   (4, url(../img/uc4.png), url(../img/uc4@2x.png)),
+   (5, url(../img/uc5.png), url(../img/uc5@2x.png))
+);
+
+@each $img in $imgs {
+  .use-case__img#{nth($img, 1)} {
+    background-image: nth($img, 2);
+  }
+}
+
+.use-case__img {
+  background-size: 80%;
+  background-repeat: no-repeat;
+  background-position: 50% 50%;
+  height:300px;
+  width: 100%;
+}
+
+@media (-webkit-min-device-pixel-ratio: 2),
+(min-resolution: 192dpi) {
+  @each $img in $imgs {
+    .use-case__img#{nth($img, 1)} {
+      background-image: nth($img, 3);
+    }
+  }
+}
+
+.use-case__text {
+  display: flex;
+  justify-content: center;
+  line-height: 28px;
+  font-size: 20px;
+}
