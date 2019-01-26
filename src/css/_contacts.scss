@@ -1,0 +1,92 @@
+.form {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  padding-right: 40px;
+}
+
+.send-email__label {
+  display: block;
+  margin: 10px 0 5px 0;
+}
+
+%form-element {
+  box-sizing: border-box;
+  display: block;
+  width: 100%;
+  border-radius: 5px;
+}
+
+.send-email__input {
+  @extend %form-element;
+  height: 30px;
+  color: #000;
+}
+
+.send-email__textarea {
+  @extend %form-element;
+  resize: none;
+  color: #000;
+}
+
+.send-email__submit {
+  @extend %form-element;
+  height: 50px;
+  margin-top: 20px;
+  border: 2px solid $purpleDark;
+  font-weight: bold;
+  color: $purpleDark;
+  background: $colorDarkGold;
+  background: linear-gradient(to bottom, $colorGold, $colorDarkGold);
+
+  &:hover {
+    background: $colorGold;
+    background: linear-gradient(to bottom, rgb(223, 223, 0), $colorGold);
+  }
+}
+
+
+.other-contacts {
+  box-sizing: border-box;
+  float: left;
+  width: 50%;
+  padding-left: 100px;
+  margin-bottom: 16px;
+}
+
+.contact {
+  line-height: 40px;
+  height: 40px;
+
+  &:first-child {
+    padding-top: 60px;
+  }
+}
+
+.contact__subtitle {
+  text-align: left;
+}
+
+.contact__icon {
+  vertical-align: middle;
+  display: inline-block;
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+}
+
+.contact__icon-email {
+  background:url(/img/icons/icon-email.png) no-repeat;
+}
+
+.contact__icon-skype {
+  background:url(/img/icons/icon-skype.png) no-repeat;
+}
+
+.contact__icon-hh {
+  background:url(/img/icons/icon-hh.png) no-repeat;
+}
+
+.audio {
+  width: 100%;
+}

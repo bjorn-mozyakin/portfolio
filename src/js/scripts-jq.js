@@ -1,23 +1,21 @@
 $(document).ready(function(){
 
   $(window).on('scroll', changeActiveItemOnScroll);
-
   $('.send-email').on('submit', sendForm);
 
 
-
   function changeActiveItemOnScroll() {
-    var currentItem = defineCurrentItem($('.active'));
+    var currentItem = defineCurrentItem($('.menu__link_active'));
 
-    $('.main-menu a').each(function() {
-      if (!$(this).hasClass('active')) return true;
-      $(this).removeClass('active');
+    $('.menu__link').each(function() {
+      if (!$(this).hasClass('menu__link_active')) return true;
+      $(this).removeClass('menu__link_active');
       return false;
     });
 
     var str = 'a[href="#' + $(currentItem).attr('data-item') + '"]';
-    $(str).addClass('active');
-  };
+    $(str).addClass('menu__link_active');
+  }
 
   function defineCurrentItem(currentItem) {
     $('.menu-item').each(function (index, elem) {
@@ -36,7 +34,6 @@ $(document).ready(function(){
     return currentItem;
   }
 
-
   function sendForm(e) {
     e.preventDefault(); //STOP default action
 
@@ -44,18 +41,16 @@ $(document).ready(function(){
       var formName = $(this).attr('name');
 
       $.ajax({
-        url: $('.send-email').attr("action"),
-        type: "POST",
-        data: $('.send-email').serialize() + "&submit=" + formName,
-        success: function(data, textStatus, jqXHR)
-          {
-            $('.send-email').find('input[type=text], input[type=email], textarea').val('');
-            showMsgAfterSending('Спасибо, ваше письмо отправлено');
-          },
-        error: function(jqXHR, textStatus, errorThrown)
-          {
-            showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз');
-          }
+        url: $('.send-email').attr('action'),
+        type: 'POST',
+        data: $('.send-email').serialize() + '&submit=' + formName,
+        success: function(data, textStatus, jqXHR) {
+          $('.send-email').find('input[type=text], input[type=email], textarea').val('');
+          showMsgAfterSending('Спасибо, ваше письмо отправлено');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз');
+        }
       });
     }
   }

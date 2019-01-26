@@ -1,0 +1,76 @@
+
+.logo {
+  float: left;
+  text-transform: uppercase;
+  line-height: 50px;
+}
+
+.menu {
+  margin: 0;
+  padding: 0;
+  height: 50px;
+  width: 100%;
+  text-align: right;
+  font-size: 0;
+  //outline: 1px solid red;
+}
+
+
+.menu__item {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  //outline: 1px solid red;
+}
+
+.menu__link {
+  display: block;
+  text-transform: uppercase;
+  padding: 0px 10px;
+  margin-left: 3px;
+  line-height: 50px;
+  font-size: 16px;
+  font-size: 1rem;
+  font-weight: bold;
+  color: $colorWhite;
+  vertical-align: middle;
+
+  &:hover,
+  &_active {
+    background: #fff;
+    color: $purpleDark;
+
+    & .menu__icon-portfolio {
+      background: url(/img/icons/portfolio-hover.png) no-repeat;
+    }
+
+    & .menu__icon-about {
+      background: url(/img/icons/about-hover.png) no-repeat;
+    }
+
+    & .menu__icon-contacts {
+      background: url(/img/icons/contacts-hover.png) no-repeat;
+    }
+  }
+}
+
+.menu__icon {
+  display: inline-block;
+  vertical-align: middle;
+  width: 40px;
+  height: 30px;
+  margin-top: -5px;
+  padding-right: 10px;
+}
+
+.menu__icon-portfolio {
+  background: url(/img/icons/portfolio.png) no-repeat;
+}
+
+.menu__icon-about {
+  background: url(/img/icons/about.png) no-repeat;
+}
+
+.menu__icon-contacts {
+  background: url(/img/icons/contacts.png) no-repeat;
+}

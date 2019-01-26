@@ -383,7 +383,7 @@ gulp.task('words_dev', function(){
 
 // Clean
 gulp.task('main_clean', function(){
-  return del('./myportfolio.local/**/*','!./myportfolio.local/{portfolio,portfolio/**/*}');
+  return del(['./myportfolio.local/**/*','!./myportfolio.local/{portfolio,portfolio/**/*}']);
 });
 
 // HTML
@@ -424,18 +424,29 @@ gulp.task('main_sass', function(){
     }))
     .pipe(autoprefixer('last 2 versions', '> 1%', 'ie 11'))
     .pipe(gulpIf(!isDevelopment, combine(
-      cssnano(),
-      rename({suffix: '.min'}) ))
-    )
+      cssnano()
+      // rename({suffix: '.min'}) ))
+    )))
     .pipe(gulp.dest('./myportfolio.local/css'));
 });
+//
+// var pump = require('pump');
+// pump([
+//   gulp.src('./src/js/**/*.js'),
+//   uglify({
+//     compress: {drop_debugger: false}
+//   }),
+//   gulp.dest('./myportfolio.local/js')
+// ], cb);
 
 // Scripts
-gulp.task('main_scripts', function(){
+gulp.task('main_scripts', function(cb){
   return gulp.src('./src/js/**/*.js')
     .pipe(gulpIf(!isDevelopment, combine(
-      uglify(),
-      rename({suffix: '.min'})
+      uglify({
+        compress: {drop_debugger: false}
+      })
+      // rename({suffix: '.min'})
     )))
     .pipe(gulp.dest('./myportfolio.local/js'));
 });
@@ -448,11 +459,11 @@ gulp.task('main_build', function(){
 
 gulp.task('main_watch', function() {
   // gulp.watch('./src/portfolio/chords/**/*.pug', ['pug']);
-  gulp.watch('./src/portfolio/chords/**/*.html', ['main_html']);
-  gulp.watch('./src/portfolio/chords/**/*.php', ['main_php']);
-  gulp.watch('./src/portfolio/chords/styles/**/*.scss', ['main_sass']);
-  gulp.watch('./src/portfolio/chords/img/**/*.*', ['main_img']);
-  gulp.watch('./src/portfolio/chords/js/**/*.js', ['main_scripts']);
+  gulp.watch('./src/**/*.html', ['main_html']);
+  gulp.watch('./src/**/*.php', ['main_php']);
+  gulp.watch('./src/css/**/*.scss', ['main_sass']);
+  gulp.watch('./src/img/**/*.*', ['main_img']);
+  gulp.watch('./src/js/**/*.js', ['main_scripts']);
 });
 
 gulp.task('main_serve', function(){
@@ -467,13 +478,16 @@ gulp.task('main_dev', function(){
   runSequence('main_build', ['main_watch', 'main_serve']);
 });
 
+gulp.task('main_devloh', function(){
+  runSequence('main_build', 'main_watch');
+});
 // ===========================
 // PORTFOLIO - OTHER
 // ===========================
 
 // Clean
 gulp.task('other_clean', function(){
-  return del('./myportfolio.local/portfolio/**/*','!./myportfolio.local/portfolio/{words,words/**,words/**/*,chords,chords/**,chords/**/*}');
+  return del(['./myportfolio.local/portfolio/**/*','!./myportfolio.local/portfolio/{words,words/**,words/**/*,chords,chords/**,chords/**/*}']);
 });
 
 // Files
