@@ -1,0 +1,27 @@
+.nav {
+  display: flex;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: $hNav;
+  border-bottom: 2px solid $cGray;
+  z-index: 5;
+  background: $cBlackLight;
+
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    max-width: $wMax;
+    width: 90%;
+    margin: auto;
+  }
+
+  &__logo {
+    font-size: 24px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+

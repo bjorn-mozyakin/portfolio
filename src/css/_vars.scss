@@ -1,8 +1,13 @@
-$purpleLight: #3D1154;
-$purpleDark: #260338;
-$colorAlmostBlack: #160121;
-$colorGold: #ebc402;
-$colorDarkGold: #ba9d0b;
-$colorWhite: #fff;
+// Colors: starts with $c
+$cWhite: #fff;
+$cGray: gray;
+$cBlackLight: #160121;
+$cGold: #ebc402;
+$cGoldDark: #ba9d0b;
+$cPurpleLight: #3D1154;
+$cPurpleDark: #260338;
 
-$screenWidth: 960px;
+// Sizes: starts with $w (width) or $h (height)
+$wMax: 960px;
+$hNav: 50px;
+

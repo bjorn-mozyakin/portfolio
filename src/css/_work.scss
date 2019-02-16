@@ -1,16 +1,30 @@
+.portfolio {
+  display: block;
+  background: $cPurpleDark;
+  background: linear-gradient(to bottom, $cPurpleDark, $cPurpleLight);
+
+  &__container {
+    max-width: $wMax;
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+
+  &__title {
+    text-align: center;
+  }
+}
+
 .works {
-  font-size: 0;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .work {
-  display: inline-block;
-  vertical-align: top;
   box-sizing: border-box;
   width: 50%;
   margin: 20px 0;
   font-size: 16px;
-  font-size: 1rem;
-  text-align: left;
 
   &:nth-child(2n+1) {
     padding-right: 40px;
@@ -19,39 +33,42 @@
   &:nth-child(2n) {
     padding-left: 40px;
   }
-}
 
-.work__main-info {
-  margin-bottom: 0px;
-}
-
-.work__screenshot {
-  float: left;
-  width: 200px;
-  height: 150px;
-  margin-right: 20px;
-}
-
-.work__img {
-  border-radius: 5px;
-  width: 200px;
-  height: 150px;
-  background: gray;
-  opacity: 0.8;
-
-  &:hover {
-    opacity: 1;
-    box-shadow: 0 0 6px $colorGold;
+  &__main-info {
+    display: flex;
   }
-}
 
-.work__name {
-  margin: 0;
-  padding: 0;
-  text-align: left;
-}
+  &__screenshot {
+    display: block;
+    width: 200px;
+    height: 150px;
+    margin-right: 20px;
+  }
 
-.work__title {
-  @extend .work__name;
-  margin-top: 20px  
+  &__img {
+    width: 200px;
+    height: 150px;
+    border-radius: 5px;
+    background: $cGray;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+      box-shadow: 0 0 6px $cGold;
+    }
+  }
+
+  &__name {
+    margin: 0;
+    padding-bottom: 20px;
+  }
+
+  &__description {
+    margin: 0;
+    font-size: 16px;
+  }
+
+  &__spec {
+    margin-top: 20px;
+  }
 }

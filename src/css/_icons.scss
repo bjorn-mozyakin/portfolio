@@ -1,0 +1,96 @@
+.icon {
+  &:before {
+    content: '';
+    display: inline-block;
+    background-repeat: no-repeat;
+  }
+
+  &_about-hover {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: 0px 0px;
+      width: 40px;
+      height: 30px;
+    }
+  }
+  &_about {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -42px 0px;
+      width: 40px;
+      height: 30px;
+    }
+  }
+  &_contacts-hover {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: 0px -32px;
+      width: 40px;
+      height: 30px;
+    }
+  }
+  &_contacts {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -42px -32px;
+      width: 40px;
+      height: 30px;
+    }
+  }
+  &_email {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: 0px -64px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  &_hh {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -27px -64px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  &_phone {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -54px -64px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  &_portfolio-hover {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -84px 0px;
+      width: 40px;
+      height: 30px;
+    }
+  }
+  &_portfolio {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -84px -32px;
+      width: 40px;
+      height: 30px;
+    }
+  }
+  &_skype {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -81px -64px;
+      width: 25px;
+      height: 25px;
+    }
+  }
+  &_tick {
+    &:before {
+      background-image: url(../img/icons.png);
+      background-position: -108px -64px;
+      width: 15px;
+      height: 15px;
+    }
+  }
+}

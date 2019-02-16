@@ -416,6 +416,30 @@ gulp.task('main_img', function(){
     .pipe(gulp.dest('./myportfolio.local/img'));
 });
 
+gulp.task('main_sprite_png', function () {
+  var spriteData = gulp.src('./src/img/icons/**/*.{png,jpg,jpeg}')
+    .pipe(spritesmith({
+      imgName: 'icons.png',
+      imgPath: '../img/icons.png',
+      cssName: '_icons.scss',
+      cssFormat: 'css',
+      cssTemplate: './src/css/_icons.tmpl',
+      padding: 2,
+      algorithm: 'binary-tree',
+      algorithmOpts: {sort: false}
+    }));
+
+  spriteData.img
+    .pipe(gulp.dest('./src/img'));
+
+  spriteData.css
+    .pipe(gulp.dest('./src/css'));
+
+  return spriteData;
+  // return spriteData.pipe(gulp.dest('./src/portfolio/chords/'));
+});
+
+
 // Styles
 gulp.task('main_sass', function(){
   return gulp.src('./src/css/**/*.scss')

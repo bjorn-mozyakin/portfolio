@@ -1,4 +1,4 @@
-.about {
+.acdc {
   display: block;
   background: $cPurpleDark;
   background: linear-gradient(to bottom, $cPurpleDark, $cPurpleLight);
@@ -8,15 +8,10 @@
     width: 90%;
     margin: 0 auto;
     padding: 40px 0;
-  }
-
-  &__title {
     text-align: center;
   }
 
-  &__cv {
-    text-align: center;
-    margin-top: 30px;
+  &__audio {
+    width: 100%;
   }
 }
-

@@ -1,1 +1,62 @@
-$(document).ready(function(){function i(e){$(".after-sending").text(e)}$(window).on("scroll",function(){var e=(i=$(".menu__link_active"),$(".menu-item").each(function(e,t){var n=t.getBoundingClientRect().top;return n>$(window).height()||(0<n?(i=t,!1):void(i=t))}),i);var i;$(".menu__link").each(function(){return!$(this).hasClass("menu__link_active")||($(this).removeClass("menu__link_active"),!1)});var t='a[href="#'+$(e).attr("data-item")+'"]';$(t).addClass("menu__link_active")}),$(".send-email").on("submit",function(e){if(e.preventDefault(),"send-email"==$(this).attr("name")){var t=$(this).attr("name");$.ajax({url:$(".send-email").attr("action"),type:"POST",data:$(".send-email").serialize()+"&submit="+t,success:function(e,t,n){$(".send-email").find("input[type=text], input[type=email], textarea").val(""),i("Спасибо, ваше письмо отправлено")},error:function(e,t,n){i("К сожалению ваше письмо не удалось отправить. Попробуйте еще раз")}})}})});
+$(document).ready(function(){
+
+  $(window).on('scroll', changeActiveItemOnScroll);
+  $('.send-email').on('submit', sendForm);
+
+
+  function changeActiveItemOnScroll() {
+    var currentItem = defineCurrentItem($('.menu__link_active'));
+
+    $('.menu__link').each(function() {
+      if (!$(this).hasClass('menu__link_active')) return true;
+      $(this).removeClass('menu__link_active');
+      return false;
+    });
+
+    var str = 'a[href="#' + $(currentItem).attr('data-item') + '"]';
+    $(str).addClass('menu__link_active');
+  }
+
+  function defineCurrentItem(currentItem) {
+    $('.menu-item').each(function (index, elem) {
+      var top = elem.getBoundingClientRect().top;
+
+      if (top > $(window).height()) {
+        return true;
+      } else if (top > 0) {
+        currentItem = elem;
+        return false;
+      } else {
+        currentItem = elem;
+      }
+    });
+
+    return currentItem;
+  }
+
+  function sendForm(e) {
+    e.preventDefault(); //STOP default action
+
+    if ($(this).attr('name') == 'send-email') {
+      var formName = $(this).attr('name');
+
+      $.ajax({
+        url: $('.send-email').attr('action'),
+        type: 'POST',
+        data: $('.send-email').serialize() + '&submit=' + formName,
+        success: function(data, textStatus, jqXHR) {
+          $('.send-email').find('input[type=text], input[type=email], textarea').val('');
+          showMsgAfterSending('Спасибо, ваше письмо отправлено');
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз');
+        }
+      });
+    }
+  }
+
+  function showMsgAfterSending (message) {
+    $('.after-sending').text(message);
+  }
+
+});

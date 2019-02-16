@@ -1,0 +1,16 @@
+.zigzag-end {
+  &:after {
+    content: '';
+    display: block;
+    position: relative;
+    left: 0;
+    top: 100%;
+    width: 100%;
+    height: 20px;
+    background: #260338;
+    background-image: linear-gradient(to top right,transparent 50.5%,#3d1154 0),linear-gradient(to top left,transparent 50.5%,#3d1154 0);
+    background-repeat: repeat-x,repeat-x;
+    background-position: 0 0,0 0;
+    background-size: 20px 20px,20px 20px;
+  }
+}
