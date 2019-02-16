@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   $(window).on('scroll', changeActiveItemOnScroll);
-  $('.send-email').on('submit', sendForm);
+  $('.contacts__send-email').on('submit', sendForm);
 
 
   function changeActiveItemOnScroll() {
@@ -18,7 +18,7 @@ $(document).ready(function(){
   }
 
   function defineCurrentItem(currentItem) {
-    $('.menu-item').each(function (index, elem) {
+    $('.js-menu-section').each(function (index, elem) {
       var top = elem.getBoundingClientRect().top;
 
       if (top > $(window).height()) {
@@ -41,11 +41,11 @@ $(document).ready(function(){
       var formName = $(this).attr('name');
 
       $.ajax({
-        url: $('.send-email').attr('action'),
+        url: $(this).attr('action'),
         type: 'POST',
-        data: $('.send-email').serialize() + '&submit=' + formName,
+        data: $(this).serialize() + '&submit=' + formName,
         success: function(data, textStatus, jqXHR) {
-          $('.send-email').find('input[type=text], input[type=email], textarea').val('');
+          $(this).find('.contacts__input, .contacts__textarea').val('');
           showMsgAfterSending('Спасибо, ваше письмо отправлено');
         },
         error: function(jqXHR, textStatus, errorThrown) {
