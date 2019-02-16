@@ -412,7 +412,7 @@ gulp.task('main_media', function(){
 
 // Images
 gulp.task('main_img', function(){
-  return gulp.src(['./src/img/**/*', '!./src/img/{icons_big,icons_big/**/*}'])
+  return gulp.src(['./src/img/**/*', '!./src/img/{icons,icons/**/*,icons_big,icons_big/**/*}'])
     .pipe(gulp.dest('./myportfolio.local/img'));
 });
 
