@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
   $(window).on('scroll', changeActiveItemOnScroll);
-  $('.contacts__send-email').on('submit', sendForm);
+  $('.contacts__submit').on('click', sendForm);
 
 
   function changeActiveItemOnScroll() {
@@ -37,26 +37,28 @@ $(document).ready(function(){
   function sendForm(e) {
     e.preventDefault(); //STOP default action
 
-    if ($(this).attr('name') == 'send-email') {
-      var formName = $(this).attr('name');
+    var form = $('.contacts__form')
+    var formName = form.attr('name');
 
+    if (formName == 'send-email') {
       $.ajax({
-        url: $(this).attr('action'),
+        url: form.attr('action'),
         type: 'POST',
-        data: $(this).serialize() + '&submit=' + formName,
-        success: function(data, textStatus, jqXHR) {
-          $(this).find('.contacts__input, .contacts__textarea').val('');
-          showMsgAfterSending('Спасибо, ваше письмо отправлено');
+        data: form.serialize(),
+        success: function(data) {
+          form.find('.contacts__input, .contacts__textarea').val('');
+          // console.log(data);
+          showMsgAfterSending('Спасибо, ваше письмо отправлено ');
         },
-        error: function(jqXHR, textStatus, errorThrown) {
-          showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз');
+        error: function(data) {
+          showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз' + data);
         }
       });
     }
   }
 
   function showMsgAfterSending (message) {
-    $('.after-sending').text(message);
+    $('.contacts__after-sending').text(message);
   }
 
 });
