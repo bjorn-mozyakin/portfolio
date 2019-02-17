@@ -1,0 +1,16 @@
+.offline {
+  display: block;
+  background: $cPurpleDark;
+  background: linear-gradient(to bottom, $cPurpleDark, $cPurpleLight);
+
+  &__container {
+    max-width: $wMax;
+    width: 90%;
+    margin: 0 auto;
+    padding: 40px 0;
+  }
+
+  &__caution {
+    text-align: center;
+  }
+}

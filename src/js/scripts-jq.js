@@ -1,5 +1,15 @@
 $(document).ready(function(){
 
+  if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('./service-worker.js')
+      .then(function(registration) {
+        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+      })
+      .catch(function(err) {
+        console.log('ServiceWorker registration failed: ', err);
+      });
+  }
+
   $(window).on('scroll', changeActiveItemOnScroll);
   $('.contacts__submit').on('click', sendForm);
 
@@ -48,10 +58,10 @@ $(document).ready(function(){
         success: function(data) {
           form.find('.contacts__input, .contacts__textarea').val('');
           // console.log(data);
-          showMsgAfterSending('Спасибо, ваше письмо отправлено ');
+          showMsgAfterSending('Спасибо, ваше письмо отправлено');
         },
         error: function(data) {
-          showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз' + data);
+          showMsgAfterSending('К сожалению ваше письмо не удалось отправить. Попробуйте еще раз');
         }
       });
     }
