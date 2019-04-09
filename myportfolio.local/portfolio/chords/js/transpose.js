@@ -1,2 +1,925 @@
-!function(e){var t={};function n(r){if(t[r])return t[r].exports;var o=t[r]={i:r,l:!1,exports:{}};return e[r].call(o.exports,o,o.exports,n),o.l=!0,o.exports}n.m=e,n.c=t,n.d=function(e,t,r){n.o(e,t)||Object.defineProperty(e,t,{enumerable:!0,get:r})},n.r=function(e){"undefined"!=typeof Symbol&&Symbol.toStringTag&&Object.defineProperty(e,Symbol.toStringTag,{value:"Module"}),Object.defineProperty(e,"__esModule",{value:!0})},n.t=function(e,t){if(1&t&&(e=n(e)),8&t)return e;if(4&t&&"object"==typeof e&&e&&e.__esModule)return e;var r=Object.create(null);if(n.r(r),Object.defineProperty(r,"default",{enumerable:!0,value:e}),2&t&&"string"!=typeof e)for(var o in e)n.d(r,o,function(t){return e[t]}.bind(null,o));return r},n.n=function(e){var t=e&&e.__esModule?function(){return e.default}:function(){return e};return n.d(t,"a",t),t},n.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},n.p="",n(n.s=8)}([function(e,t,n){"use strict";n.d(t,"c",function(){return r}),n.d(t,"a",function(){return o}),n.d(t,"b",function(){return i}),n.d(t,"d",function(){return a}),n.d(t,"e",function(){return u});var r=["C","D","E","F","G","A","H"],o=[["H#","C"],["C#","Db"],"D",["D#","Eb"],["E","Fb"],["E#","F"],["F#","Gb"],"G",["G#","Ab"],"A",["A#","Hb"],["H","Cb"]],i=["m","7","m7","6","m6","sus2","sus4","dim","aug","9","11"],a=[2,2,1,2,2,2,1],u=[2,1,2,2,1,2,2]},function(e,t,n){"use strict";function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.elem=t.elem,this.name=$(this.elem).attr("name")}var t,n,o;return t=e,(n=[{key:"enable",value:function(){$(this.elem).prop("disabled",!1)}},{key:"disable",value:function(){$(this.elem).prop("disabled",!0)}}])&&r(t.prototype,n),o&&r(t,o),e}();t.a=o},function(e,t){function n(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var r=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.items=[],this._createMenu(t)}var t,r,o;return t=e,(r=[{key:"_createMenu",value:function(e){for(var t=$("<nav></nav>"),n=$("<ul></ul>").addClass("nav__menu").prependTo(t),r=0;r<e.length;r++){var o='<li class="nav__menu-item">\n               <a href="/portfolio/chords/'.concat(e[r][1],'.html">').concat(e[r][0],"</a>\n             </li>");$(n).append(o),this.items.push(e[r][0])}$("body").prepend(t)}}])&&n(t.prototype,r),o&&n(t,o),e}();e.exports=r},function(e,t,n){var r=new(n(2))([["Главная","index"],["Транспонирование аккордов","transpose"],["Тональности","tonalities"]]);e.exports.menu=r},,,,,function(e,t,n){"use strict";n.r(t);n(2);function r(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var o=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.elem=t.elem}var t,n,o;return t=e,(n=[{key:"toggle",value:function(){$(this.elem).toggleClass("transpose__textarea_hidden")}},{key:"setText",value:function(e){this.text=e}}])&&r(t.prototype,n),o&&r(t,o),e}(),i=n(0);var a=function(){for(var e=[],t=[],n=0;n<i.a.length;n++)if(Array.isArray(i.a[n]))for(var r=0;r<i.a[n].length;r++)t.push(i.a[n][r]);else t.push(i.a[n]);e=e.concat(t);for(var o=0;o<t.length;o++)for(var a=0;a<i.b.length;a++)e.push(t[o]+i.b[a]);return e}();function u(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}var l=function(){function e(t){!function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,e),this.elem=t.elem,this.text=null,this.sign=null}var t,n,r;return t=e,(n=[{key:"toggle",value:function(){$(this.elem).toggleClass("song_hidden")}},{key:"changeChordsVisibility",value:function(){$(".song__chord").toggleClass("song__chord_hidden")}},{key:"setText",value:function(e){this.text=e,$(this.elem).html(this.text)}},{key:"clearText",value:function(){this.text=""}},{key:"clearSign",value:function(){this.sign=null}},{key:"wrapChords",value:function(){var e=this.text,t=!0,n=!1,r=void 0;try{for(var o,i=a[Symbol.iterator]();!(t=(o=i.next()).done);t=!0)for(var u=o.value,l=0;;){var c=e.indexOf(u,l);if(-1==c)break;var s=c+u.length;if(!(" "!=e[c-1]&&"\n"!=e[c-1]&&null!=e[c-1]||" "!=e[s]&&"\n"!=e[s]&&null!=e[s])){var f="<span>"+e.slice(c,s)+"</span>",h=e.slice(0,c),p=e.slice(s);e=h+f+p,l=s+13+1}else l=s+1}}catch(e){n=!0,r=e}finally{try{t||null==i.return||i.return()}finally{if(n)throw r}}this.text=e,$(this.elem).html(this.text),$(".song span").addClass("song__chord chord"),this.wrapChordsTonics()}},{key:"wrapChordsTonics",value:function(){$(".chord").each(function(){var e=$(this).html().slice(0,1);"#"==$(this).html().slice(1,2)&&(e+="#"),"b"==$(this).html().slice(1,2)&&(e+="b");var t=$(this).html().indexOf(e)+e.length,n=$("<span></span>").addClass("chord__tonic").html(e),r=$(this).html().slice(t);$(this).html(n[0].outerHTML+r)})}}])&&u(t.prototype,n),r&&u(t,r),e}(),c=n(1);function s(e){return(s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function f(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function h(e,t){return!t||"object"!==s(t)&&"function"!=typeof t?function(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}(e):t}function p(e){return(p=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function y(e,t){return(y=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}var b=function(e){function t(e){var n;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),(n=h(this,p(t).call(this,e))).tone=0,n}var n,r,o;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&y(e,t)}(t,c["a"]),n=t,(r=[{key:"reset",value:function(){this.tone=0,$(this.elem).html(this.tone)}},{key:"changeToneValue",value:function(e){this.tone+=e,$(this.elem).html(this.tone)}}])&&f(n.prototype,r),o&&f(n,o),t}();function d(e){return(d="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function m(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function v(e){return(v=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function _(e,t){return(_=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function g(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}var w=function(e){function t(e){var n,r,o;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),r=this,(n=!(o=v(t).call(this,e))||"object"!==d(o)&&"function"!=typeof o?g(r):o).elem.onclick=n.handleClick.bind(g(g(n))),n}var n,r,o;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&_(e,t)}(t,c["a"]),n=t,(r=[{key:"handleClick",value:function(){var e=this.defineStep();this.changeTone(e),F.changeToneValue(e),F.tone>=12||F.tone<=-12?this.disable():D.forEach(function(e){e.enable()})}},{key:"defineStep",value:function(){return"transpose__tone-up"==this.name?1:"transpose__tone-down"==this.name?-1:null}},{key:"changeTone",value:function(e){var t=this;V.sign||(V.sign=this.defineSign()),$(".chord__tonic").each(function(n,r){var o=t.definePos(r)+e;if(o>=i.a.length&&(o=0),o<0&&(o=i.a.length-1),Array.isArray(i.a[o])){var a=t.getShortestTonic(i.a[o]);a?$(r).html(a):$(r).html(i.a[o][V.sign])}else $(r).html(i.a[o])})}},{key:"definePos",value:function(e){for(var t=0;t<i.a.length;t++){if(Array.isArray(i.a[t]))for(var n=0;n<i.a[t].length;n++)if($(e).html()==i.a[t][n])return t;if($(e).html()==i.a[t])return t}}},{key:"defineSign",value:function(){for(var e=0;e<$(".chord__tonic").length;e++){if($(".chord__tonic")[e].innerHTML.includes("#"))return 0;if($(".chord__tonic")[e].innerHTML.includes("b"))return 1}return 0}},{key:"getShortestTonic",value:function(e){return e[0].length<e[1].length?e[0]:e[0].length>e[1].length&&e[1]}}])&&m(n.prototype,r),o&&m(n,o),t}();function O(e){return(O="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function k(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function j(e){return(j=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function C(e,t){return(C=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function S(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}var x=function(e){function t(e){var n,r,o;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),r=this,(n=!(o=j(t).call(this,e))||"object"!==O(o)&&"function"!=typeof o?S(r):o).elem.onclick=n.handleClick.bind(S(S(n))),n}var n,r,o;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&C(e,t)}(t,c["a"]),n=t,(r=[{key:"handleClick",value:function(){"transpose__start"==this.name?($(this.elem).toggleClass("transpose__start_hidden"),$(".transpose__stop").toggleClass("transpose__stop_hidden"),D.forEach(function(e){return e.enable()}),G.enable(),H.setText($(H.elem).val()),H.toggle(),V.setText(H.text),V.toggle(),V.wrapChords()):"transpose__stop"==this.name?($(this.elem).toggleClass("transpose__stop_hidden"),$(".transpose__start").toggleClass("transpose__start_hidden"),D.forEach(function(e){return e.disable()}),G.reset(),V.clearText(),V.clearSign(),V.toggle(),H.setText(H.text),H.toggle(),F.reset()):new Error("Warn: unknown button was pushed")}}])&&k(n.prototype,r),o&&k(n,o),t}();function T(e){return(T="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e})(e)}function P(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}function E(e){return(E=Object.setPrototypeOf?Object.getPrototypeOf:function(e){return e.__proto__||Object.getPrototypeOf(e)})(e)}function A(e,t){return(A=Object.setPrototypeOf||function(e,t){return e.__proto__=t,e})(e,t)}function M(e){if(void 0===e)throw new ReferenceError("this hasn't been initialised - super() hasn't been called");return e}var H,V,D,F,G,R=function(e){function t(e){var n,r,o;return function(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}(this,t),r=this,(n=!(o=E(t).call(this,e))||"object"!==T(o)&&"function"!=typeof o?M(r):o).elem.onclick=n.handleClick.bind(M(M(n))),n.valDefault=$(n.elem).html(),n}var n,r,o;return function(e,t){if("function"!=typeof t&&null!==t)throw new TypeError("Super expression must either be null or a function");e.prototype=Object.create(t&&t.prototype,{constructor:{value:e,writable:!0,configurable:!0}}),t&&A(e,t)}(t,c["a"]),n=t,(r=[{key:"handleClick",value:function(){this.changeValue(),V.changeChordsVisibility(),D.forEach(function(e){$(e.elem).is(":disabled")?e.enable():e.disable()})}},{key:"changeValue",value:function(){$(this.elem).toggleClass("transpose__chords-btn_hide"),$(this.elem).hasClass("transpose__chords-btn_hide")?$(this.elem).html($(this.elem).data("chordsShow")):$(this.elem).html($(this.elem).data("chordsHide"))}},{key:"reset",value:function(){this.disable(),$(this.elem).removeClass("transpose__chords-btn_hide"),$(this.elem).html(this.valDefault)}}])&&P(n.prototype,r),o&&P(n,o),t}();n.d(t,"textarea",function(){return H}),n.d(t,"song",function(){return V}),n.d(t,"btnsChangeTone",function(){return D}),n.d(t,"toneValue",function(){return F}),n.d(t,"btnChords",function(){return G}),$(document).ready(function(){n(3);var e=[];$(".transpose__startstop").each(function(){e.push(new x({elem:this}))}),D=[],$(".transpose__change-tone").each(function(){D.push(new w({elem:this}))}),G=new R({elem:$(".transpose__chords-btn")[0]}),F=new b({elem:$(".transpose__tone-value")[0]}),H=new o({elem:$(".transpose__textarea")[0]}),V=new l({elem:$(".song")[0]})})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = "./js/transpose.js");
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./js/common/Btns.js":
+/*!***************************!*\
+  !*** ./js/common/Btns.js ***!
+  \***************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Btns =
+/*#__PURE__*/
+function () {
+  function Btns(options) {
+    _classCallCheck(this, Btns);
+
+    this.elem = options.elem;
+    this.name = $(this.elem).attr('name');
+  }
+
+  _createClass(Btns, [{
+    key: "enable",
+    value: function enable() {
+      $(this.elem).prop('disabled', false);
+    }
+  }, {
+    key: "disable",
+    value: function disable() {
+      $(this.elem).prop('disabled', true);
+    }
+  }]);
+
+  return Btns;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Btns);
+
+/***/ }),
+
+/***/ "./js/common/chords/chords.js":
+/*!************************************!*\
+  !*** ./js/common/chords/chords.js ***!
+  \************************************/
+/*! exports provided: GAMMA_NOTES, CHORD_TONICS, CHORD_TYPES, MAJOR, MINOR, TONALITY_MARGIN */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "GAMMA_NOTES", function() { return GAMMA_NOTES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHORD_TONICS", function() { return CHORD_TONICS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "CHORD_TYPES", function() { return CHORD_TYPES; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MAJOR", function() { return MAJOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "MINOR", function() { return MINOR; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "TONALITY_MARGIN", function() { return TONALITY_MARGIN; });
+var GAMMA_NOTES = ['C', 'D', 'E', 'F', 'G', 'A', 'H']; // const CHORD_TONICS = ['C', ['C#', 'Db'], 'D', ['D#', 'Eb'], 'E', 'F', ['F#','Gb'], 'G', ['G#','Ab'], 'A', ['A#','Hb'], 'H'];
+
+var CHORD_TONICS = [['H#', 'C'], ['C#', 'Db'], 'D', ['D#', 'Eb'], ['E', 'Fb'], ['E#', 'F'], ['F#', 'Gb'], 'G', ['G#', 'Ab'], 'A', ['A#', 'Hb'], ['H', 'Cb']];
+var CHORD_TYPES = ['m', '7', 'm7', '6', 'm6', 'sus2', 'sus4', 'dim', 'aug', '9', '11'];
+var P = 1; // Полутон
+
+var T = 2 * P; // Тон
+
+var MAJOR = [T, T, P, T, T, T, P]; // Мажорный звукоряд
+
+var MINOR = [T, P, T, T, P, T, T]; // Минорный звукоряд
+
+
+
+/***/ }),
+
+/***/ "./js/common/menu/Menu.js":
+/*!********************************!*\
+  !*** ./js/common/menu/Menu.js ***!
+  \********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Menu =
+/*#__PURE__*/
+function () {
+  function Menu(options) {
+    _classCallCheck(this, Menu);
+
+    this.items = [];
+
+    this._createMenu(options);
+  }
+
+  _createClass(Menu, [{
+    key: "_createMenu",
+    value: function _createMenu(options) {
+      var nav = $('<nav></nav>');
+      var menu = $('<ul></ul>').addClass('nav__menu').prependTo(nav);
+
+      for (var i = 0; i < options.length; i++) {
+        var str = "<li class=\"nav__menu-item\">\n               <a href=\"/portfolio/chords/".concat(options[i][1], ".html\">").concat(options[i][0], "</a>\n             </li>");
+        $(menu).append(str);
+        this.items.push(options[i][0]);
+      }
+
+      $('body').prepend(nav);
+    }
+  }]);
+
+  return Menu;
+}();
+
+module.exports = Menu;
+
+/***/ }),
+
+/***/ "./js/common/menu/createMenu.js":
+/*!**************************************!*\
+  !*** ./js/common/menu/createMenu.js ***!
+  \**************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Menu = __webpack_require__(/*! ../menu/Menu */ "./js/common/menu/Menu.js");
+
+var menu = new Menu([['Главная', 'index'], ['Транспонирование аккордов', 'transpose'], ['Тональности', 'tonalities']]);
+module.exports.menu = menu;
+
+/***/ }),
+
+/***/ "./js/transpose.js":
+/*!*************************!*\
+  !*** ./js/transpose.js ***!
+  \*************************/
+/*! exports provided: textarea, song, btnsChangeTone, toneValue, btnChords */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "textarea", function() { return textarea; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "song", function() { return song; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "btnsChangeTone", function() { return btnsChangeTone; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "toneValue", function() { return toneValue; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "btnChords", function() { return btnChords; });
+/* harmony import */ var _common_menu_Menu__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./common/menu/Menu */ "./js/common/menu/Menu.js");
+/* harmony import */ var _common_menu_Menu__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_common_menu_Menu__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _transpose_Textarea__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./transpose/Textarea */ "./js/transpose/Textarea.js");
+/* harmony import */ var _transpose_Song__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./transpose/Song */ "./js/transpose/Song.js");
+/* harmony import */ var _transpose_ToneValue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./transpose/ToneValue */ "./js/transpose/ToneValue.js");
+/* harmony import */ var _transpose_BtnChangeTone__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./transpose/BtnChangeTone */ "./js/transpose/BtnChangeTone.js");
+/* harmony import */ var _transpose_BtnStartStop__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./transpose/BtnStartStop */ "./js/transpose/BtnStartStop.js");
+/* harmony import */ var _transpose_BtnChords__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./transpose/BtnChords */ "./js/transpose/BtnChords.js");
+/* harmony import */ var _transpose_getAllChords__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./transpose/getAllChords */ "./js/transpose/getAllChords.js");
+
+
+
+
+
+
+
+
+
+
+var textarea;
+var song;
+var btnsChangeTone;
+var toneValue;
+var btnChords;
+$(document).ready(function () {
+  __webpack_require__(/*! ./common/menu/createMenu */ "./js/common/menu/createMenu.js");
+
+  var btnsStartStop = [];
+  $('.transpose__startstop').each(function () {
+    btnsStartStop.push(new _transpose_BtnStartStop__WEBPACK_IMPORTED_MODULE_5__["default"]({
+      elem: this
+    }));
+  });
+  btnsChangeTone = [];
+  $('.transpose__change-tone').each(function () {
+    btnsChangeTone.push(new _transpose_BtnChangeTone__WEBPACK_IMPORTED_MODULE_4__["default"]({
+      elem: this
+    }));
+  });
+  btnChords = new _transpose_BtnChords__WEBPACK_IMPORTED_MODULE_6__["default"]({
+    elem: $('.transpose__chords-btn')[0]
+  });
+  toneValue = new _transpose_ToneValue__WEBPACK_IMPORTED_MODULE_3__["default"]({
+    elem: $('.transpose__tone-value')[0]
+  });
+  textarea = new _transpose_Textarea__WEBPACK_IMPORTED_MODULE_1__["default"]({
+    elem: $('.transpose__textarea')[0]
+  });
+  song = new _transpose_Song__WEBPACK_IMPORTED_MODULE_2__["default"]({
+    elem: $('.song')[0]
+  });
+});
+
+
+/***/ }),
+
+/***/ "./js/transpose/BtnChangeTone.js":
+/*!***************************************!*\
+  !*** ./js/transpose/BtnChangeTone.js ***!
+  \***************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ "./js/common/Btns.js");
+/* harmony import */ var _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../common/chords/chords */ "./js/common/chords/chords.js");
+/* harmony import */ var _transpose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../transpose */ "./js/transpose.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+
+var BtnChangeTone =
+/*#__PURE__*/
+function (_Btns) {
+  _inherits(BtnChangeTone, _Btns);
+
+  function BtnChangeTone(options) {
+    var _this;
+
+    _classCallCheck(this, BtnChangeTone);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnChangeTone).call(this, options));
+    _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(BtnChangeTone, [{
+    key: "handleClick",
+    value: function handleClick() {
+      var step = this.defineStep();
+      this.changeTone(step);
+      _transpose__WEBPACK_IMPORTED_MODULE_2__["toneValue"].changeToneValue(step);
+
+      if (_transpose__WEBPACK_IMPORTED_MODULE_2__["toneValue"].tone >= 12 || _transpose__WEBPACK_IMPORTED_MODULE_2__["toneValue"].tone <= -12) {
+        this.disable();
+      } else {
+        _transpose__WEBPACK_IMPORTED_MODULE_2__["btnsChangeTone"].forEach(function (btn) {
+          btn.enable();
+        });
+      }
+    }
+  }, {
+    key: "defineStep",
+    value: function defineStep() {
+      var step;
+      this.name == 'transpose__tone-up' ? step = 1 : this.name == 'transpose__tone-down' ? step = -1 : step = null;
+      return step;
+    }
+  }, {
+    key: "changeTone",
+    value: function changeTone(step) {
+      var _this2 = this;
+
+      if (!_transpose__WEBPACK_IMPORTED_MODULE_2__["song"].sign) _transpose__WEBPACK_IMPORTED_MODULE_2__["song"].sign = this.defineSign();
+      $('.chord__tonic').each(function (i, elem) {
+        var currentTonePos = _this2.definePos(elem);
+
+        var newTonicPos = currentTonePos + step;
+        if (newTonicPos >= _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"].length) newTonicPos = 0;
+        if (newTonicPos < 0) newTonicPos = _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"].length - 1;
+
+        if (Array.isArray(_common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][newTonicPos])) {
+          var tonic = _this2.getShortestTonic(_common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][newTonicPos]);
+
+          if (tonic) $(elem).html(tonic);else $(elem).html(_common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][newTonicPos][_transpose__WEBPACK_IMPORTED_MODULE_2__["song"].sign]);
+        } else $(elem).html(_common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][newTonicPos]);
+      });
+    }
+  }, {
+    key: "definePos",
+    value: function definePos(elem) {
+      for (var i = 0; i < _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"].length; i++) {
+        if (Array.isArray(_common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][i])) {
+          for (var j = 0; j < _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][i].length; j++) {
+            if ($(elem).html() == _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][i][j]) return i;
+          }
+        }
+
+        if ($(elem).html() == _common_chords_chords__WEBPACK_IMPORTED_MODULE_1__["CHORD_TONICS"][i]) return i;
+      }
+    }
+  }, {
+    key: "defineSign",
+    value: function defineSign() {
+      for (var i = 0; i < $('.chord__tonic').length; i++) {
+        if ($('.chord__tonic')[i].innerHTML.includes('#')) return 0;
+        if ($('.chord__tonic')[i].innerHTML.includes('b')) return 1;
+      }
+
+      return 0;
+    }
+  }, {
+    key: "getShortestTonic",
+    value: function getShortestTonic(chords) {
+      return chords[0].length < chords[1].length ? chords[0] : chords[0].length > chords[1].length ? chords[1] : false;
+    }
+  }]);
+
+  return BtnChangeTone;
+}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (BtnChangeTone);
+
+/***/ }),
+
+/***/ "./js/transpose/BtnChords.js":
+/*!***********************************!*\
+  !*** ./js/transpose/BtnChords.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ "./js/common/Btns.js");
+/* harmony import */ var _transpose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../transpose */ "./js/transpose.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+var BtnChords =
+/*#__PURE__*/
+function (_Btns) {
+  _inherits(BtnChords, _Btns);
+
+  function BtnChords(options) {
+    var _this;
+
+    _classCallCheck(this, BtnChords);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnChords).call(this, options));
+    _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    _this.valDefault = $(_this.elem).html();
+    return _this;
+  }
+
+  _createClass(BtnChords, [{
+    key: "handleClick",
+    value: function handleClick() {
+      this.changeValue();
+      _transpose__WEBPACK_IMPORTED_MODULE_1__["song"].changeChordsVisibility();
+      _transpose__WEBPACK_IMPORTED_MODULE_1__["btnsChangeTone"].forEach(function (btn) {
+        $(btn.elem).is(':disabled') ? btn.enable() : btn.disable();
+      });
+    }
+  }, {
+    key: "changeValue",
+    value: function changeValue() {
+      $(this.elem).toggleClass('transpose__chords-btn_hide');
+
+      if ($(this.elem).hasClass('transpose__chords-btn_hide')) {
+        $(this.elem).html($(this.elem).data('chordsShow'));
+      } else {
+        $(this.elem).html($(this.elem).data('chordsHide'));
+      }
+    }
+  }, {
+    key: "reset",
+    value: function reset() {
+      this.disable();
+      $(this.elem).removeClass('transpose__chords-btn_hide');
+      $(this.elem).html(this.valDefault);
+    }
+  }]);
+
+  return BtnChords;
+}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (BtnChords);
+
+/***/ }),
+
+/***/ "./js/transpose/BtnStartStop.js":
+/*!**************************************!*\
+  !*** ./js/transpose/BtnStartStop.js ***!
+  \**************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ "./js/common/Btns.js");
+/* harmony import */ var _transpose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../transpose */ "./js/transpose.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+
+
+
+var BtnStartStop =
+/*#__PURE__*/
+function (_Btns) {
+  _inherits(BtnStartStop, _Btns);
+
+  function BtnStartStop(options) {
+    var _this;
+
+    _classCallCheck(this, BtnStartStop);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(BtnStartStop).call(this, options));
+    _this.elem.onclick = _this.handleClick.bind(_assertThisInitialized(_assertThisInitialized(_this)));
+    return _this;
+  }
+
+  _createClass(BtnStartStop, [{
+    key: "handleClick",
+    value: function handleClick() {
+      if (this.name == 'transpose__start') {
+        $(this.elem).toggleClass('transpose__start_hidden');
+        $('.transpose__stop').toggleClass('transpose__stop_hidden');
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["btnsChangeTone"].forEach(function (btn) {
+          return btn.enable();
+        });
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["btnChords"].enable();
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"].setText($(_transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"].elem).val());
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"].toggle();
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["song"].show(_transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"]); // song.setData(textarea.text, textarea.height);
+        // song.toggle();
+        // song.wrapChords();
+      } else if (this.name == 'transpose__stop') {
+        $(this.elem).toggleClass('transpose__stop_hidden');
+        $('.transpose__start').toggleClass('transpose__start_hidden');
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["btnsChangeTone"].forEach(function (btn) {
+          return btn.disable();
+        });
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["btnChords"].reset(); // song.clearText();
+        // song.clearSign();
+        // song.toggle();
+
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["song"].hide();
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"].setText(_transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"].text);
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["textarea"].toggle();
+        _transpose__WEBPACK_IMPORTED_MODULE_1__["toneValue"].reset();
+      } else {
+        new Error('Warn: unknown button was pushed');
+      }
+    }
+  }]);
+
+  return BtnStartStop;
+}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (BtnStartStop);
+
+/***/ }),
+
+/***/ "./js/transpose/Song.js":
+/*!******************************!*\
+  !*** ./js/transpose/Song.js ***!
+  \******************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _transpose_getAllChords__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../transpose/getAllChords */ "./js/transpose/getAllChords.js");
+/* harmony import */ var _transpose__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../transpose */ "./js/transpose.js");
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+
+
+
+var Song =
+/*#__PURE__*/
+function () {
+  function Song(options) {
+    _classCallCheck(this, Song);
+
+    this.elem = options.elem;
+    this.text = null;
+    this.sign = null;
+  }
+
+  _createClass(Song, [{
+    key: "show",
+    value: function show(textarea) {
+      this.setData(textarea.text, textarea.height);
+      this.toggle();
+      this.wrapChords();
+    }
+  }, {
+    key: "hide",
+    value: function hide() {
+      this.clearText();
+      this.clearSign();
+      this.toggle();
+      this.elem.style.height = '';
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      $(this.elem).toggleClass('song_hidden');
+    }
+  }, {
+    key: "changeChordsVisibility",
+    value: function changeChordsVisibility() {
+      $('.song__chord').toggleClass('song__chord_hidden');
+    }
+  }, {
+    key: "setData",
+    value: function setData(text, height) {
+      this.text = text;
+      $(this.elem).html(this.text);
+      this.elem.style.height = height;
+    }
+  }, {
+    key: "clearText",
+    value: function clearText() {
+      this.text = '';
+    }
+  }, {
+    key: "clearSign",
+    value: function clearSign() {
+      this.sign = null;
+    }
+  }, {
+    key: "wrapChords",
+    value: function wrapChords() {
+      var text = this.text;
+      var _iteratorNormalCompletion = true;
+      var _didIteratorError = false;
+      var _iteratorError = undefined;
+
+      try {
+        for (var _iterator = _transpose_getAllChords__WEBPACK_IMPORTED_MODULE_0__["ALL_CHORDS"][Symbol.iterator](), _step; !(_iteratorNormalCompletion = (_step = _iterator.next()).done); _iteratorNormalCompletion = true) {
+          var chord = _step.value;
+          var position = 0;
+
+          while (true) {
+            var startPos = text.indexOf(chord, position);
+            if (startPos == -1) break;
+            var endPos = startPos + chord.length;
+            var conditions = (text[startPos - 1] == ' ' || text[startPos - 1] == '\n' || text[startPos - 1] == undefined) && (text[endPos] == ' ' || text[endPos] == '\n' || text[endPos] == undefined);
+
+            if (conditions) {
+              var wrappedChord = '<span>' + text.slice(startPos, endPos) + '</span>';
+              var textBefore = text.slice(0, startPos);
+              var textAfter = text.slice(endPos);
+              text = textBefore + wrappedChord + textAfter;
+              position = endPos + 13 + 1; // 13 - длина блока <span></span> +1 - следующий элемент
+            } else {
+              position = endPos + 1;
+            }
+          }
+        }
+      } catch (err) {
+        _didIteratorError = true;
+        _iteratorError = err;
+      } finally {
+        try {
+          if (!_iteratorNormalCompletion && _iterator.return != null) {
+            _iterator.return();
+          }
+        } finally {
+          if (_didIteratorError) {
+            throw _iteratorError;
+          }
+        }
+      }
+
+      this.text = text;
+      $(this.elem).html(this.text);
+      $('.song span').addClass('song__chord chord');
+      this.wrapChordsTonics(); // for (let tonic of CHORD_TONICS) {
+      //   let position = 0;
+      //   while(true) {
+      //     let startPos = this.text.indexOf(tonic, position);
+      //     if (startPos == -1) break;
+      //     let nextSym = this.text.slice(startPos + 1, startPos + 2)
+      //     nextSym == '\n' || nextSym == ' ' || CHORD_TONICS.indexOf(nextSym) != -1
+      //     let midPos = this.text.indexOf('\n', startPos);
+      //     let endPos = this.text.indexOf('\n', startPos);
+      //     if (endPos == -1) endPos = this.text.indexOf(' ', startPos);
+      //     let wrappedChord = "<span>" + this.text.slice(startPos, endPos) + "</span>";
+      //     let textBefore = this.text.slice(0, startPos);
+      //     let textAfter = this.text.slice(endPos);
+      //     this.text = textBefore + wrappedChord + textAfter;
+      //     position = startPos + 14;
+      //   };
+      // };
+    }
+  }, {
+    key: "wrapChordsTonics",
+    value: function wrapChordsTonics() {
+      $('.chord').each(function () {
+        var tonic = $(this).html().slice(0, 1);
+        if ($(this).html().slice(1, 2) == '#') tonic += '#';
+        if ($(this).html().slice(1, 2) == 'b') tonic += 'b';
+        var tonicStart = $(this).html().indexOf(tonic);
+        var tonicEnd = tonicStart + tonic.length;
+        var newTonic = $('<span></span>').addClass('chord__tonic').html(tonic);
+        var chordType = $(this).html().slice(tonicEnd);
+        $(this).html(newTonic[0].outerHTML + chordType);
+      });
+    }
+  }]);
+
+  return Song;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Song);
+
+/***/ }),
+
+/***/ "./js/transpose/Textarea.js":
+/*!**********************************!*\
+  !*** ./js/transpose/Textarea.js ***!
+  \**********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+var Textarea =
+/*#__PURE__*/
+function () {
+  function Textarea(options) {
+    _classCallCheck(this, Textarea);
+
+    this.elem = options.elem;
+    this.elem.oninput = this.handleInput.bind(this);
+    this.text = '';
+    this.height = null;
+  }
+
+  _createClass(Textarea, [{
+    key: "handleInput",
+    value: function handleInput() {
+      if (this.elem.value == '') {
+        this.elem.style.height = '';
+        this.height = null;
+      } else {
+        this.elem.style.height = "auto";
+        this.elem.style.height = this.elem.scrollHeight + 'px';
+        this.height = this.elem.style.height;
+      }
+    }
+  }, {
+    key: "toggle",
+    value: function toggle() {
+      $(this.elem).toggleClass('transpose__textarea_hidden');
+    }
+  }, {
+    key: "setText",
+    value: function setText(text) {
+      this.text = text;
+    }
+  }]);
+
+  return Textarea;
+}();
+
+/* harmony default export */ __webpack_exports__["default"] = (Textarea);
+
+/***/ }),
+
+/***/ "./js/transpose/ToneValue.js":
+/*!***********************************!*\
+  !*** ./js/transpose/ToneValue.js ***!
+  \***********************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _common_Btns__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/Btns */ "./js/common/Btns.js");
+function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
+
+function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
+
+function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
+
+function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
+
+function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+
+
+var ToneValue =
+/*#__PURE__*/
+function (_Btns) {
+  _inherits(ToneValue, _Btns);
+
+  function ToneValue(options) {
+    var _this;
+
+    _classCallCheck(this, ToneValue);
+
+    _this = _possibleConstructorReturn(this, _getPrototypeOf(ToneValue).call(this, options));
+    _this.tone = 0;
+    return _this;
+  }
+
+  _createClass(ToneValue, [{
+    key: "reset",
+    value: function reset() {
+      this.tone = 0;
+      $(this.elem).html(this.tone);
+    }
+  }, {
+    key: "changeToneValue",
+    value: function changeToneValue(step) {
+      this.tone += step;
+      $(this.elem).html(this.tone);
+    }
+  }]);
+
+  return ToneValue;
+}(_common_Btns__WEBPACK_IMPORTED_MODULE_0__["default"]);
+
+/* harmony default export */ __webpack_exports__["default"] = (ToneValue);
+
+/***/ }),
+
+/***/ "./js/transpose/getAllChords.js":
+/*!**************************************!*\
+  !*** ./js/transpose/getAllChords.js ***!
+  \**************************************/
+/*! exports provided: ALL_CHORDS */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ALL_CHORDS", function() { return ALL_CHORDS; });
+/* harmony import */ var _common_chords_chords__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/chords/chords */ "./js/common/chords/chords.js");
+
+
+function getAllChords() {
+  var allChords = [];
+  var simpleChords = [];
+
+  for (var i = 0; i < _common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TONICS"].length; i++) {
+    if (Array.isArray(_common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TONICS"][i])) {
+      for (var j = 0; j < _common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TONICS"][i].length; j++) {
+        simpleChords.push(_common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TONICS"][i][j]);
+      }
+    } else {
+      simpleChords.push(_common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TONICS"][i]);
+    }
+  }
+
+  allChords = allChords.concat(simpleChords);
+
+  for (var _i = 0; _i < simpleChords.length; _i++) {
+    for (var _j = 0; _j < _common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TYPES"].length; _j++) {
+      allChords.push(simpleChords[_i] + _common_chords_chords__WEBPACK_IMPORTED_MODULE_0__["CHORD_TYPES"][_j]);
+    }
+  }
+
+  return allChords;
+}
+
+var ALL_CHORDS = getAllChords();
+
+/***/ })
+
+/******/ });
 //# sourceMappingURL=transpose.js.map

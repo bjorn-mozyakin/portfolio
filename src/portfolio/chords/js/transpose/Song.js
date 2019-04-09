@@ -1,10 +1,24 @@
 import {ALL_CHORDS} from '../transpose/getAllChords';
+import {textarea} from '../transpose';
 
 class Song {
   constructor(options) {
     this.elem = options.elem;
     this.text = null;
     this.sign = null;
+  }
+
+  show(textarea) {
+    this.setData(textarea.text, textarea.height);
+    this.toggle();
+    this.wrapChords();
+  }
+
+  hide() {
+    this.clearText();
+    this.clearSign();
+    this.toggle();
+    this.elem.style.height = '';
   }
 
   toggle() {
@@ -15,9 +29,10 @@ class Song {
     $('.song__chord').toggleClass('song__chord_hidden');
   }
 
-  setText(text) {
+  setData(text, height) {
     this.text = text;
     $(this.elem).html(this.text);
+    this.elem.style.height = height;
   }
 
   clearText() {

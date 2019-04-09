@@ -15,17 +15,19 @@ class BtnStartStop extends Btns {
       btnChords.enable();
       textarea.setText($(textarea.elem).val());
       textarea.toggle();
-      song.setText(textarea.text);
-      song.toggle();
-      song.wrapChords();
+      song.show(textarea);
+      // song.setData(textarea.text, textarea.height);
+      // song.toggle();
+      // song.wrapChords();
     } else if (this.name == 'transpose__stop') {
       $(this.elem).toggleClass('transpose__stop_hidden');
       $('.transpose__start').toggleClass('transpose__start_hidden');
       btnsChangeTone.forEach( (btn) => btn.disable() );
       btnChords.reset();
-      song.clearText();
-      song.clearSign();
-      song.toggle();
+      // song.clearText();
+      // song.clearSign();
+      // song.toggle();
+      song.hide();
       textarea.setText(textarea.text);
       textarea.toggle();
       toneValue.reset();
