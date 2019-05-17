@@ -475,10 +475,22 @@ gulp.task('main_scripts', function(cb){
     .pipe(gulp.dest('./myportfolio.local/js'));
 });
 
+gulp.task('main_scripts_sw', function(cb){
+  return gulp.src('./src/service-worker.js')
+    // .pipe(gulpIf(!isDevelopment, combine(
+    //   uglify({
+    //     compress: {drop_debugger: false}
+    //   })
+      // rename({suffix: '.min'})
+    // )))
+    .pipe(gulp.dest('./myportfolio.local'));
+});
+
+
 
 // complicated tasks
 gulp.task('main_build', function(){
-  runSequence('main_clean', 'main_html', 'main_php', 'main_fonts', 'main_sass', 'main_img', 'main_media', 'main_scripts');
+  runSequence('main_clean', 'main_html', 'main_php', 'main_fonts', 'main_sass', 'main_img', 'main_media', 'main_scripts', 'main_scripts_sw');
 });
 
 gulp.task('main_watch', function() {
@@ -488,6 +500,7 @@ gulp.task('main_watch', function() {
   gulp.watch('./src/css/**/*.scss', ['main_sass']);
   gulp.watch('./src/img/**/*.*', ['main_img']);
   gulp.watch('./src/js/**/*.js', ['main_scripts']);
+  gulp.watch('./src/**/*.js', ['main_scripts_sw']);
 });
 
 gulp.task('main_serve', function(){
