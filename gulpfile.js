@@ -416,6 +416,11 @@ gulp.task('main_img', function(){
     .pipe(gulp.dest('./myportfolio.local/img'));
 });
 
+gulp.task('main_favicon', function(){
+  return gulp.src(['./src/favicon.png'])
+    .pipe(gulp.dest('./myportfolio.local'));
+});
+
 gulp.task('main_sprite_png', function () {
   var spriteData = gulp.src('./src/img/icons/**/*.{png,jpg,jpeg}')
     .pipe(spritesmith({
@@ -490,7 +495,7 @@ gulp.task('main_scripts_sw', function(cb){
 
 // complicated tasks
 gulp.task('main_build', function(){
-  runSequence('main_clean', 'main_html', 'main_php', 'main_fonts', 'main_sass', 'main_img', 'main_media', 'main_scripts', 'main_scripts_sw');
+  runSequence('main_clean', 'main_html', 'main_php', 'main_fonts', 'main_sass', 'main_favicon', 'main_img', 'main_media', 'main_scripts', 'main_scripts_sw');
 });
 
 gulp.task('main_watch', function() {
@@ -498,6 +503,7 @@ gulp.task('main_watch', function() {
   gulp.watch('./src/**/*.html', ['main_html']);
   gulp.watch('./src/**/*.php', ['main_php']);
   gulp.watch('./src/css/**/*.scss', ['main_sass']);
+  gulp.watch('./src/favicon.png', ['main_favicon']);
   gulp.watch('./src/img/**/*.*', ['main_img']);
   gulp.watch('./src/js/**/*.js', ['main_scripts']);
   gulp.watch('./src/**/*.js', ['main_scripts_sw']);
