@@ -1,14 +1,14 @@
 'use strict';
 
 var config = {
-  SWVersion: 4,
+  SWVersion: 11,
   cachedFiles: [
     '/offline-page.html',
     '/css/style_offline.css',
     '/img/icons.png'
   ]
 };
-config.cacheName = 'offline-cache-v' + config.SWVersion,
+config.cacheName = 'offline-cache-v' + config.SWVersion;
 
 // Кэшируем ресурсы
 this.addEventListener('install', event => {
@@ -34,11 +34,11 @@ this.addEventListener('activate', event => {
 });
 
 
-self.addEventListener('fetch', event => {
+this.addEventListener('fetch', event => {
   if (event.request.mode === 'navigate' || (event.request.method === 'GET' && event.request.headers.get('accept').includes('text/html'))) {
     event.respondWith(
       fetch(event.request.url).then(
-        return caches.match('offline-page.html');
+        // return caches.match('offline-page.html');
       ).catch(error => {
         return caches.match('offline-page.html');
       })
